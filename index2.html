@@ -464,7 +464,10 @@ ul{list-style:none}
 .mo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(6px,1vw,14px);width:min(92vw,1000px,calc((100vh - 230px) * 1.2))}
 .mt{aspect-ratio:4/3.2;border-radius:clamp(10px,1.4vw,22px);overflow:hidden;position:relative;will-change:transform,opacity}
 .mt img{width:100%;height:100%;object-fit:cover}
-.mt.c{z-index:2}
+.mt.c{z-index:2;visibility:hidden}
+/* 줌아웃용 큰 사진: 화면 크기로 그려 두고 칸 크기로 '축소'만 함 → 확대로 인한 깨짐 없음 */
+.mo-full{position:absolute;left:50%;top:50%;z-index:2;overflow:hidden;will-change:transform;transform-origin:50% 50%;pointer-events:none}
+.mo-full img{width:100%;height:100%;object-fit:cover;display:block}
 .mt.tx{display:grid;place-items:center;text-align:center;font-family:var(--en);font-weight:300;font-size:clamp(16px,2.4vw,34px);line-height:1.1}
 .mt.tx em{font-style:italic}
 .mt.ty{background:var(--lemon)}
@@ -1273,6 +1276,19 @@ ul{list-style:none}
 
   /* ── 모자이크 준비 ── */
   const moGrid = $('#moGrid'), tiles = $$('#moGrid .mt'), center = tiles[4], moCap = $('#moCap');
+  const moStick = center.closest('.mo-stick');
+  const moFull = document.createElement('div'); moFull.className = 'mo-full'; moFull.setAttribute('aria-hidden', 'true');
+  moFull.innerHTML = `<img src="${center.querySelector('img').getAttribute('src')}" alt="">`;
+  moStick.appendChild(moFull);
+  let moBox = { w: 0, h: 0 };
+  const sizeMoFull = () => {
+    // 가운데 칸과 같은 비율, 화면을 꽉 덮는 크기
+    const tw = center.offsetWidth || 1, th = center.offsetHeight || 1, W = moStick.clientWidth, H = moStick.clientHeight;
+    const w = Math.max(W, H * tw / th) * 1.02, h = w * th / tw;
+    moBox = { w, h };
+    Object.assign(moFull.style, { width: w + 'px', height: h + 'px', marginLeft: (-w / 2) + 'px', marginTop: (-h / 2) + 'px' });
+  };
+  sizeMoFull(); addEventListener('resize', sizeMoFull); addEventListener('load', sizeMoFull);
 
   /* ── 히어로 요소 ── */
   const hero = $('#brand'), hCircle = $('#hCircle'), hR1 = $('#hR1'), hR2 = $('#hR2'), hProd = $('#hProd'), hRing = $('#hRing'), hMeta = $('#hMeta'), hState = $('#hState'), hSign = $('#hSign');
@@ -1298,9 +1314,10 @@ ul{list-style:none}
   const popAt = (el, box, big = 3) => {
     if (el._pop) return; el._pop = true;
     const r = el.getBoundingClientRect(), c = box.getBoundingClientRect(), d = r.width || 20;
-    const w = d / .754 * big, h = w * 640 / 592;                     // 터진 사진 속 캡슐 지름 = 사진 폭의 75.4% × 강조 배율
+    const ratio = (POP.naturalHeight / POP.naturalWidth) || (610 / 592);
+    const w = d / .72 * big, h = w * ratio;                           // 터진 사진 속 캡슐 지름 = 사진 폭의 72% × 강조 배율
     const img = document.createElement('img'); img.src = POP.src; img.className = 'cap-pop'; img.alt = '';
-    Object.assign(img.style, { width: w + 'px', left: (r.left - c.left + d / 2 - w * .394) + 'px', top: (r.top - c.top + d / 2 - h * .585) + 'px', transformOrigin: '39.4% 58.5%' });
+    Object.assign(img.style, { width: w + 'px', left: (r.left - c.left + d / 2 - w * .405) + 'px', top: (r.top - c.top + d / 2 - h * .613) + 'px', transformOrigin: '40.5% 61.3%' });
     box.appendChild(img);
     const shrink = el.animate([{ scale: 1 }, { scale: 1.25, offset: .3 }, { scale: 0 }], { duration: 220, fill: 'forwards', easing: 'ease-in' });
     img.animate([
@@ -1517,10 +1534,11 @@ ul{list-style:none}
     if (near(mo)) {
       const p = reduce ? 1 : progOf(mo);
       const z = easeIO(seg(p, .05, .7));
-      const cw = center.offsetWidth, ch = center.offsetHeight;
-      const S0 = Math.max(innerWidth / cw, innerHeight / ch) * 1.02;
-      center.style.transform = `scale(${lerp(S0, 1, z)})`;
-      center.style.borderRadius = `${lerp(0, 22, z)}px`;
+      const sr = moStick.getBoundingClientRect(), cr = center.getBoundingClientRect();
+      const sEnd = cr.width / moBox.w, sc = lerp(1, sEnd, z);
+      const dx = (cr.left + cr.width / 2) - (sr.left + sr.width / 2), dy = (cr.top + cr.height / 2) - (sr.top + sr.height / 2);
+      moFull.style.transform = `translate(${dx * z}px, ${dy * z}px) scale(${sc})`;
+      moFull.style.borderRadius = `${lerp(0, parseFloat(getComputedStyle(center).borderRadius) || 22, z) / sc}px`;
       tiles.forEach((tl, k) => {
         if (k === 4) return;
         const col = k % 3 - 1, row = Math.floor(k / 3) - 1;
