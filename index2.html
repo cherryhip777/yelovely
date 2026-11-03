@@ -227,23 +227,18 @@ ul{list-style:none}
 .case img{display:block;width:100%}
 .case .c-body{position:relative;z-index:1}
 .case .c-body-open{position:absolute;inset:0;z-index:2}
-.ready .h-prod .case .c-body-open{opacity:0;transition:opacity .2s .3s}
-.ready .h-prod .case.open .c-body-open{opacity:1;transition:opacity .15s .05s}
 /* 뚜껑: 닫힘 = 원래 사진, 열림 = 아래에서 본 뚜껑 사진(안쪽 나사산) */
-.ready .h-prod .case .c-cap-open{opacity:0;transition:transform .6s cubic-bezier(.5,-.35,.3,1.25) .3s,opacity .15s .75s}
-.ready .h-prod .case.open .c-cap-open{opacity:1;transition:transform .85s cubic-bezier(.34,1.56,.64,1) 0s,opacity .12s .06s}
-.ready .h-prod .case.open .c-cap-closed{opacity:0;transition:transform .85s cubic-bezier(.34,1.56,.64,1) 0s,opacity .12s .06s}
-.ready .h-prod .case .c-cap-closed{transition:transform .6s cubic-bezier(.5,-.35,.3,1.25) .3s,opacity .15s .75s}
-.case .c-cap{position:absolute;inset:0;z-index:4;transform-origin:62% 34%;transition:transform .6s cubic-bezier(.5,-.35,.3,1.25) .3s}
-.case.open .c-cap{transform:translate(-3%,-32%) rotate(-12deg);transition:transform .85s cubic-bezier(.34,1.56,.64,1) 0s}
+/* 뚜껑: 돌려서 풀고 → 똑바로 들어 올린 뒤 → 키링 쪽으로 기울어짐 (JS 시퀀스) */
+.case .c-capw{position:absolute;inset:0;z-index:4;transform-origin:32% 34%;will-change:transform}
+.case .c-capw img{position:absolute;inset:0;width:100%}
 .c-mouth{position:absolute;z-index:2;left:2%;width:61%;top:34.8%;aspect-ratio:1/.17;translate:0 -50%;border-radius:50%;
   background:radial-gradient(ellipse at 50% 30%,#d9b94e 0%,#ecd583 42%,#f6eccb 64%,#fffdf3 72%,#e6dcc0 100%);
   box-shadow:0 1px 0 rgba(255,255,255,.9);opacity:0;transition:opacity .25s .45s}
 .case.open .c-mouth{opacity:1;transition-delay:0s}
-.c-tabs{position:absolute;left:31%;top:7%;z-index:5;width:0;height:0}
-.c-tabs .tab{transform:translate(0,14px) scale(.5);opacity:0;transition:transform .5s cubic-bezier(.5,0,.75,0) calc(var(--k)*.03s),opacity .3s calc(.25s + var(--k)*.03s)}
-.case.open .c-tabs .tab{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);transition:transform 1s cubic-bezier(.34,1.5,.5,1) calc(.12s + var(--k)*.05s),opacity .2s calc(.12s + var(--k)*.05s)}
-.case.open .c-tabs .tab{animation:tabBob 2.6s ease-in-out calc(1.1s + var(--k)*.2s) infinite}
+.c-tabs{position:absolute;left:31%;top:5%;z-index:5;width:0;height:0}
+.c-tabs .tab{transform:translate(0,8px) scale(.4);opacity:0;transition:transform .42s cubic-bezier(.5,0,.75,0) calc(var(--k)*.025s),opacity .12s calc(.3s + var(--k)*.025s)}
+.case.open .c-tabs .tab{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);transition:transform .95s cubic-bezier(.34,1.5,.5,1) calc(.58s + var(--k)*.06s),opacity .15s calc(.58s + var(--k)*.06s)}
+.case.open .c-tabs .tab{animation:tabBob 2.6s ease-in-out calc(1.6s + var(--k)*.2s) infinite}
 @keyframes tabBob{0%,100%{translate:0 0;scale:1}35%{scale:1.07 .93}50%{translate:0 -7px;scale:.96 1.04}70%{scale:1.02 .98}}
 .case-hint{position:absolute;left:calc(50% + 6%);top:100%;translate:-50% 14px;white-space:nowrap;font-family:var(--en);font-size:10px;letter-spacing:.26em;display:flex;align-items:center;gap:8px;color:var(--brown-70);transition:opacity .5s;pointer-events:none}
 .case-hint i{width:7px;height:7px;border-radius:50%;background:var(--brown);animation:hintDot 1.6s var(--ease) infinite}
@@ -745,10 +740,12 @@ ul{list-style:none}
     <div class="h-prod" id="hProd">
       <div class="case" id="heroCase" data-cur="OPEN" role="button" tabindex="0" aria-label="케이스 열어 보기">
         <img class="c-body" src="images/yk-body.png" alt="옐러블리 레몬 아우라 키링 케이스">
-        <img class="c-body-open" src="images/yk-body-open.png" alt="">
+        <img class="c-body-open" src="images/yk-body-open.png" alt="" style="opacity:0">
         <div class="c-tabs" id="heroTabs"></div>
-        <img class="c-cap c-cap-closed" src="images/yk-cap.png" alt="">
-        <img class="c-cap c-cap-open" src="images/yk-cap-open.png" alt="">
+        <div class="c-capw" id="heroCapW">
+          <img class="c-cap-closed" src="images/yk-cap.png" alt="">
+          <img class="c-cap-open" src="images/yk-cap-open.png" alt="" style="opacity:0">
+        </div>
       </div>
       <span class="case-hint" id="caseHint"><i></i><span id="caseHintT">TAP TO OPEN</span></span>
     </div>
@@ -1319,16 +1316,52 @@ ul{list-style:none}
       el._pop = false;
     }, 1500);
   };
-  let autoPop;
-  const setOpen = on => {
-    hc.classList.toggle('open', on); if (on) hint.classList.add('gone');
-    clearTimeout(autoPop);
-    if (on && !reduce) autoPop = setTimeout(() => { if (hc.classList.contains('open')) popAt(heroTabEls[5], hc); }, 1150);
+  /* 열기·닫기 시퀀스 (실제 뚜껑처럼)
+     열기: ①살짝 돌려 풂 → ②똑바로 들어 올려 병목을 벗어남 → ③키링 쪽으로 기울며 멈춤(살짝 튕김) → ④캡슐이 톡톡 나옴
+     닫기: ①캡슐이 먼저 쏙 들어감 → ②뚜껑이 병목 위로 똑바로 → ③내려앉으며 돌려 잠금(작은 반동)
+     · 몸통 교체는 뚜껑이 병목을 덮고 있는 순간에, 뚜껑 사진 교체는 뚜껑이 공중에 떠 있는 순간에 → 바뀌는 게 보이지 않음 */
+  const capW = $('#heroCapW'), capC = capW.querySelector('.c-cap-closed'), capO = capW.querySelector('.c-cap-open'), bodyO = hc.querySelector('.c-body-open');
+  const OPEN_POSE = 'translate(-4%,-33%) rotate(-13deg)';
+  let capAnim = null, seqT = [], autoPop, isOpen = false;
+  const clearSeq = () => { seqT.forEach(clearTimeout); seqT = []; clearTimeout(autoPop); };
+  const at = (ms, fn) => seqT.push(setTimeout(fn, ms));
+  const show = (el, v, d = 110) => el.animate([{ opacity: getComputedStyle(el).opacity }, { opacity: v }], { duration: d, fill: 'forwards' });
+  const curT = () => { const m = getComputedStyle(capW).transform; return m === 'none' ? 'translate(0,0) rotate(0deg)' : m; };
+  const runCap = (frames, dur) => {
+    const from = curT(); if (capAnim) capAnim.cancel();
+    capAnim = capW.animate([{ transform: from, offset: 0 }, ...frames], { duration: dur, fill: 'forwards' });
   };
-  heroTabEls.forEach(el => el.addEventListener('click', e => { e.stopPropagation(); if (hc.classList.contains('open')) popAt(el, hc); }));
+  const setOpen = on => {
+    if (on === isOpen) return; isOpen = on; clearSeq();
+    if (on) {
+      hint.classList.add('gone');
+      show(bodyO, 1, 60);                                   // 뚜껑이 덮고 있을 때 몸통 교체
+      runCap([
+        { transform: 'translate(0,-1%) rotate(-5deg)', offset: .12, easing: 'ease-in-out' },
+        { transform: 'translate(0,-2%) rotate(4deg)', offset: .24, easing: 'ease-in-out' },
+        { transform: 'translate(0,-3%) rotate(-2deg)', offset: .32, easing: 'cubic-bezier(.4,0,.2,1)' },
+        { transform: 'translate(0,-40%) rotate(0deg)', offset: .62, easing: 'cubic-bezier(.3,0,.25,1)' },
+        { transform: 'translate(-5%,-35%) rotate(-16deg)', offset: .86, easing: 'ease-in-out' },
+        { transform: OPEN_POSE, offset: 1 }
+      ], 1050);
+      at(470, () => { show(capC, 0, 90); show(capO, 1, 90); }); // 공중에서 뚜껑 사진 교체(안쪽 나사산이 보이는 각도)
+      hc.classList.add('open');                              // 캡슐은 CSS 지연(≈0.58s)으로 뚜껑이 빠진 뒤 등장
+      if (!reduce) autoPop = setTimeout(() => { if (isOpen) popAt(heroTabEls[5], hc); }, 1700);
+    } else {
+      hc.classList.remove('open');                           // 캡슐 먼저 들어감
+      at(260, () => runCap([
+        { transform: 'translate(0,-40%) rotate(0deg)', offset: .4, easing: 'cubic-bezier(.4,0,.6,1)' },
+        { transform: 'translate(0,0) rotate(3deg)', offset: .78, easing: 'ease-out' },
+        { transform: 'translate(0,-1.2%) rotate(-2deg)', offset: .88, easing: 'ease-in-out' },
+        { transform: 'translate(0,0) rotate(0deg)', offset: 1 }
+      ], 820));
+      at(260 + 330, () => { show(capO, 0, 90); show(capC, 1, 90); }); // 병목 위 공중에서 원래 뚜껑으로
+      at(260 + 680, () => show(bodyO, 0, 60));              // 다 닫힌 뒤 몸통 원래대로
+    }
+  };
   if (fine) { hc.addEventListener('mouseenter', () => setOpen(true)); hc.addEventListener('mouseleave', () => setOpen(false)); }
-  hc.addEventListener('click', () => { if (!fine) { setOpen(!hc.classList.contains('open')); if (navigator.vibrate) navigator.vibrate(10); } });
-  hc.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!hc.classList.contains('open')); } });
+  hc.addEventListener('click', () => { if (!fine) { setOpen(!isOpen); if (navigator.vibrate) navigator.vibrate(10); } });
+  hc.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!isOpen); } });
 
   /* ── 03 분해도 준비 ── */
   const xpl = $('#inside'), xc = $('#xc'), xCap = $('#xCap'), xBody = $('#xBody'), xTabs = $('#xTabs'), xOpen = $('#xOpen'), xCapOpen = $('#xCapOpen'), xCapClosed = $('#xCapClosed');
@@ -1337,7 +1370,7 @@ ul{list-style:none}
   const NT = 6; let xPopped = false;
   xTabs.innerHTML = Array.from({ length: NT }, () => '<span class="tab"><b></b><b></b><b></b><b></b></span>').join('');
   const xTabEls = [...xTabs.children];
-  const SEAM = .348, MX = .31, NECK = .06, LIFT = .6, DROP = .1;   // 뚜껑 이음선 · 입구 중심 · 병목 높이 (케이스 기준 비율)
+  const SEAM = .348, MX = .31, NECK = .04, LIFT = .6, DROP = .1;   // 뚜껑 이음선 · 입구 중심 · 병목 높이 (케이스 기준 비율)
   const xGeom = a => { const w = xc.offsetWidth, h = xc.offsetHeight; return { w, h, capDy: -a * LIFT * h, bodyDy: a * DROP * h, mouthY: (NECK + a * DROP) * h }; };
   const xTabPos = (i, a, g) => {
     const gap = g.mouthY - (SEAM * g.h - LIFT * g.h * a);            // 뚜껑과 병목 사이 벌어진 공간
@@ -1370,7 +1403,7 @@ ul{list-style:none}
       hR1.style.transform = `translateX(${-p1 * spread}vw)`;
       hR2.style.transform = `translateX(${p1 * spread}vw)`;
       const pf = seg(p, .34, .56);
-      const bob = Math.sin(t * 1.4) * 8;
+      const bob = Math.sin(t * 1.4) * 1.1;   // 은은한 부유 (vh) — 너무 크면 탭하기 어렵고 어색함
       hProd.style.transform = `translateY(${bob - p1 * 6}vh) rotate(${-8 * p1 + Math.sin(t) * 2}deg) scale(${lerp(1, .55, easeIO(pf)) * (1 + p1 * .12)})`;
       hProd.style.opacity = 1 - pf;
       hRing.style.transform = `rotate(${t * 6 + p * 160}deg) scale(${1 + p1 * .4})`;
@@ -1388,13 +1421,15 @@ ul{list-style:none}
       const p = reduce ? 1 : progOf(xpl);
       const a = easeIO(seg(p, .04, .4));
       const g = xGeom(a);
-      xCap.style.transform = `translate(${-a * g.w * .06}px, ${g.capDy}px) rotate(${-a * 7}deg)`;
+      const tw = seg(a, 0, .2), lift = easeIO(seg(a, .1, .62)), tilt = easeOut(seg(a, .55, 1));
+      const twist = Math.sin(tw * Math.PI * 2) * 4 * (1 - tw * .6);
+      xCap.style.transform = `translate(${-tilt * g.w * .06}px, ${-(lift * .88 + tilt * .12) * LIFT * g.h}px) rotate(${twist - tilt * 9}deg)`;
       xBody.style.transform = `translateY(${g.bodyDy}px)`;
       xOpen.style.opacity = clamp(a * 6);
-      const co = clamp(a * 6); xCapOpen.style.opacity = co; xCapClosed.style.opacity = 1 - co;
+      const co = seg(a, .42, .52); xCapOpen.style.opacity = co; xCapClosed.style.opacity = 1 - co;
       let out = 0;
       xTabEls.forEach((el, i) => {
-        const ai = easeOut(seg(p, .14 + i * .045, .46 + i * .045));
+        const ai = easeOut(seg(p, .2 + i * .045, .5 + i * .045));
         const tp = xTabPos(i, a, g);
         const y = lerp(g.mouthY + g.w * .04, tp.y, ai);
         const spin = p > .7 ? (p - .7) * 260 * (i % 2 ? 1 : -1) : 0;
