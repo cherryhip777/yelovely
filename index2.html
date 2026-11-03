@@ -1379,7 +1379,25 @@ ul{list-style:none}
     }
   };
   if (fine) { hc.addEventListener('mouseenter', () => setOpen(true)); hc.addEventListener('mouseleave', () => setOpen(false)); }
-  hc.addEventListener('click', () => { if (!fine) { setOpen(!isOpen); if (navigator.vibrate) navigator.vibrate(10); } });
+  /* 모바일(마우스 없음): 첫 화면에서 자동으로 열렸다 닫히는 데모를 반복 → 탭하면 데모 중단, 이후 탭으로 조작 */
+  let demoOn = !fine && !reduce, demoT;
+  const heroVisible = () => scrollY < innerHeight * .6 && document.body.classList.contains('ready');
+  const demo = () => {
+    if (!demoOn) return;
+    if (heroVisible()) {
+      setOpen(true);
+      demoT = setTimeout(() => { if (demoOn) setOpen(false); demoT = setTimeout(demo, 2600); }, 4200);
+    } else demoT = setTimeout(demo, 800);
+  };
+  if (demoOn) {
+    const startDemo = () => document.body.classList.contains('ready') ? setTimeout(demo, 1300) : setTimeout(startDemo, 200);
+    startDemo();
+  }
+  hc.addEventListener('click', () => {
+    if (fine) return;
+    if (demoOn) { demoOn = false; clearTimeout(demoT); }
+    setOpen(!isOpen); if (navigator.vibrate) navigator.vibrate(10);
+  });
   hc.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!isOpen); } });
 
   /* ── 03 분해도 준비 ── */
