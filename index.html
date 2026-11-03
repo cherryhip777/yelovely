@@ -160,8 +160,16 @@ body.menu-open .header{background:transparent;box-shadow:none;backdrop-filter:no
 .btn:hover .arr{transform:translateX(4px)}
 
 .hero-visual{position:relative;height:min(78vh,720px);display:grid;place-items:center}
-.sun{position:absolute;width:min(46vw,620px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 38%,#fffbd1 0%,var(--lemon) 46%,#fbe77a 100%);filter:blur(.5px);animation:breathe 7s ease-in-out infinite}
+.sun{position:absolute;width:min(46vw,620px);aspect-ratio:1;max-width:96%;border-radius:50%;background:radial-gradient(circle at 40% 38%,#fffbd1 0%,var(--lemon) 46%,#fbe77a 100%);filter:blur(.5px);animation:breathe 7s ease-in-out infinite}
 @keyframes breathe{50%{transform:scale(1.04)}}
+.ripple{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(228,196,0,.45);opacity:0;animation:ripple 4.8s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
+.ripple:nth-child(2){animation-delay:1.6s}.ripple:nth-child(3){animation-delay:3.2s}
+@keyframes ripple{0%{transform:scale(.92);opacity:0}15%{opacity:.9}100%{transform:scale(1.32);opacity:0}}
+.burst{position:absolute;left:50%;top:50%;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffef6,#ffe95c 75%);box-shadow:0 0 0 1px rgba(228,196,0,.35),0 10px 18px -6px rgba(58,49,44,.4);z-index:4;pointer-events:none}
+.tap-hint{position:absolute;left:50%;bottom:3%;transform:translateX(-50%);z-index:4;font-family:var(--en);font-size:10px;letter-spacing:.28em;display:none;align-items:center;gap:8px;color:var(--brown-70);transition:opacity .6s}
+.tap-hint i{width:7px;height:7px;border-radius:50%;background:var(--brown);animation:tapdot 1.6s var(--ease) infinite}
+@keyframes tapdot{0%{box-shadow:0 0 0 0 rgba(58,49,44,.35)}100%{box-shadow:0 0 0 10px rgba(58,49,44,0)}}
+.tap-hint.gone{opacity:0}
 .hero-photo{position:absolute;inset:6% 4% 6% 10%;border-radius:999px 999px 40px 40px;overflow:hidden;z-index:1;opacity:0;transition:opacity .8s}
 .hero-photo.has-img{opacity:1}
 .hero-photo img{width:100%;height:100%;object-fit:cover}
@@ -457,6 +465,22 @@ section{position:relative}
   .scroll-cue{display:none}
   .f-top{grid-template-columns:1fr}
 }
+/* ═════════ 터치 기기 히어로 모션: 등장 연출 ═════════ */
+@media (hover:none),(max-width:1024px){
+  .sun{scale:.4;opacity:0;transition:scale 1.6s cubic-bezier(.16,1,.3,1),opacity .9s}
+  .ready .sun{scale:1;opacity:1}
+  .hero-product{translate:0 -70px;opacity:0;transition:translate 1.5s cubic-bezier(.34,1.45,.5,1) .35s,opacity .5s .35s;transform-origin:62% 8%}
+  .ready .hero-product{translate:0 0;opacity:1}
+  .floater{scale:0;transition:scale 1s cubic-bezier(.34,1.6,.5,1)}
+  .ready .floater{scale:1}
+  .ready .floater:nth-of-type(3){transition-delay:.7s}.ready .floater:nth-of-type(4){transition-delay:.85s}
+  .ready .floater:nth-of-type(5){transition-delay:1s}.ready .floater:nth-of-type(6){transition-delay:1.15s}
+  .lemon-slice{animation:roll 14s linear infinite}
+  @keyframes roll{to{rotate:360deg}}
+  .tap-hint{display:inline-flex}
+  .hero-product{cursor:pointer;-webkit-tap-highlight-color:transparent}
+}
+
 /* ═════════ 모바일 레이아웃 (≤640) ═════════ */
 @media (max-width:640px){
   :root{--gutter:20px}
@@ -469,7 +493,7 @@ section{position:relative}
   /* 히어로: 첫 화면에 비주얼+헤드라인+CTA가 꽉 차게 */
   .hero{min-height:calc(100svh - var(--hh,98px));grid-template-rows:minmax(0,1fr) auto;gap:0;padding-top:0;padding-bottom:26px}
   .hero-visual{height:auto;min-height:290px;order:-1;margin:0 calc(-1*var(--gutter))}
-  .sun{width:min(84vw,420px)}
+  .sun{width:auto;height:min(94%,86vw);max-height:420px}
   .hero-product{width:min(60vw,300px)}
   .lemon-slice{width:64px}
   .floater[data-depth="0.6"]{top:4%!important;right:8%!important}
@@ -564,15 +588,17 @@ section{position:relative}
   .f-top>div:last-child ul{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
   .f-top>div:last-child li:first-child{grid-column:1/-1;font-family:var(--en);font-size:22px;color:var(--brown);margin-bottom:6px}
   .f-info{font-size:12px;padding-top:24px}
-  .f-big{font-size:25.5vw;margin-top:40px;margin-left:calc(-1*var(--gutter) + 4px);margin-right:calc(-1*var(--gutter) + 4px)}
+  .f-big{font-size:22vw;margin-top:40px;text-align:center}
 }
-.f-big{overflow:hidden}
+.f-big{overflow:hidden;white-space:nowrap}
 .f-big .ch{display:inline-block;transform:translateY(100%);transition:transform 1.2s var(--ease)}
 .f-big.in .ch{transform:none}
 
 @media (prefers-reduced-motion:reduce){
   .slot.reveal,.reveal .slot{clip-path:none}
   .sig-deco{animation:none}
+  .sun,.hero-product,.floater{scale:1!important;translate:none!important;opacity:1!important}
+  .ripple,.tap-hint{display:none!important}
   .split .line>span,.f-big .ch,.mnav-row>*{transform:none}
   .mnav-foot{opacity:1;transform:none}
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -680,7 +706,8 @@ section{position:relative}
   </div>
 
   <div class="hero-visual" id="heroVisual">
-    <div class="sun"></div>
+    <div class="sun"><span class="ripple"></span><span class="ripple"></span><span class="ripple"></span></div>
+    <span class="tap-hint" aria-hidden="true"><i></i>TAP</span>
     <div class="hero-product" id="keyring"><img src="images/yelovely_k.png" alt="반투명 화이트 바디와 레몬 컬러 뚜껑의 옐러블리 키링 케이스"></div>
 
     <div class="floater" data-depth="0.6" style="top:10%;right:6%"><div class="lemon-slice"></div></div>
@@ -1028,6 +1055,18 @@ section{position:relative}
   /* 푸터 워드마크 글자 라이즈 */
   const fb = document.querySelector('.f-big');
   fb.innerHTML = [...fb.textContent].map((c, i) => `<span class="ch" style="transition-delay:${i * .05}s">${c}</span>`).join('');
+  // 모바일: 실제 폰트 폭을 재서 한 줄에 꽉 차게 맞춤 (글자가 줄바꿈되지 않도록)
+  const fitBig = () => {
+    fb.style.fontSize = '';
+    if (innerWidth > 640) return;
+    fb.style.fontSize = '100px';
+    const rg = document.createRange(); rg.selectNodeContents(fb);
+    const w = rg.getBoundingClientRect().width, cw = fb.clientWidth;
+    if (w) fb.style.fontSize = (100 * cw * .95 / w) + 'px';
+  };
+  fitBig(); addEventListener('resize', fitBig); addEventListener('load', fitBig);
+  if (document.fonts) { document.fonts.ready.then(fitBig); document.fonts.addEventListener && document.fonts.addEventListener('loadingdone', fitBig); }
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) fitBig(); }), { rootMargin: '300px 0px' }).observe(fb);
 
   /* 스크롤 리빌 */
   /* clip-path로 가려진 이미지 슬롯은 자기 자신이 아닌 부모 요소의 노출로 판단 (크롬은 clip-path 영역을 교차 계산에 반영함) */
@@ -1043,24 +1082,65 @@ section{position:relative}
     revealMap.get(t).push(el);
   });
 
-  /* 히어로 패럴랙스 (데스크톱: 마우스 / 모바일: 스크롤 + 부유 모션) */
+  /* 히어로 모션
+     데스크톱: 마우스 패럴랙스
+     모바일: 키링 진자 흔들림 + 탭하면 정제가 톡 튀어나옴 + 기울기(자이로) 반응 + 스크롤 패럴랙스 */
   const hv = document.getElementById('heroVisual'), kr = document.getElementById('keyring');
-  const heroEl = hv.closest('.hero'), sun = hv.querySelector('.sun');
+  const heroEl = hv.closest('.hero'), sun = hv.querySelector('.sun'), hint = hv.querySelector('.tap-hint');
   const floaters = [...document.querySelectorAll('.floater')];
   let tx = 0, ty = 0, px = 0, py = 0;
+  let ang = 0, vel = 0;               // 진자(키링) 각도·속도
   if (fine && !reduce) {
     heroEl.addEventListener('mousemove', e => { tx = e.clientX / innerWidth - .5; ty = e.clientY / innerHeight - .5; });
+  }
+  if (!fine && !reduce) {
+    // 자이로: 안드로이드는 바로, iOS는 첫 탭에서 권한 요청
+    const onTilt = e => { if (e.gamma == null) return; tx = Math.max(-.5, Math.min(.5, e.gamma / 60)); ty = Math.max(-.5, Math.min(.5, (e.beta - 45) / 90)); };
+    let tiltAsked = false;
+    const askTilt = () => {
+      if (tiltAsked) return; tiltAsked = true;
+      const D = window.DeviceOrientationEvent;
+      if (D && typeof D.requestPermission === 'function') D.requestPermission().then(r => { if (r === 'granted') addEventListener('deviceorientation', onTilt); }).catch(() => {});
+      else addEventListener('deviceorientation', onTilt);
+    };
+    if (!(window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function')) askTilt();
+
+    // 탭: 키링이 흔들리고 레몬 정제가 튀어나옴
+    kr.addEventListener('click', e => {
+      askTilt();
+      vel += (Math.random() > .5 ? 1 : -1) * 2.6;
+      if (hint) hint.classList.add('gone');
+      if (navigator.vibrate) navigator.vibrate(12);
+      const r = hv.getBoundingClientRect(), cx = e.clientX - r.left - r.width / 2, cy = e.clientY - r.top - r.height / 2;
+      for (let i = 0; i < 9; i++) {
+        const d = document.createElement('span'); d.className = 'burst';
+        const s0 = .5 + Math.random() * .8, a0 = -Math.PI / 2 + (Math.random() - .5) * 2.4, dist = 90 + Math.random() * 90;
+        d.style.scale = s0; hv.appendChild(d);
+        d.animate([
+          { transform: `translate(${cx}px,${cy}px) scale(.2)`, opacity: 1 },
+          { transform: `translate(${cx + Math.cos(a0) * dist}px,${cy + Math.sin(a0) * dist}px) scale(1)`, opacity: 1, offset: .55 },
+          { transform: `translate(${cx + Math.cos(a0) * dist * 1.15}px,${cy + Math.sin(a0) * dist + 160}px) scale(.6)`, opacity: 0 }
+        ], { duration: 1100 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => d.remove();
+      }
+    });
   }
   if (!reduce) {
     let t = 0;
     const loop = () => {
       t += .016;
-      const sy = Math.min(scrollY, heroEl.offsetHeight);
-      if (sy < heroEl.offsetHeight) {
+      const H = heroEl.offsetHeight, sy = Math.min(scrollY, H);
+      if (scrollY < H) {
         px += (tx - px) * .08; py += (ty - py) * .08;
-        const k = fine ? 1 : 1.6; // 모바일은 스크롤 패럴랙스를 더 크게
-        kr.style.transform = `translate(${px * 18}px, ${py * 14 + Math.sin(t) * 9 - sy * .12 * k}px) rotate(${px * 4 + Math.sin(t * .7) * 1.6}deg) scale(${1 - sy * .00025 * k})`;
-        sun.style.translate = `0 ${sy * .06 * k}px`;
+        if (fine) {
+          kr.style.transform = `translate(${px * 18}px, ${py * 14 + Math.sin(t) * 9 - sy * .12}px) rotate(${px * 4 + Math.sin(t * .7) * 1.6}deg) scale(${1 - sy * .00025})`;
+        } else {
+          // 스프링 진자: 기본 살랑임 + 기울기 + 탭 충격
+          const target = Math.sin(t * 1.1) * 3 + px * 16;
+          vel += (target - ang) * .045; vel *= .93; ang += vel;
+          kr.style.transform = `translate(${px * 22}px, ${Math.sin(t * 1.3) * 6 - sy * .2}px) rotate(${ang}deg) scale(${1 - sy * .0004})`;
+        }
+        const k = fine ? 1 : 1.6;
+        sun.style.translate = `${-px * 14}px ${sy * .06 * k - py * 10}px`;
         floaters.forEach((f, i) => {
           const d = +f.dataset.depth;
           const fx = px * 60 * d + (fine ? 0 : Math.sin(t * .8 + i * 1.7) * 6 * d);
