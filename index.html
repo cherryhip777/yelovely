@@ -590,9 +590,9 @@ section{position:relative}
   .f-info{font-size:12px;padding-top:24px}
   .f-big{font-size:22vw;margin-top:40px;text-align:center}
 }
-.f-big{overflow:hidden;white-space:nowrap}
-.f-big .ch{display:inline-block;transform:translateY(100%);transition:transform 1.2s var(--ease)}
-.f-big.in .ch{transform:none}
+.f-big{overflow:visible;white-space:nowrap;line-height:1.15!important;padding-bottom:.08em}
+.f-big .ch{display:inline-block;opacity:0;transform:translateY(45%);transition:transform 1.2s var(--ease),opacity .9s var(--ease)}
+.f-big.in .ch{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
   .slot.reveal,.reveal .slot{clip-path:none}
@@ -600,6 +600,7 @@ section{position:relative}
   .sun,.hero-product,.floater{scale:1!important;translate:none!important;opacity:1!important}
   .ripple,.tap-hint{display:none!important}
   .split .line>span,.f-big .ch,.mnav-row>*{transform:none}
+  .f-big .ch{opacity:1}
   .mnav-foot{opacity:1;transform:none}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
