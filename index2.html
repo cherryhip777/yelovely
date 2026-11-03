@@ -229,6 +229,11 @@ ul{list-style:none}
 .case .c-body-open{position:absolute;inset:0;z-index:2}
 .ready .h-prod .case .c-body-open{opacity:0;transition:opacity .2s .3s}
 .ready .h-prod .case.open .c-body-open{opacity:1;transition:opacity .15s .05s}
+/* 뚜껑: 닫힘 = 원래 사진, 열림 = 아래에서 본 뚜껑 사진(안쪽 나사산) */
+.ready .h-prod .case .c-cap-open{opacity:0;transition:transform .6s cubic-bezier(.5,-.35,.3,1.25) .3s,opacity .15s .75s}
+.ready .h-prod .case.open .c-cap-open{opacity:1;transition:transform .85s cubic-bezier(.34,1.56,.64,1) 0s,opacity .12s .06s}
+.ready .h-prod .case.open .c-cap-closed{opacity:0;transition:transform .85s cubic-bezier(.34,1.56,.64,1) 0s,opacity .12s .06s}
+.ready .h-prod .case .c-cap-closed{transition:transform .6s cubic-bezier(.5,-.35,.3,1.25) .3s,opacity .15s .75s}
 .case .c-cap{position:absolute;inset:0;z-index:4;transform-origin:62% 34%;transition:transform .6s cubic-bezier(.5,-.35,.3,1.25) .3s}
 .case.open .c-cap{transform:translate(-3%,-32%) rotate(-12deg);transition:transform .85s cubic-bezier(.34,1.56,.64,1) 0s}
 .c-mouth{position:absolute;z-index:2;left:2%;width:61%;top:34.8%;aspect-ratio:1/.17;translate:0 -50%;border-radius:50%;
@@ -742,7 +747,8 @@ ul{list-style:none}
         <img class="c-body" src="images/yk-body.png" alt="옐러블리 레몬 아우라 키링 케이스">
         <img class="c-body-open" src="images/yk-body-open.png" alt="">
         <div class="c-tabs" id="heroTabs"></div>
-        <img class="c-cap" src="images/yk-cap.png" alt="">
+        <img class="c-cap c-cap-closed" src="images/yk-cap.png" alt="">
+        <img class="c-cap c-cap-open" src="images/yk-cap-open.png" alt="">
       </div>
       <span class="case-hint" id="caseHint"><i></i><span id="caseHintT">TAP TO OPEN</span></span>
     </div>
@@ -824,7 +830,8 @@ ul{list-style:none}
         </div>
         <div class="xl x-tabs" id="xTabs"></div>
         <div class="xl x-cap" id="xCap">
-          <img src="images/yk-cap.png" alt="레몬 아우라 키링 캡">
+          <img src="images/yk-cap.png" alt="레몬 아우라 키링 캡" id="xCapClosed">
+          <img src="images/yk-cap-open.png" alt="" id="xCapOpen" style="position:absolute;inset:0;opacity:0">
           <div class="x-lab l" style="left:1%;top:20%" data-k="0"><i class="dot"></i><i class="line"></i><div class="txt"><small>01 · CAP</small><b>Keyring Cap</b><span>가방에 거는 무광 키링 캡</span></div></div>
         </div>
         <div class="x-lab r" id="xLabT" data-k="1"><i class="dot"></i><i class="line"></i><div class="txt"><small>02 · CAPSULE</small><b>Chew &amp; Pop</b><span>빛을 막는 앰버 캡슐, 씹으면 톡</span></div></div>
@@ -1324,7 +1331,7 @@ ul{list-style:none}
   hc.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!hc.classList.contains('open')); } });
 
   /* ── 03 분해도 준비 ── */
-  const xpl = $('#inside'), xc = $('#xc'), xCap = $('#xCap'), xBody = $('#xBody'), xTabs = $('#xTabs'), xOpen = $('#xOpen');
+  const xpl = $('#inside'), xc = $('#xc'), xCap = $('#xCap'), xBody = $('#xBody'), xTabs = $('#xTabs'), xOpen = $('#xOpen'), xCapOpen = $('#xCapOpen'), xCapClosed = $('#xCapClosed');
   const xLabs = $$('#inside .x-lab'), xLabT = $('#xLabT'), xLabI = $('#xLabI'), xBar = $('#xBar'), xState = $('#xState'), xNum = $('#xNum');
   const xOrb1 = $('#xOrb1'), xOrb2 = $('#xOrb2');
   const NT = 6; let xPopped = false;
@@ -1384,6 +1391,7 @@ ul{list-style:none}
       xCap.style.transform = `translate(${-a * g.w * .06}px, ${g.capDy}px) rotate(${-a * 7}deg)`;
       xBody.style.transform = `translateY(${g.bodyDy}px)`;
       xOpen.style.opacity = clamp(a * 6);
+      const co = clamp(a * 6); xCapOpen.style.opacity = co; xCapClosed.style.opacity = 1 - co;
       let out = 0;
       xTabEls.forEach((el, i) => {
         const ai = easeOut(seg(p, .14 + i * .045, .46 + i * .045));
