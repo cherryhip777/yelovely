@@ -183,7 +183,7 @@ ul{list-style:none}
 .h-type .row{overflow:hidden;padding-bottom:.04em}
 .ready .h-type .row>span{transform:none}
 .ready .h-type .r2>span{transition-delay:.12s}
-.h-prod{position:absolute;left:50%;top:52%;width:clamp(250px,28vw,440px);z-index:3;will-change:transform;translate:-50% -46%}
+.h-prod{position:absolute;left:50%;top:52%;width:clamp(220px,24vw,380px);z-index:3;will-change:transform;translate:-50% -46%}
 .h-prod img{width:100%;filter:drop-shadow(0 40px 46px rgba(58,49,44,.3));opacity:0;translate:0 -60px;transition:opacity .8s .5s,translate 1.6s cubic-bezier(.34,1.4,.5,1) .5s}
 .ready .h-prod img{opacity:1;translate:0 0}
 .h-ring{position:absolute;left:50%;top:52%;width:min(84vmin,720px);aspect-ratio:1;margin:calc(min(84vmin,720px)/-2) 0 0 calc(min(84vmin,720px)/-2);z-index:2;pointer-events:none}
@@ -235,9 +235,9 @@ ul{list-style:none}
   background:radial-gradient(ellipse at 50% 30%,#d9b94e 0%,#ecd583 42%,#f6eccb 64%,#fffdf3 72%,#e6dcc0 100%);
   box-shadow:0 1px 0 rgba(255,255,255,.9);opacity:0;transition:opacity .25s .45s}
 .case.open .c-mouth{opacity:1;transition-delay:0s}
-.c-tabs{position:absolute;left:31%;top:5%;z-index:5;width:0;height:0}
+.c-tabs{position:absolute;left:31.5%;top:8%;z-index:5;width:0;height:0}
 .c-tabs .tab{transform:translate(0,8px) scale(.4);opacity:0;transition:transform .42s cubic-bezier(.5,0,.75,0) calc(var(--k)*.025s),opacity .12s calc(.3s + var(--k)*.025s)}
-.case.open .c-tabs .tab{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);transition:transform .95s cubic-bezier(.34,1.5,.5,1) calc(.58s + var(--k)*.06s),opacity .15s calc(.58s + var(--k)*.06s)}
+.case.open .c-tabs .tab{opacity:1;transform:translate(var(--x),var(--y)) rotate(var(--r)) scale(1);transition:transform .95s cubic-bezier(.34,1.5,.5,1) calc(.72s + var(--k)*.06s),opacity .15s calc(.72s + var(--k)*.06s)}
 .case.open .c-tabs .tab{animation:tabBob 2.6s ease-in-out calc(1.6s + var(--k)*.2s) infinite}
 @keyframes tabBob{0%,100%{translate:0 0;scale:1}35%{scale:1.07 .93}50%{translate:0 -7px;scale:.96 1.04}70%{scale:1.02 .98}}
 .case-hint{position:absolute;left:calc(50% + 6%);top:100%;translate:-50% 14px;white-space:nowrap;font-family:var(--en);font-size:10px;letter-spacing:.26em;display:flex;align-items:center;gap:8px;color:var(--brown-70);transition:opacity .5s;pointer-events:none}
@@ -1283,14 +1283,14 @@ ul{list-style:none}
   const hc = $('#heroCase'), heroTabs = $('#heroTabs'), hint = $('#caseHint');
   $('#caseHintT').textContent = fine ? 'HOVER TO OPEN' : 'TAP TO OPEN';
   // 분해도(03)와 같은 캡슐: 지름 = 케이스 폭의 10% (생성 이미지 속 캡슐 크기)
-  const HT = [[-.95,-.5,-23],[-.62,-.92,32],[-.08,-1.12,-41],[.5,-1.02,50],[.92,-.6,-59],[1.05,-.1,68]];
+  const HT = [[-.12,-1.08,-23],[.24,-1.32,32],[.6,-1.1,-41],[.95,-.76,50],[1.14,-.34,-59],[.62,-.56,68]];
   heroTabs.innerHTML = HT.map((_, k) => `<span class="tab" style="--k:${k}" data-cur="POP"></span>`).join('');
   const heroTabEls = [...heroTabs.children];
   const placeHeroTabs = () => {
     const w = hc.offsetWidth || 200;
     heroTabs.style.setProperty('--tw', (w * .1) + 'px');
     heroTabEls.forEach((el, k) => el.style.setProperty('--rx', (50 + (k % 3) * 8) + 'deg'));
-    heroTabEls.forEach((el, k) => { el.style.setProperty('--x', (HT[k][0] * w * .62) + 'px'); el.style.setProperty('--y', (HT[k][1] * w * .62) + 'px'); el.style.setProperty('--r', HT[k][2] + 'deg'); });
+    heroTabEls.forEach((el, k) => { el.style.setProperty('--x', (HT[k][0] * w * .55) + 'px'); el.style.setProperty('--y', (HT[k][1] * w * .5) + 'px'); el.style.setProperty('--r', HT[k][2] + 'deg'); });
   };
   placeHeroTabs(); addEventListener('resize', placeHeroTabs);
   /* 캡슐 톡: 캡슐이 오므라들며 터지는 사진으로 바뀌고, 잠시 뒤 다시 생겨남 */
@@ -1298,9 +1298,9 @@ ul{list-style:none}
   const popAt = (el, box, big = 3) => {
     if (el._pop) return; el._pop = true;
     const r = el.getBoundingClientRect(), c = box.getBoundingClientRect(), d = r.width || 20;
-    const w = d / .8 * big, h = w * 640 / 578;                       // 터진 사진 속 캡슐 지름 = 사진 폭의 80% × 강조 배율
+    const w = d / .754 * big, h = w * 640 / 592;                     // 터진 사진 속 캡슐 지름 = 사진 폭의 75.4% × 강조 배율
     const img = document.createElement('img'); img.src = POP.src; img.className = 'cap-pop'; img.alt = '';
-    Object.assign(img.style, { width: w + 'px', left: (r.left - c.left + d / 2 - w * .40) + 'px', top: (r.top - c.top + d / 2 - h * .566) + 'px', transformOrigin: '40% 56.6%' });
+    Object.assign(img.style, { width: w + 'px', left: (r.left - c.left + d / 2 - w * .394) + 'px', top: (r.top - c.top + d / 2 - h * .585) + 'px', transformOrigin: '39.4% 58.5%' });
     box.appendChild(img);
     const shrink = el.animate([{ scale: 1 }, { scale: 1.25, offset: .3 }, { scale: 0 }], { duration: 220, fill: 'forwards', easing: 'ease-in' });
     img.animate([
@@ -1321,7 +1321,7 @@ ul{list-style:none}
      닫기: ①캡슐이 먼저 쏙 들어감 → ②뚜껑이 병목 위로 똑바로 → ③내려앉으며 돌려 잠금(작은 반동)
      · 몸통 교체는 뚜껑이 병목을 덮고 있는 순간에, 뚜껑 사진 교체는 뚜껑이 공중에 떠 있는 순간에 → 바뀌는 게 보이지 않음 */
   const capW = $('#heroCapW'), capC = capW.querySelector('.c-cap-closed'), capO = capW.querySelector('.c-cap-open'), bodyO = hc.querySelector('.c-body-open');
-  const OPEN_POSE = 'translate(-4%,-33%) rotate(-13deg)';
+  const OPEN_POSE = 'translate(-46%,-30%) rotate(-24deg)';
   let capAnim = null, seqT = [], autoPop, isOpen = false;
   const clearSeq = () => { seqT.forEach(clearTimeout); seqT = []; clearTimeout(autoPop); };
   const at = (ms, fn) => seqT.push(setTimeout(fn, ms));
@@ -1337,26 +1337,28 @@ ul{list-style:none}
       hint.classList.add('gone');
       show(bodyO, 1, 60);                                   // 뚜껑이 덮고 있을 때 몸통 교체
       runCap([
-        { transform: 'translate(0,-1%) rotate(-5deg)', offset: .12, easing: 'ease-in-out' },
-        { transform: 'translate(0,-2%) rotate(4deg)', offset: .24, easing: 'ease-in-out' },
-        { transform: 'translate(0,-3%) rotate(-2deg)', offset: .32, easing: 'cubic-bezier(.4,0,.2,1)' },
-        { transform: 'translate(0,-40%) rotate(0deg)', offset: .62, easing: 'cubic-bezier(.3,0,.25,1)' },
-        { transform: 'translate(-5%,-35%) rotate(-16deg)', offset: .86, easing: 'ease-in-out' },
+        { transform: 'translate(0,-1%) rotate(-5deg)', offset: .1, easing: 'ease-in-out' },
+        { transform: 'translate(0,-2%) rotate(4deg)', offset: .2, easing: 'ease-in-out' },
+        { transform: 'translate(0,-3%) rotate(-2deg)', offset: .27, easing: 'cubic-bezier(.4,0,.2,1)' },
+        { transform: 'translate(0,-46%) rotate(0deg)', offset: .55, easing: 'cubic-bezier(.4,0,.3,1)' },   // 병목에서 똑바로 빠짐
+        { transform: 'translate(-30%,-44%) rotate(-16deg)', offset: .75, easing: 'cubic-bezier(.3,0,.3,1)' },
+        { transform: 'translate(-48%,-29%) rotate(-26deg)', offset: .9, easing: 'ease-in-out' },          // 왼쪽 위로 옮겨 놓음(살짝 지나침)
         { transform: OPEN_POSE, offset: 1 }
-      ], 1050);
-      at(470, () => { show(capC, 0, 90); show(capO, 1, 90); }); // 공중에서 뚜껑 사진 교체(안쪽 나사산이 보이는 각도)
+      ], 1200);
+      at(520, () => { show(capC, 0, 100); show(capO, 1, 100); }); // 공중에서 뚜껑 사진 교체(안쪽 나사산이 보이는 각도)
       hc.classList.add('open');                              // 캡슐은 CSS 지연(≈0.58s)으로 뚜껑이 빠진 뒤 등장
-      if (!reduce) autoPop = setTimeout(() => { if (isOpen) popAt(heroTabEls[5], hc); }, 1700);
+      if (!reduce) autoPop = setTimeout(() => { if (isOpen) popAt(heroTabEls[4], hc); }, 1900);
     } else {
       hc.classList.remove('open');                           // 캡슐 먼저 들어감
       at(260, () => runCap([
-        { transform: 'translate(0,-40%) rotate(0deg)', offset: .4, easing: 'cubic-bezier(.4,0,.6,1)' },
-        { transform: 'translate(0,0) rotate(3deg)', offset: .78, easing: 'ease-out' },
-        { transform: 'translate(0,-1.2%) rotate(-2deg)', offset: .88, easing: 'ease-in-out' },
+        { transform: 'translate(-24%,-46%) rotate(-12deg)', offset: .25, easing: 'cubic-bezier(.4,0,.6,1)' },
+        { transform: 'translate(0,-46%) rotate(0deg)', offset: .45, easing: 'cubic-bezier(.4,0,.6,1)' },
+        { transform: 'translate(0,0) rotate(3deg)', offset: .8, easing: 'ease-out' },
+        { transform: 'translate(0,-1.2%) rotate(-2deg)', offset: .9, easing: 'ease-in-out' },
         { transform: 'translate(0,0) rotate(0deg)', offset: 1 }
-      ], 820));
-      at(260 + 330, () => { show(capO, 0, 90); show(capC, 1, 90); }); // 병목 위 공중에서 원래 뚜껑으로
-      at(260 + 680, () => show(bodyO, 0, 60));              // 다 닫힌 뒤 몸통 원래대로
+      ], 950));
+      at(260 + 420, () => { show(capO, 0, 90); show(capC, 1, 90); }); // 병목 위 공중에서 원래 뚜껑으로
+      at(260 + 820, () => show(bodyO, 0, 60));              // 다 닫힌 뒤 몸통 원래대로
     }
   };
   if (fine) { hc.addEventListener('mouseenter', () => setOpen(true)); hc.addEventListener('mouseleave', () => setOpen(false)); }
@@ -1370,7 +1372,7 @@ ul{list-style:none}
   const NT = 6; let xPopped = false;
   xTabs.innerHTML = Array.from({ length: NT }, () => '<span class="tab"><b></b><b></b><b></b><b></b></span>').join('');
   const xTabEls = [...xTabs.children];
-  const SEAM = .348, MX = .31, NECK = .04, LIFT = .6, DROP = .1;   // 뚜껑 이음선 · 입구 중심 · 병목 높이 (케이스 기준 비율)
+  const SEAM = .348, MX = .315, NECK = .075, LIFT = .6, DROP = .1;   // 뚜껑 이음선 · 입구 중심 · 병목 높이 (케이스 기준 비율)
   const xGeom = a => { const w = xc.offsetWidth, h = xc.offsetHeight; return { w, h, capDy: -a * LIFT * h, bodyDy: a * DROP * h, mouthY: (NECK + a * DROP) * h }; };
   const xTabPos = (i, a, g) => {
     const gap = g.mouthY - (SEAM * g.h - LIFT * g.h * a);            // 뚜껑과 병목 사이 벌어진 공간
