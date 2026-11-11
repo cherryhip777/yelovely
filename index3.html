@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>YELOVELY — Tear, Pop, Glow</title>
+<meta name="description" content="매일 한 포, 찢어서 톡. 레몬 추출물 콜라겐 정제와 올리브유 캡슐을 담은 데일리 이너뷰티 옐러블리(YELOVELY).">
+<meta property="og:title" content="YELOVELY — Daily Yellow, Daily Love">
+<meta property="og:description" content="매일 한 포, 찢어서 톡. 레몬 데일리 이너뷰티 YELOVELY">
+<meta name="theme-color" content="#fffdf3">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fahkwang:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+/* =========================================================
+   YELOVELY · 시안 C — "Tear, Pop, Glow"
+   데일리 팩(매트 투명 파우치 멀티팩 + 단상자) 중심 재구성
+   ─────────────────────────────────────────────────────────
+   이미지 파일을 images/ 폴더에 넣으면 자동 교체됩니다.
+   (없으면 코드로 그린 임시 그림이 보여요)
+     pouch-front.png   파우치 1포 정면 (배경 투명/흰색)
+     multipack.png     연결된 파우치 띠(멀티팩)
+     box.png           단상자
+     tablet.png        레몬 콜라겐 정제 1알
+     capsule.png       올리브유 연질캡슐 1알 (기존 파일 사용)
+     line-pack.png     라인업: 데일리 팩
+     line-gummy2.png   라인업: 레몬 구미젤리
+     line-powder.png   라인업: 레몬 파우더 파우치
+     hero-life.jpg     라이프스타일 (손으로 파우치를 찢는 장면)
+   ========================================================= */
+@font-face{font-family:'Freesentation';src:url('fonts/Freesentation-3Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Freesentation';src:url('fonts/Freesentation-4Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Freesentation';src:url('fonts/Freesentation-5Medium.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Freesentation';src:url('fonts/Freesentation-6SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Freesentation';src:url('fonts/Freesentation-7Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+
+:root{
+  --brown:#3a312c;--brown-70:rgba(58,49,44,.7);--brown-50:rgba(58,49,44,.5);--brown-15:rgba(58,49,44,.15);--brown-08:rgba(58,49,44,.08);
+  --lemon:#fff099;--lemon-deep:#f7e46a;--gold:#b08a2e;
+  --cream:#fffdf3;--ivory:#f8f5ea;--white:#fff;
+  --en:'Fahkwang',serif;
+  --ko:'Freesentation','Pretendard',-apple-system,'Apple SD Gothic Neo',sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);--ease-io:cubic-bezier(.76,0,.24,1);
+  --g:clamp(18px,3.4vw,56px);--hd:70px;
+  --tear:15.9%;   /* 파우치 찢는 홈 높이 (pouch-front.png 오른쪽 홈 기준) */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--ko);color:var(--brown);background:var(--cream);line-height:1.6;letter-spacing:-.01em;overflow-x:clip;word-break:keep-all;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul{list-style:none}
+.en{font-family:var(--en);letter-spacing:.02em}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--g)}
+::selection{background:var(--lemon)}
+.label{font-family:var(--en);font-size:12px;letter-spacing:.24em;text-transform:uppercase;display:inline-flex;gap:12px;align-items:center}
+.label b{font-weight:500;opacity:.5;letter-spacing:.1em}
+.big{font-family:var(--en);font-weight:300;font-size:clamp(44px,6.6vw,108px);line-height:.98;letter-spacing:-.015em}
+.big em{font-style:italic}
+.sec{padding:clamp(96px,12vw,180px) 0}
+.sec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,80px)}
+.sec-top p{max-width:420px;color:var(--brown-70);font-size:16px}
+.note{font-size:12px;color:var(--brown-50);line-height:1.6}
+
+/* 등장 */
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.ln>span{display:inline-block;transform:translateY(105%);transition:transform 1.15s var(--ease)}
+.in .ln>span{transform:none}
+.in .ln:nth-child(2)>span{transition-delay:.1s}.in .ln:nth-child(3)>span{transition-delay:.2s}
+
+/* 버튼 */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;height:56px;padding:0 30px;border-radius:99px;font-size:15px;font-weight:500;overflow:hidden;isolation:isolate;transition:color .5s var(--ease),transform .3s var(--ease)}
+.btn-d{background:var(--brown);color:var(--lemon)}
+.btn-l{border:1px solid currentColor}
+.btn::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--lemon);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease);z-index:-1}
+.btn:hover::before{transform:scaleX(1)}
+.btn:hover{color:var(--brown)}
+.btn:active{transform:scale(.97)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ───────── 커서 · 진행바 ───────── */
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--brown);transform-origin:left;transform:scaleX(0);z-index:300;pointer-events:none}
+.cur{display:none}
+@media (hover:hover) and (pointer:fine){
+  .cur{display:grid;place-items:center;position:fixed;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--brown);color:var(--lemon);z-index:400;pointer-events:none;font-family:var(--en);font-size:0;letter-spacing:.14em;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),font-size .3s}
+  .cur.big{width:80px;height:80px;margin:-40px 0 0 -40px;font-size:11px}
+}
+
+/* ───────── 인트로: 가운데가 찢어지며 열림 ───────── */
+.intro{position:fixed;inset:0;z-index:500;pointer-events:none}
+.intro .half{position:absolute;left:0;right:0;background:var(--lemon);transition:transform 1.1s var(--ease-io)}
+.intro .h1{top:0;height:calc(50% + 14px);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 28' preserveAspectRatio='none'><path d='M0 0H160V14C140 28 120 28 100 14 80 0 60 0 40 14 20 28 0 28 0 14Z' fill='black'/></svg>") left bottom/clamp(120px,14vw,220px) 28px repeat-x,linear-gradient(#000,#000) top/100% calc(100% - 27px) no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 28' preserveAspectRatio='none'><path d='M0 0H160V14C140 28 120 28 100 14 80 0 60 0 40 14 20 28 0 28 0 14Z' fill='black'/></svg>") left bottom/clamp(120px,14vw,220px) 28px repeat-x,linear-gradient(#000,#000) top/100% calc(100% - 27px) no-repeat}
+.intro .h2{bottom:0;height:calc(50% + 14px);-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 28' preserveAspectRatio='none'><path d='M0 28H160V14C140 28 120 28 100 14 80 0 60 0 40 14 20 28 0 28 0 14Z' fill='black'/></svg>") left top/clamp(120px,14vw,220px) 28px repeat-x,linear-gradient(#000,#000) bottom/100% calc(100% - 27px) no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 28' preserveAspectRatio='none'><path d='M0 28H160V14C140 28 120 28 100 14 80 0 60 0 40 14 20 28 0 28 0 14Z' fill='black'/></svg>") left top/clamp(120px,14vw,220px) 28px repeat-x,linear-gradient(#000,#000) bottom/100% calc(100% - 27px) no-repeat}
+.intro.out .h1{transform:translateY(-104%)}
+.intro.out .h2{transform:translateY(104%)}
+.intro-word{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--en);font-weight:300;font-size:clamp(34px,6vw,80px);letter-spacing:-.01em;transition:opacity .4s}
+.intro-word span{display:inline-block;opacity:0;transform:translateY(30px);animation:iw .7s var(--ease) forwards}
+.intro-word span:nth-child(2){animation-delay:.18s}.intro-word span:nth-child(3){animation-delay:.36s}
+@keyframes iw{to{opacity:1;transform:none}}
+.intro.out .intro-word{opacity:0}
+
+/* ───────── 헤더 ───────── */
+.hd{position:fixed;left:0;right:0;top:0;z-index:200;transition:transform .6s var(--ease),color .4s}
+.hd-promo{background:var(--brown);color:var(--lemon);font-size:12.5px;text-align:center;overflow:hidden;height:32px;line-height:32px;transition:height .5s var(--ease)}
+.hd-promo b{font-weight:600}
+.hd.slim .hd-promo{height:0}
+.hd-bar{height:var(--hd);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 var(--g);transition:background .4s,box-shadow .4s}
+.hd.slim .hd-bar{background:rgba(255,253,243,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--brown-08)}
+.hd.dark{color:var(--cream)}
+.hd.dark.slim .hd-bar{background:rgba(58,49,44,.82)}
+.hd.hide{transform:translateY(-100%)}
+.hd-logo img{height:23px;width:auto;transition:filter .4s}
+.hd.dark .hd-logo img,.menu-open .hd-logo img{filter:brightness(0) invert(1)}
+.nav{display:flex;gap:30px}
+.nav>li{position:relative}
+.nav>li>a{font-family:var(--en);font-size:12.5px;letter-spacing:.18em;padding:8px 0;position:relative;display:block}
+.nav>li>a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nav>li:hover>a::after{transform:scaleX(1);transform-origin:left}
+.dd{position:absolute;left:50%;top:100%;translate:-50% 0;min-width:210px;background:var(--cream);color:var(--brown);border:1px solid var(--brown-08);border-radius:18px;padding:10px;box-shadow:0 24px 50px -24px rgba(58,49,44,.35);opacity:0;visibility:hidden;transform:translateY(8px);transition:.35s var(--ease)}
+.nav>li:hover .dd{opacity:1;visibility:visible;transform:none}
+.dd a{display:flex;justify-content:space-between;gap:16px;padding:9px 12px;border-radius:10px;font-size:14px;white-space:nowrap;transition:background .25s}
+.dd a small{font-family:var(--en);font-size:10px;letter-spacing:.14em;opacity:.45;padding-top:3px}
+.dd a:hover{background:var(--lemon)}
+.util{display:flex;justify-content:flex-end;align-items:center;gap:18px}
+.util a{display:grid;place-items:center;width:28px;height:28px;position:relative}
+.util svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.4}
+.cart-n{position:absolute;top:-3px;right:-6px;background:var(--lemon);color:var(--brown);font-size:10px;font-weight:700;border-radius:99px;min-width:16px;height:16px;display:grid;place-items:center;padding:0 4px}
+.menu-btn{display:none;height:38px;padding:0 16px 0 14px;border-radius:99px;background:var(--brown);color:var(--lemon);font-family:var(--en);font-size:11px;letter-spacing:.2em;align-items:center;gap:10px;position:relative;z-index:2}
+.menu-btn i{width:14px;height:8px;position:relative}
+.menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;transition:transform .5s var(--ease),top .5s var(--ease)}
+.menu-btn i::before{top:0}.menu-btn i::after{top:6.5px}
+.menu-open .menu-btn{background:var(--lemon);color:var(--brown)}
+.menu-open .menu-btn i::before{top:3.25px;transform:rotate(45deg)}
+.menu-open .menu-btn i::after{top:3.25px;transform:rotate(-45deg)}
+.menu-open .hd-bar{background:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
+.menu-open .hd{color:var(--cream)}
+
+/* 모바일 메뉴: 위에서 찢어져 내려오는 판 */
+.mm{position:fixed;inset:0;z-index:150;background:var(--brown);color:var(--cream);clip-path:polygon(0 0,100% 0,100% 0,0 0);transition:clip-path .8s var(--ease-io);visibility:hidden;overflow:auto}
+.mm.open{visibility:visible;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.mm-in{min-height:100%;padding:calc(var(--hd) + 52px) var(--g) max(26px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
+.mm-list>li{border-bottom:1px solid rgba(255,240,153,.14)}
+.mm-row{display:flex;align-items:center;justify-content:space-between;overflow:hidden}
+.mm-row>*{transform:translateY(105%);transition:transform .7s var(--ease)}
+.mm.open .mm-row>*{transform:none;transition-delay:calc(.3s + var(--i)*.05s)}
+.mm-main{display:flex;align-items:baseline;gap:14px;padding:12px 0;flex:1}
+.mm-main .no{font-family:var(--en);font-size:11px;color:var(--lemon);opacity:.6;width:18px}
+.mm-main .t{font-family:var(--en);font-weight:300;font-size:clamp(34px,10.5vw,52px);line-height:1.08;color:var(--lemon)}
+.mm-tg{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,240,153,.3);position:relative;flex:none}
+.mm-tg::before,.mm-tg::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1px;background:var(--lemon);transform:translate(-50%,-50%);transition:transform .45s var(--ease)}
+.mm-tg::after{transform:translate(-50%,-50%) rotate(90deg)}
+.sub-open .mm-tg{background:var(--lemon)}
+.sub-open .mm-tg::before,.sub-open .mm-tg::after{background:var(--brown);transform:translate(-50%,-50%) rotate(180deg)}
+.mm-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.sub-open .mm-sub{grid-template-rows:1fr}
+.mm-sub>div{overflow:hidden;padding-left:32px}
+.mm-sub a{display:block;padding:7px 0;font-size:15px;color:rgba(255,253,243,.8)}
+.sub-open .mm-sub>div{padding-bottom:14px}
+.mm-foot{margin-top:auto;padding-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:10px;opacity:0;transition:opacity .5s .7s}
+.mm.open .mm-foot{opacity:1}
+.mm-foot a{border:1px solid rgba(255,240,153,.25);border-radius:16px;padding:14px;font-size:13px;display:flex;justify-content:space-between}
+.mm-foot .promo{grid-column:1/-1;background:var(--lemon);color:var(--brown);border:0;font-weight:600}
+
+/* =========================================================
+   파우치 컴포넌트
+   pouch-front.png 이 있으면 사진, 없으면 코드로 그린 매트 파우치
+   찢는 선(--tear) 위아래를 같은 그림 두 장으로 나눠, 윗부분만 찢겨 나감
+   ========================================================= */
+.pouch{position:relative;aspect-ratio:991/1081;width:100%}
+.pouch .pc{position:absolute;inset:0;will-change:transform}
+.pouch .art{position:absolute;inset:0;background:var(--pouch-img,none) center/100% 100% no-repeat}
+.pouch .art.empty{background-image:url('images/pouch-empty.png');opacity:0;transition:opacity .25s}
+.pouch.no-img .art.empty{display:none}
+.pouch.is-open .p-body .art.empty{opacity:1}
+.pouch.no-img .art{border-radius:6px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,0) 18%,rgba(255,255,255,0) 82%,rgba(255,255,255,.4)),
+    repeating-linear-gradient(90deg,rgba(58,49,44,.06) 0 2px,transparent 2px 5px) top/100% 7% no-repeat,
+    repeating-linear-gradient(90deg,rgba(58,49,44,.06) 0 2px,transparent 2px 5px) bottom/100% 7% no-repeat,
+    linear-gradient(180deg,#f4efe1 0%,#efe8d2 100%);
+  box-shadow:inset 0 0 0 1px rgba(58,49,44,.06),0 30px 50px -28px rgba(58,49,44,.4)}
+.pouch.no-img .art::before{content:"yelovely";position:absolute;left:0;right:0;top:44%;text-align:center;font-family:var(--ko);font-weight:600;font-size:clamp(14px,3.2cqw,40px);color:#fff;letter-spacing:-.02em;text-shadow:0 1px 0 rgba(58,49,44,.06)}
+.pouch.no-img .art::after{content:"";position:absolute;left:20%;right:20%;top:56%;height:22%;border-radius:40%;background:radial-gradient(circle at 36% 50%,rgba(240,214,120,.6) 0 15%,transparent 16%),radial-gradient(ellipse 22% 13% at 66% 52%,rgba(150,80,30,.38) 0 90%,transparent 100%);filter:blur(2px)}
+.pouch{container-type:inline-size}
+.pouch .tear-line{position:absolute;left:4%;right:4%;top:var(--tear);border-top:1px dashed rgba(58,49,44,.25);pointer-events:none;transition:opacity .3s}
+.pouch:not(.no-img) .tear-line{display:none}
+.pouch .notch{position:absolute;left:0;top:calc(var(--tear) - 2.2%);width:4%;height:4.4%;background:var(--bgc,var(--cream));clip-path:polygon(0 0,100% 50%,0 100%)}
+.pouch:not(.no-img) .notch{display:none}
+/* 윗부분(찢겨 나갈 띠)과 아랫부분 — 톱니 모양 경계 */
+.pouch .p-top{z-index:3;clip-path:polygon(0 0,100% 0,100% calc(var(--tear) + .6%),96% var(--tear),92% calc(var(--tear) + .7%),88% var(--tear),84% calc(var(--tear) + .5%),80% var(--tear),76% calc(var(--tear) + .7%),72% var(--tear),68% calc(var(--tear) + .5%),64% var(--tear),60% calc(var(--tear) + .7%),56% var(--tear),52% calc(var(--tear) + .5%),48% var(--tear),44% calc(var(--tear) + .7%),40% var(--tear),36% calc(var(--tear) + .5%),32% var(--tear),28% calc(var(--tear) + .7%),24% var(--tear),20% calc(var(--tear) + .5%),16% var(--tear),12% calc(var(--tear) + .7%),8% var(--tear),4% calc(var(--tear) + .5%),0 var(--tear));transform-origin:0% var(--tear)}
+.pouch .p-body{z-index:2;clip-path:polygon(0 var(--tear),4% calc(var(--tear) + .5%),8% var(--tear),12% calc(var(--tear) + .7%),16% var(--tear),20% calc(var(--tear) + .5%),24% var(--tear),28% calc(var(--tear) + .7%),32% var(--tear),36% calc(var(--tear) + .5%),40% var(--tear),44% calc(var(--tear) + .7%),48% var(--tear),52% calc(var(--tear) + .5%),56% var(--tear),60% calc(var(--tear) + .7%),64% var(--tear),68% calc(var(--tear) + .5%),72% var(--tear),76% calc(var(--tear) + .7%),80% var(--tear),84% calc(var(--tear) + .5%),88% var(--tear),92% calc(var(--tear) + .7%),96% var(--tear),100% calc(var(--tear) + .6%),100% 100%,0 100%)}
+/* 안에 든 것: 정제 1 + 캡슐 1 (몸통 뒤에 있다가 위로 나옴) */
+.pouch .bits{position:absolute;inset:0;z-index:1;pointer-events:none}
+.bit{position:absolute;left:50%;top:calc(var(--tear) + 8%);width:var(--bw,22%);aspect-ratio:1;margin-left:calc(var(--bw,22%) / -2);will-change:transform;opacity:0}
+.bit.tab{background:var(--tab-img,none) center/contain no-repeat}
+.bit.tab.no-img{border-radius:50%;background:radial-gradient(circle at 36% 30%,#fffef4 0%,#fbf0b0 46%,#ecd77c 100%);box-shadow:inset 0 -3px 6px rgba(176,138,46,.28),inset 0 2px 3px rgba(255,255,255,.9),0 10px 16px -8px rgba(58,49,44,.35);transform-origin:center}
+.bit.tab.no-img::after{content:"";position:absolute;left:22%;right:22%;top:50%;height:1px;background:rgba(176,138,46,.3)}
+.bit.cap{aspect-ratio:1.75/1;width:calc(var(--bw,22%) * 1.35);margin-left:calc(var(--bw,22%) * -.675);border-radius:50%;
+  background:radial-gradient(ellipse 30% 22% at 32% 28%,rgba(255,255,255,.9),rgba(255,255,255,0)),radial-gradient(ellipse at 60% 72%,rgba(230,150,70,.75),rgba(230,150,70,0) 45%),radial-gradient(ellipse at 50% 45%,#b5641f 0%,#8f4612 45%,#5c230a 85%);
+  box-shadow:inset 0 -3px 6px rgba(0,0,0,.25),0 10px 14px -6px rgba(58,49,44,.4)}
+.bit.cap.has-img{background:var(--cap-img) center/contain no-repeat;box-shadow:none;border-radius:0}
+
+/* ───────── 01 HERO ───────── */
+.hero{position:relative;min-height:100vh;min-height:100svh;padding:calc(var(--hd) + 60px) 0 50px;display:flex;align-items:center;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:clamp(20px,4vw,70px);width:100%}
+.hero h1{font-family:var(--en);font-weight:300;font-size:clamp(58px,9vw,148px);line-height:.92;letter-spacing:-.03em;margin:26px 0 30px}
+.hero h1 em{font-style:italic}
+.hero h1 .ln>span{transition-duration:1.3s}
+.ready .hero h1 .ln>span{transform:none}
+.ready .hero h1 .ln:nth-child(2)>span{transition-delay:.1s}.ready .hero h1 .ln:nth-child(3)>span{transition-delay:.2s}
+.hero .lead{font-size:clamp(16px,1.3vw,19px);color:var(--brown-70);max-width:440px;line-height:1.75}
+.hero .lead b{color:var(--brown);font-weight:600}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 34px}
+.chip{border:1px solid var(--brown-15);border-radius:99px;padding:7px 14px;font-size:13px;background:rgba(255,255,255,.5)}
+.chip b{font-family:var(--en);font-weight:500;margin-right:6px}
+.hero-stage{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.hero-disc{position:absolute;inset:4%;border-radius:50%;background:radial-gradient(circle at 40% 36%,#fffbd6 0%,var(--lemon) 50%,#f8e57a 100%);scale:.6;opacity:0;transition:scale 1.4s var(--ease),opacity .8s}
+.ready .hero-disc{scale:1;opacity:1}
+.hero-pouch{position:relative;width:min(48%,330px);--bgc:#fff3a8;cursor:pointer;opacity:0;translate:0 50px;rotate:-6deg;transition:opacity .8s .4s,translate 1.4s cubic-bezier(.34,1.35,.5,1) .4s,rotate 1.4s var(--ease) .4s}
+.ready .hero-pouch{opacity:1;translate:0 0;rotate:3deg}
+.hero-pouch .pouch{filter:drop-shadow(0 34px 34px rgba(58,49,44,.25))}
+.tag-tear{position:absolute;left:104%;top:calc(var(--tear) - 2%);display:flex;flex-direction:row-reverse;align-items:center;gap:8px;font-family:var(--en);font-size:10px;letter-spacing:.22em;white-space:nowrap;transition:opacity .4s}
+.tag-tear i{width:34px;height:1px;background:var(--brown);position:relative}
+.tag-tear i::after{content:"";position:absolute;left:-3px;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--brown);animation:ping 1.6s var(--ease) infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(58,49,44,.35)}100%{box-shadow:0 0 0 9px rgba(58,49,44,0)}}
+.torn .tag-tear{opacity:0}
+.hero-ring{position:absolute;inset:0;pointer-events:none}
+.hero-ring svg{width:100%;height:100%;overflow:visible}
+.hero-ring text{font-family:var(--en);font-size:10px;letter-spacing:5px;fill:var(--brown)}
+.hero-spec{position:absolute;right:0;bottom:2%;text-align:right;font-family:var(--en);font-size:11px;letter-spacing:.2em;line-height:1.9}
+.hero-spec b{display:block;font-weight:300;font-size:clamp(36px,3.4vw,54px);letter-spacing:-.01em;line-height:1}
+
+/* ───────── 마키 ───────── */
+.mq{background:var(--brown);color:var(--lemon);overflow:hidden;padding:clamp(16px,2vw,26px) 0}
+.mq-t{display:flex;width:max-content;animation:mq 34s linear infinite}
+.mq span{font-family:var(--en);font-weight:300;font-size:clamp(28px,4vw,64px);line-height:1;white-space:nowrap;padding-right:.6em;display:inline-flex;align-items:center;gap:.6em}
+.mq span em{font-style:italic}
+.mq span::after{content:"";width:.9em;height:.36em;border:1px solid var(--lemon);border-radius:2px;border-top-style:dashed;flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ───────── 02 INSIDE ONE PACK (스크롤 고정) ───────── */
+.inside{height:320vh;height:320svh;position:relative;background:var(--ivory)}
+.in-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(260px,.8fr) 1.3fr .7fr;align-items:center;gap:20px;padding:calc(var(--hd) + 10px) var(--g) 30px}
+.in-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 55% 52%,rgba(255,240,153,.55) 0,rgba(255,240,153,0) 42%)}
+.in-head{position:relative;z-index:2;align-self:start;padding-top:5vh}
+.in-head .big{margin:22px 0 18px}
+.in-head p{color:var(--brown-70);font-size:15.5px;max-width:310px}
+.in-steps{margin-top:32px;display:grid;gap:8px}
+.in-steps li{display:flex;gap:12px;align-items:center;font-size:14px;color:var(--brown-50);transition:color .4s}
+.in-steps li i{width:22px;height:22px;border-radius:50%;border:1px solid currentColor;display:grid;place-items:center;font-style:normal;font-family:var(--en);font-size:10px;transition:background .4s,color .4s}
+.in-steps li.on{color:var(--brown)}
+.in-steps li.on i{background:var(--brown);color:var(--lemon);border-color:var(--brown)}
+.in-stage{position:relative;height:100%;display:grid;place-items:center;z-index:1}
+.in-pouch{position:relative;width:min(24vw,34vh,330px);--bgc:var(--ivory)}
+.in-pouch .bit{--bw:24%}
+.in-lab{position:absolute;display:flex;align-items:center;z-index:6;pointer-events:none;white-space:nowrap}
+.in-lab.l{flex-direction:row-reverse;translate:-100% -50%}
+.in-lab.r{translate:0 -50%}
+.in-lab .dot{width:9px;height:9px;border-radius:50%;background:var(--brown);box-shadow:0 0 0 4px rgba(58,49,44,.12);scale:0;transition:scale .5s var(--ease)}
+.in-lab .line{width:clamp(30px,5vw,90px);height:1px;background:var(--brown);transform:scaleX(0);transition:transform .7s var(--ease) .1s}
+.in-lab.r .line{transform-origin:left}.in-lab.l .line{transform-origin:right}
+.in-lab .txt{padding:0 12px;opacity:0;translate:0 8px;transition:opacity .6s .3s,translate .8s var(--ease) .3s}
+.in-lab.l .txt{text-align:right}
+.in-lab small{display:block;font-family:var(--en);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:4px}
+.in-lab b{display:block;font-family:var(--en);font-weight:400;font-size:clamp(15px,1.3vw,20px)}
+.in-lab span{display:block;font-size:13.5px;color:var(--brown-70);margin-top:2px}
+.in-lab.on .dot{scale:1}.in-lab.on .line{transform:none}.in-lab.on .txt{opacity:1;translate:0 0}
+.in-side{position:relative;z-index:2;align-self:end;justify-self:end;text-align:right;padding-bottom:5vh}
+.in-side .num{font-family:var(--en);font-weight:300;font-size:clamp(70px,8vw,130px);line-height:.9}
+.in-side .num small{display:block;font-size:.2em;letter-spacing:.2em;margin-top:10px;color:var(--brown-70)}
+
+/* ───────── 03 MULTIPACK & BOX ───────── */
+.mp-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(30px,6vw,100px);align-items:center}
+.mp-specs{margin:34px 0;border-top:1px solid var(--brown-15)}
+.mp-specs li{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--brown-15);font-size:15px}
+.mp-specs li span:first-child{font-family:var(--en);font-size:11px;letter-spacing:.2em;color:var(--brown-50);padding-top:3px}
+.mp-price{display:flex;gap:28px;align-items:baseline;margin-bottom:28px}
+.mp-price b{font-family:var(--en);font-weight:300;font-size:30px}
+.mp-price small{display:block;font-size:13px;color:var(--brown-50)}
+.box-stage{position:relative;aspect-ratio:1/1;border-radius:40px;background:radial-gradient(70% 60% at 50% 55%,#fffbe0 0%,var(--lemon) 55%,#f6e27c 100%);overflow:hidden;perspective:1200px}
+.box-strip{position:absolute;left:50%;top:30%;width:150%;translate:-50% -50%;will-change:transform;z-index:1;filter:drop-shadow(0 18px 20px rgba(58,49,44,.18))}
+.box-strip{display:flex}
+.box-strip .sp{flex:1;position:relative;aspect-ratio:991/1078;background:url('images/pouch-front.png') center/100% 100% no-repeat}
+.box-strip .sp+.sp::before{content:"";position:absolute;left:0;top:4%;bottom:4%;border-left:1.5px dashed rgba(58,49,44,.28)}
+.box-strip.no-img{display:flex;gap:1.2%;height:28%;width:92%}
+.box-strip.no-img i{flex:1;border-radius:4px;background:linear-gradient(180deg,#f6f1e2,#ece4cb);box-shadow:inset 0 0 0 1px rgba(58,49,44,.06);position:relative}
+.box-strip.no-img i::after{content:"";position:absolute;left:0;right:0;top:17%;border-top:1px dashed rgba(58,49,44,.2)}
+.box-img{position:absolute;left:50%;bottom:6%;width:46%;translate:-50% 0;z-index:2;will-change:transform;transition:transform .5s var(--ease)}
+.box-img.no-img{aspect-ratio:1/1.15;border-radius:8px;background:linear-gradient(135deg,#fffdf3 0%,#f6f0dd 100%);box-shadow:0 40px 60px -30px rgba(58,49,44,.45),inset 0 0 0 1px rgba(58,49,44,.06);display:grid;place-items:center}
+.box-img.no-img::before{content:"yelovely\A DAILY PACK · 14";white-space:pre;text-align:center;font-family:var(--en);font-size:clamp(14px,1.8vw,26px);line-height:1.6;color:var(--brown)}
+.box-img.no-img::after{content:"";position:absolute;left:0;right:0;top:0;height:16%;background:var(--lemon);border-radius:8px 8px 0 0}
+.box-cap{position:absolute;left:24px;top:22px;font-family:var(--en);font-size:11px;letter-spacing:.2em;z-index:3}
+
+/* ───────── 04 HOW TO ───────── */
+.how{background:var(--brown);color:var(--cream)}
+.how .label{color:var(--lemon)}
+.how .big{color:var(--lemon)}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,24px)}
+.how-c{border:1px solid rgba(255,240,153,.18);border-radius:28px;padding:clamp(22px,2.4vw,34px);display:flex;flex-direction:column;min-height:380px;position:relative;overflow:hidden}
+.how-c .n{font-family:var(--en);font-weight:300;font-size:64px;line-height:1;color:var(--lemon)}
+.how-c h3{font-size:22px;font-weight:600;margin:auto 0 8px}
+.how-c p{font-size:15px;color:rgba(255,253,243,.7)}
+.how-ill{position:absolute;right:8%;top:10%;width:38%;--bgc:var(--brown)}
+.how-c .bit{opacity:1}
+.how-c.c2 .how-ill .bit.tab{--bw:28%}
+.how-c.c1 .pouch .p-top{transform-origin:0% var(--tear)}
+.how-c.c1.in .pouch .p-top{animation:peel 1.6s var(--ease) .7s forwards}
+@keyframes peel{to{transform:translate(-8%,-10%) rotate(20deg)}}
+.ing .pic .bit{position:absolute;left:50%;top:50%;--bw:58%;margin:-29% 0 0 -29%;opacity:1}
+.how-c.c3 .glass{position:absolute;right:12%;top:12%;width:26%;aspect-ratio:.72;border:1.5px solid rgba(255,240,153,.6);border-top:0;border-radius:0 0 16px 16px;overflow:hidden}
+.how-c.c3 .glass i{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,rgba(255,240,153,.25),rgba(255,240,153,.45));transition:height 1.4s var(--ease) .3s}
+.how-c.c3.in .glass i{height:70%}
+
+/* ───────── 05 INGREDIENT (가로로 펼쳐지는 패널) ───────── */
+.ing-row{display:flex;gap:12px;height:clamp(420px,46vw,560px)}
+.ing{flex:1;border-radius:28px;position:relative;overflow:hidden;transition:flex 1s var(--ease);cursor:pointer;background:var(--ivory);border:1px solid var(--brown-08)}
+.ing.on{flex:2.6}
+.ing .pic{position:absolute;right:-8%;bottom:-6%;width:70%;aspect-ratio:1;transition:transform 1.2s var(--ease),opacity .6s}
+.ing .pic img{width:100%;height:100%;object-fit:contain}
+.ing:nth-child(1) .pic img{object-fit:cover;border-radius:50%}
+.ing:not(.on) .pic{transform:scale(.8) translate(10%,10%);opacity:.85}
+.ing-in{position:absolute;inset:0;padding:clamp(20px,2.4vw,36px);display:flex;flex-direction:column}
+.ing .no{font-family:var(--en);font-size:12px;letter-spacing:.2em;opacity:.55}
+.ing h3{font-family:var(--en);font-weight:300;font-size:clamp(30px,3vw,52px);line-height:1;margin-top:auto}
+.ing h3 small{display:block;font-family:var(--ko);font-size:15px;margin-top:10px;opacity:.75}
+.ing .desc{max-width:340px;font-size:15px;color:var(--brown-70);margin-top:14px;opacity:0;max-height:0;transition:opacity .5s,max-height .8s var(--ease)}
+.ing.on .desc{opacity:1;max-height:200px;transition-delay:.3s}
+.ing .form{display:inline-flex;margin-top:12px;border:1px solid var(--brown-15);border-radius:99px;padding:5px 12px;font-size:12px;align-self:flex-start}
+.ing:nth-child(1){background:var(--lemon);border:0}
+.ing:nth-child(3){background:var(--brown);color:var(--cream);border:0}
+.ing:nth-child(3) .desc{color:rgba(255,253,243,.75)}
+.ing:nth-child(3) .form{border-color:rgba(255,240,153,.35);color:var(--lemon)}
+
+/* ───────── 06 LINE-UP (3종) ───────── */
+.lu-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:clamp(12px,1.6vw,22px)}
+.lu{position:relative;border-radius:30px;background:var(--cream);border:1px solid var(--brown-08);display:flex;flex-direction:column;overflow:hidden;transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+.lu:hover{transform:translateY(-6px);box-shadow:0 30px 60px -36px rgba(58,49,44,.45)}
+.lu-top{display:flex;justify-content:space-between;align-items:center;padding:22px 24px 0}
+.lu-cat{font-family:var(--en);font-size:11.5px;font-weight:600;letter-spacing:.22em;color:var(--gold)}
+.lu-badge{font-family:var(--en);font-size:10.5px;letter-spacing:.14em;background:var(--brown);color:var(--lemon);border-radius:99px;padding:6px 12px}
+.lu-soon{font-family:var(--en);font-size:10.5px;letter-spacing:.14em;border:1px solid var(--brown-15);border-radius:99px;padding:5px 11px}
+.lu-img{position:relative;margin:14px 14px 0;border-radius:22px;aspect-ratio:1/1;background:radial-gradient(circle at 50% 56%,#fffbe0 0%,#fff6c2 52%,#fbeea0 100%);overflow:hidden;display:grid;place-items:center}
+.lu-img img{width:76%;height:76%;object-fit:contain;filter:drop-shadow(0 20px 22px rgba(58,49,44,.2));transition:transform 1s var(--ease)}
+.lu:hover .lu-img img{transform:scale(1.05) rotate(-2deg)}
+.lu-img .ph{font-family:var(--en);font-size:11px;letter-spacing:.2em;color:var(--brown-50);text-align:center;line-height:1.8}
+.lu-info{padding:20px 24px 24px}
+.lu-info h3{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.lu-info .enn{font-family:var(--en);font-size:13px;color:var(--brown-50)}
+.lu-info .lu-desc{margin-top:12px;padding-top:12px;border-top:1px solid var(--brown-08);font-size:14px;color:var(--brown-70)}
+.lu.main{background:var(--brown);color:var(--cream);border:0}
+.lu.main .lu-img{background:radial-gradient(60% 60% at 50% 50%,rgba(255,240,153,.55),rgba(255,240,153,.08) 70%),#463c36}
+.lu.main .enn{color:rgba(255,253,243,.5)}
+.lu.main .lu-info .lu-desc{border-color:rgba(255,240,153,.15);color:rgba(255,253,243,.8)}
+.lu.main .lu-cat{color:var(--lemon)}
+.lu.main .lu-badge{background:var(--lemon);color:var(--brown)}
+
+/* ───────── 07 ROUTINE (하루의 해) ───────── */
+.rt{background:var(--ivory);height:240vh;height:240svh;position:relative}
+.rt-stick{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:calc(var(--hd) + 10px)}
+.rt-stick>.wrap{width:100%}
+.rt .sec-top{margin-bottom:clamp(20px,3vw,40px)}
+.rt-c{opacity:.3;transition:opacity .8s var(--ease),transform .9s var(--ease)}
+.rt-c.on{opacity:1;transform:translateY(-6px)}
+.rt .sun{filter:drop-shadow(0 0 10px rgba(247,228,106,.9))}
+.rt-arc{position:relative;height:clamp(180px,20vw,280px);margin:0 auto 10px;max-width:1100px}
+.rt-arc svg{width:100%;height:100%;overflow:visible}
+.rt-arc path{fill:none;stroke:var(--brown-15);stroke-width:1;stroke-dasharray:3 6}
+.rt-arc .sun{fill:var(--lemon);stroke:var(--gold);stroke-width:1}
+.rt-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,30px);max-width:1100px;margin:0 auto}
+.rt-c{text-align:center;padding:0 10px}
+.rt-c .t{font-family:var(--en);font-weight:300;font-size:clamp(44px,5vw,76px);line-height:1}
+.rt-c .t sup{font-size:.26em;letter-spacing:.14em;vertical-align:top;margin-left:6px}
+.rt-c .when{display:block;font-size:13px;color:var(--gold);margin:12px 0 4px;letter-spacing:.04em}
+.rt-c h4{font-size:19px;font-weight:600;margin-bottom:6px}
+.rt-c p{font-size:14.5px;color:var(--brown-70);max-width:300px;margin:0 auto}
+.rt-c .prd{display:inline-flex;margin-top:16px;border:1px solid var(--brown-15);border-radius:99px;padding:6px 14px;font-size:13px}
+.rt-c.main .prd{background:var(--brown);color:var(--lemon);border:0}
+
+/* ───────── 08 JOURNAL ───────── */
+.journal{background:var(--lemon);overflow:hidden}
+.j-track{display:flex;gap:clamp(14px,1.6vw,24px);overflow-x:auto;padding:0 var(--g) 6px;scrollbar-width:none;scroll-snap-type:x mandatory;scroll-padding:0 var(--g)}
+.j-track::-webkit-scrollbar{display:none}
+.jc{flex:0 0 clamp(260px,26vw,380px);scroll-snap-align:start}
+.jc-img{aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:#fff7c4}
+.jc-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.jc:hover .jc-img img{transform:scale(1.05)}
+.jc .cat{font-family:var(--en);font-size:11px;letter-spacing:.22em;margin:18px 0 6px;opacity:.6}
+.jc h4{font-size:18px;font-weight:600;line-height:1.45}
+
+/* ───────── 09 REVIEW ───────── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--brown-15);border-bottom:1px solid var(--brown-15);margin-bottom:clamp(40px,5vw,70px)}
+.stat{padding:clamp(22px,3vw,40px) clamp(10px,2vw,30px);border-right:1px solid var(--brown-15)}
+.stat:last-child{border-right:0}
+.stat .num{font-family:var(--en);font-weight:300;font-size:clamp(44px,6vw,92px);line-height:1}
+.stat .num small{font-size:.35em;margin-left:6px}
+.stat .lb{font-size:14px;color:var(--brown-70);margin-top:10px}
+.rows{overflow:hidden}
+.row-t{display:flex;gap:16px;width:max-content;animation:mq 64s linear infinite}
+.rows:hover .row-t{animation-play-state:paused}
+.rc{width:clamp(270px,26vw,370px);background:var(--white);border-radius:22px;padding:26px;border:1px solid var(--brown-08)}
+.rc .st{color:#e4c400;letter-spacing:3px;font-size:13px}
+.rc p{font-size:15.5px;margin:14px 0 18px;line-height:1.7}
+.rc .who{display:flex;justify-content:space-between;font-size:12.5px;color:var(--brown-50)}
+.rc.y{background:var(--lemon);border:0}
+.rc.b{background:var(--brown);color:var(--cream);border:0}.rc.b .who{color:rgba(255,253,243,.5)}.rc.b .st{color:var(--lemon)}
+
+/* ───────── 10 CLUB ───────── */
+.club{background:var(--lemon)}
+.club-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:end}
+.club .big{font-size:clamp(54px,8.6vw,140px)}
+.club p{color:var(--brown-70);margin-top:20px;max-width:420px}
+.club form{display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--brown);padding-bottom:14px}
+.club input{flex:1;min-width:0;background:none;border:0;outline:0;font:inherit;font-size:18px;color:var(--brown)}
+.club input::placeholder{color:var(--brown-50)}
+.club button{height:48px;padding:0 22px;border-radius:99px;background:var(--brown);color:var(--lemon);font-family:var(--en);font-size:11px;letter-spacing:.18em}
+.club .agree{font-size:12px;color:var(--brown-50);margin-top:14px}
+
+/* ───────── FOOTER ───────── */
+.ft{background:var(--brown);color:rgba(255,253,243,.7);padding:clamp(70px,8vw,110px) 0 30px;font-size:13px;overflow:hidden}
+.ft-top{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px;padding-bottom:50px;border-bottom:1px solid rgba(255,240,153,.15)}
+.ft-brand img{height:86px;width:auto;filter:brightness(0) invert(1);opacity:.95}
+.ft-brand p{margin-top:16px;color:rgba(255,253,243,.6)}
+.ft h5{font-family:var(--en);font-weight:500;font-size:12px;letter-spacing:.22em;color:var(--lemon);margin-bottom:16px}
+.ft li{margin-bottom:9px}
+.ft a:hover{color:var(--lemon)}
+.ft-info{padding-top:26px;line-height:1.9}
+.ft-word{font-family:var(--en);font-weight:300;color:var(--lemon);text-align:center;white-space:nowrap;line-height:1.15;padding-bottom:.06em;margin-top:clamp(40px,6vw,80px);font-size:20vw;letter-spacing:-.02em}
+.ft-word span{display:inline-block;opacity:0;transform:translateY(30%);transition:transform 1.1s var(--ease),opacity .8s}
+.ft-word.in span{opacity:1;transform:none}
+
+/* =========================================================
+   반응형
+   ========================================================= */
+@media (max-width:1100px){
+  .nav,.util .hide-t{display:none}
+  .menu-btn{display:inline-flex}
+  .hd-bar{grid-template-columns:1fr auto}
+  .mp-grid{grid-template-columns:1fr}
+  .ft-top{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  :root{--hd:60px;--g:20px}
+  .hd-promo{font-size:11px;height:28px;line-height:28px}
+  .hd-logo img{height:20px}
+  .util{gap:12px}
+  .sec{padding:80px 0}
+  .sec-top{margin-bottom:34px;gap:14px}
+  .sec-top p{font-size:15px}
+  .big{font-size:clamp(42px,12.5vw,60px)}
+  .rv{transform:translateY(14px)}
+
+  /* 히어로: 파우치 위, 문구 아래 */
+  .hero{padding:calc(var(--hd) + 44px) 0 34px;min-height:auto}
+  .hero-grid{grid-template-columns:1fr;gap:6px}
+  .hero-stage{order:-1;width:92%;margin:0 auto}
+  .hero h1{font-size:clamp(50px,15vw,68px);margin:14px 0 16px}
+  .hero .lead{font-size:15px}
+  .hero-chips{margin:18px 0 22px}
+  .chip{font-size:12px;padding:6px 12px}
+  .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .btn{height:52px;padding:0 12px;font-size:14px}
+  .hero-pouch{width:46%}
+  .tag-tear{left:102%;font-size:9px}
+  .tag-tear i{width:18px}
+  .hero-spec{font-size:9.5px}
+  .hero-spec b{font-size:30px}
+
+  /* 한 포 안: 짧고 차분하게 */
+  .inside{height:240svh}
+  .in-stick{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:calc(var(--hd) + 18px) var(--g) 20px;gap:0}
+  .in-head{padding-top:0}
+  .in-head .big{margin:10px 0 8px;font-size:clamp(38px,11vw,52px)}
+  .in-head p{font-size:13.5px}
+  .in-side,.in-lab{display:none}
+  .in-steps{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:12px}
+  .in-steps li{font-size:12px;gap:6px}
+  .in-steps li i{width:18px;height:18px;font-size:9px}
+  .in-stage{padding-top:12svh}
+  .in-pouch{width:min(42vw,26svh)}
+  .in-lab .line{width:16px}
+  .in-lab .txt{padding:0 6px}
+  .in-lab b{font-size:13px}
+  .in-lab span{font-size:10.5px;white-space:normal;width:25vw;line-height:1.35}
+  .in-lab small{font-size:8.5px;letter-spacing:.12em}
+
+  .box-stage{border-radius:28px}
+  .mp-specs li{grid-template-columns:86px 1fr;font-size:14px}
+
+  .how-grid{grid-template-columns:1fr}
+  .how-c{min-height:250px}
+  .how-c .n{font-size:50px}
+
+  /* 성분: 세로로 쌓고 탭하면 펼침 */
+  .ing-row{flex-direction:column;height:auto}
+  .ing{flex:none;height:150px;transition:height .8s var(--ease)}
+  .ing.on{height:340px}
+  .ing .pic{width:48%;right:-4%;bottom:-8%}
+  .ing h3{font-size:30px}
+
+  /* 라인업: 손으로 넘기는 카드 */
+  .lu-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*var(--g));padding:4px var(--g) 10px;scroll-padding:0 var(--g);scrollbar-width:none}
+  .lu-grid::-webkit-scrollbar{display:none}
+  .lu{flex:0 0 80%;scroll-snap-align:start}
+  .lu:hover{transform:none;box-shadow:none}
+
+  .rt{height:260svh}
+  .rt-arc{height:110px}
+  .rt-cols{grid-template-columns:1fr;gap:0}
+  .rt-c{grid-area:1/1;opacity:0;transform:translateX(40px);transition:opacity .6s var(--ease),transform .9s var(--ease)}
+  .rt-c.past{transform:translateX(-40px)}
+  .rt-c.on{opacity:1;transform:none;transition-delay:.12s}
+
+  .jc{flex-basis:76vw}
+  .stats .num{font-size:clamp(34px,10vw,46px)}
+  .stats .lb{font-size:12px}
+  .stat{padding:20px 8px}
+  .rc{width:270px;padding:22px}
+  .row-t{animation-duration:90s}
+
+  .club-grid{grid-template-columns:1fr;gap:30px}
+  .club input{font-size:16px}
+  .ft-top{grid-template-columns:1fr 1fr;gap:34px 16px}
+  .ft-brand{grid-column:1/-1}
+  .ft-brand img{height:68px}
+  .ft-top>div:last-child{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv,.ln>span,.ft-word span{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+<div class="cur" id="cur"></div>
+
+<!-- 인트로: 가운데가 톱니 모양으로 찢어지며 열림 -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="half h1"></div><div class="half h2"></div>
+  <div class="intro-word"><p><span>Tear,</span> <span>Pop,</span> <span><em>Glow</em></span></p></div>
+</div>
+
+<!-- ═════════ HEADER ═════════ -->
+<header class="hd" id="hd">
+  <div class="hd-promo">첫 구매 시 <b>데일리 팩 7포 증정</b> · 30,000원 이상 무료배송</div>
+  <div class="hd-bar">
+    <a href="#top" class="hd-logo" aria-label="YELOVELY 홈"><img src="images/logo-wordmark.png" alt="yelovely"></a>
+    <ul class="nav">
+      <li><a href="#brand">BRAND</a><div class="dd"><a href="#brand">브랜드 스토리<small>STORY</small></a><a href="#inside">한 포의 구성<small>ONE PACK</small></a><a href="#ingredient">성분 투명성<small>TRANSPARENCY</small></a></div></li>
+      <li><a href="#shop">SHOP</a><div class="dd"><a href="#pack">레몬 아우라 데일리 팩<small>MAIN</small></a><a href="#shop">멜팅 레몬 구미<small>GUMMY</small></a><a href="#shop">레몬 워터 파우더<small>POWDER</small></a><a href="#shop">전체 보기<small>ALL</small></a></div></li>
+      <li><a href="#routine">ROUTINE</a><div class="dd"><a href="#how">먹는 방법<small>HOW TO</small></a><a href="#routine">옐로우 아워<small>YELLOW HOUR</small></a><a href="#routine">정기구독<small>SUBSCRIBE</small></a></div></li>
+      <li><a href="#ingredient">INGREDIENT</a></li>
+      <li><a href="#journal">JOURNAL</a><div class="dd"><a href="#journal">레몬 매거진<small>MAGAZINE</small></a><a href="#journal">옐러버 인터뷰<small>YELOVER</small></a><a href="#journal">이벤트<small>EVENT</small></a></div></li>
+      <li><a href="#review">REVIEW</a></li>
+    </ul>
+    <div class="util">
+      <a href="#" class="hide-t" aria-label="검색"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></a>
+      <a href="#" class="hide-t" aria-label="마이페이지"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+      <a href="#" aria-label="장바구니"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="cart-n">0</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기" aria-expanded="false"><i></i><span id="menuTxt">MENU</span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mm" id="mm" aria-label="모바일 메뉴">
+  <div class="mm-in">
+    <ul class="mm-list">
+      <li style="--i:0"><div class="mm-row"><a href="#brand" class="mm-main"><span class="no">01</span><span class="t">Brand</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#brand">브랜드 스토리</a><a href="#inside">한 포의 구성</a><a href="#ingredient">성분 투명성</a></div></div></li>
+      <li style="--i:1"><div class="mm-row"><a href="#shop" class="mm-main"><span class="no">02</span><span class="t">Shop</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#pack">레몬 아우라 데일리 팩</a><a href="#shop">멜팅 레몬 구미</a><a href="#shop">레몬 워터 파우더</a><a href="#shop">전체 보기</a></div></div></li>
+      <li style="--i:2"><div class="mm-row"><a href="#routine" class="mm-main"><span class="no">03</span><span class="t">Routine</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#how">먹는 방법</a><a href="#routine">옐로우 아워</a><a href="#routine">정기구독</a></div></div></li>
+      <li style="--i:3"><div class="mm-row"><a href="#ingredient" class="mm-main"><span class="no">04</span><span class="t">Ingredient</span></a></div></li>
+      <li style="--i:4"><div class="mm-row"><a href="#journal" class="mm-main"><span class="no">05</span><span class="t">Journal</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#journal">레몬 매거진</a><a href="#journal">옐러버 인터뷰</a><a href="#journal">이벤트</a></div></div></li>
+      <li style="--i:5"><div class="mm-row"><a href="#review" class="mm-main"><span class="no">06</span><span class="t">Review</span></a></div></li>
+    </ul>
+    <div class="mm-foot"><a href="#pack" class="promo">첫 구매 데일리 팩 7포 증정 <span>→</span></a><a href="#">검색 <span>↗</span></a><a href="#">마이페이지 <span>↗</span></a></div>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ═════════ 01 HERO ═════════ -->
+<section class="hero" id="brand">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="label rv in"><b>(01)</b> Lemon Daily Inner Beauty</span>
+      <h1><span class="ln"><span>Tear,</span></span><span class="ln"><span><em>Pop,</em></span></span><span class="ln"><span>Glow.</span></span></h1>
+      <p class="lead">매일, 나를 사랑하는 한 포.<br><b>레몬 추출물 콜라겐 정제 1알</b>과 <b>올리브유 캡슐 1알</b>을 하루 한 포에 담았어요. 옆으로 톡 찢어 꺼내 먹는 데일리 이너뷰티.</p>
+      <div class="hero-chips">
+        <span class="chip"><b>1</b>레몬 콜라겐 정제</span>
+        <span class="chip"><b>1</b>올리브유 캡슐</span>
+        <span class="chip">1일 1포</span>
+      </div>
+      <div class="btns">
+        <a href="#pack" class="btn btn-d" data-cur="SHOP">데일리 팩 보기 <span>→</span></a>
+        <a href="#inside" class="btn btn-l">한 포 안에는?</a>
+      </div>
+    </div>
+    <div class="hero-stage" id="heroStage">
+      <div class="hero-disc"></div>
+      <div class="hero-ring" aria-hidden="true"><svg viewBox="0 0 400 400"><defs><path id="hc" d="M200,200 m-188,0 a188,188 0 1,1 376,0 a188,188 0 1,1 -376,0"/></defs><text><textPath href="#hc">ONE PACK A DAY · TEAR · POP · GLOW · LEMON + COLLAGEN + OLIVE OIL · </textPath></text></svg></div>
+      <div class="hero-pouch" id="heroPouch" role="button" tabindex="0" aria-label="파우치 찢어 보기" data-cur="TEAR">
+        <div class="pouch js-pouch" data-bits="hero"></div>
+        <span class="tag-tear" id="tagTear"><i></i><span id="tagTearT">TEAR HERE</span></span>
+      </div>
+      <div class="hero-spec"><b>14</b>PACKS / BOX</div>
+    </div>
+  </div>
+</section>
+
+<div class="mq" aria-hidden="true"><div class="mq-t">
+  <span>Tear, Pop, <em>Glow</em></span><span>One Pack a Day</span><span><em>Lemon</em> + Collagen</span><span>Olive Oil Softgel</span>
+  <span>Tear, Pop, <em>Glow</em></span><span>One Pack a Day</span><span><em>Lemon</em> + Collagen</span><span>Olive Oil Softgel</span>
+</div></div>
+
+<!-- ═════════ 02 INSIDE ONE PACK ═════════ -->
+<section class="inside" id="inside">
+  <div class="in-stick">
+    <div class="in-bg"></div>
+    <div class="in-head">
+      <span class="label rv"><b>(02)</b> Inside One Pack</span>
+      <h2 class="big rv"><span class="ln"><span>One Pack,</span></span><span class="ln"><span><em>Two</em> Bites</span></span></h2>
+      <p class="rv">매트한 반투명 파우치 한 포에 하루치가 다 들어 있어요. 스크롤을 내려 한 포를 열어 보세요.</p>
+      <ul class="in-steps" id="inSteps"><li class="on"><i>1</i>매트 파우치 1포</li><li><i>2</i>옆으로 톡 찢고</li><li><i>3</i>정제 1 + 캡슐 1</li></ul>
+    </div>
+    <div class="in-stage">
+      <div class="in-pouch" id="inPouch">
+        <div class="pouch js-pouch" data-bits="inside"></div>
+        <div class="in-lab r" id="labA" style="left:62%;top:104%"><i class="dot"></i><i class="line"></i><div class="txt"><small>01 · POUCH</small><b>Matte Pouch</b><span>빛을 은은하게 가리는 매트 파우치</span></div></div>
+        <div class="in-lab r" id="labB"><i class="dot"></i><i class="line"></i><div class="txt"><small>02 · TABLET ×1</small><b>Lemon Collagen</b><span>레몬 추출물 + 콜라겐 정제</span></div></div>
+        <div class="in-lab r" id="labC"><i class="dot"></i><i class="line"></i><div class="txt"><small>03 · SOFTGEL ×1</small><b>Olive Oil</b><span>엑스트라버진 올리브유 캡슐</span></div></div>
+      </div>
+    </div>
+    <div class="in-side"><div class="num" id="inNum">0<small>OF 2 BITES</small></div></div>
+  </div>
+</section>
+
+<!-- ═════════ 03 DAILY PACK (멀티팩 + 단상자) ═════════ -->
+<section class="sec" id="pack">
+  <div class="wrap mp-grid">
+    <div>
+      <span class="label rv"><b>(03)</b> Signature · Daily Pack</span>
+      <h2 class="big rv" style="margin:22px 0 16px"><span class="ln"><span>Lemon Aura</span></span><span class="ln"><span><em>Daily Pack</em></span></span></h2>
+      <p class="rv" style="color:var(--brown-70);font-size:16px;max-width:440px">한 포씩 이어진 멀티팩을 단상자에 담았어요. 가방, 파우치, 서랍 어디든 한 포만 톡 떼어 가져가세요.</p>
+      <ul class="mp-specs rv">
+        <li><span>FORMAT</span><span>매트 반투명 파우치 · 1일 1포</span></li>
+        <li><span>INSIDE</span><span>레몬 추출물 콜라겐 정제 1 + 올리브유 연질캡슐 1</span></li>
+        <li><span>BOX</span><span>단상자 1박스 = 14포 (2주분)</span></li>
+        <li><span>TYPE</span><span>데일리 이너뷰티 · 일반식품</span></li>
+      </ul>
+      <div class="mp-price rv"><div><small>2주 · 14포</small><b>[판매가]</b></div><div><small>4주 · 28포</small><b>[판매가]</b></div></div>
+      <div class="btns rv"><a href="#" class="btn btn-d" data-cur="BUY">구매하기 <span>→</span></a><a href="#routine" class="btn btn-l">정기구독 혜택</a></div>
+    </div>
+    <div class="box-stage rv" id="boxStage">
+      <span class="box-cap">14 PACKS · 2 WEEKS</span>
+      <div class="box-strip" id="boxStrip"></div>
+      <div class="box-img js-img" id="boxImg" data-src="images/box.png"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 04 HOW TO ═════════ -->
+<section class="sec how" id="how" data-dark>
+  <div class="wrap">
+    <div class="sec-top">
+      <div><span class="label rv"><b>(04)</b> How to</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Tear, Pop,</span></span><span class="ln"><span><em>Done.</em></span></span></h2></div>
+      <p class="rv" style="color:rgba(255,253,243,.7)">하루 한 포면 끝. 정제 1알과 캡슐 1알을 물과 함께 드세요.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-c c1 rv"><span class="n">01</span>
+        <div class="how-ill"><div class="pouch js-pouch" data-bits="none"></div></div>
+        <h3>옆으로 톡, 찢기</h3><p>파우치 왼쪽 홈을 잡고 옆으로 당기면 손으로 쉽게 찢어져요.</p></div>
+      <div class="how-c c2 rv" style="transition-delay:.1s"><span class="n">02</span>
+        <div class="how-ill" style="height:40%"><div class="bit tab js-tab" style="left:34%;top:24%;transform:rotate(-14deg)"></div><div class="bit cap" style="left:58%;top:58%;--bw:24%;transform:rotate(-24deg)"></div></div>
+        <h3>정제 1 + 캡슐 1</h3><p>레몬 추출물 콜라겐 정제 한 알과 올리브유 연질캡슐 한 알이 들어 있어요.</p></div>
+      <div class="how-c c3 rv" style="transition-delay:.2s"><span class="n">03</span>
+        <div class="glass"><i></i></div>
+        <h3>물과 함께, 매일</h3><p>식사 후 물 한 잔과 함께. 하루 한 포를 권장해요.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 05 INGREDIENT ═════════ -->
+<section class="sec" id="ingredient">
+  <div class="wrap">
+    <div class="sec-top">
+      <div><span class="label rv"><b>(05)</b> Ingredient</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Only <em>Lemon</em>,</span></span><span class="ln"><span>Clearly</span></span></h2></div>
+      <p class="rv">세 가지에만 집중했어요. 원료와 함량은 패키지에 그대로 적어요.</p>
+    </div>
+    <div class="ing-row" id="ingRow">
+      <div class="ing on rv"><div class="pic"><img src="images/ingredient-lemon.jpg" alt="반으로 자른 레몬"></div><div class="ing-in"><span class="no">01 · TABLET</span><h3>Lemon<br>Extract<small>레몬 추출물</small></h3><p class="desc">상큼한 레몬에서 얻은 추출물. 정제 한 알에 레몬의 맛과 향을 담았어요.</p><span class="form">정제</span></div></div>
+      <div class="ing rv" style="transition-delay:.08s"><div class="pic"><img class="js-tabimg" src="images/tablet.png" alt="레몬 콜라겐 정제" onerror="this.style.display='none'"></div><div class="ing-in"><span class="no">02 · TABLET</span><h3>Collagen<small>콜라겐</small></h3><p class="desc">레몬 추출물과 함께 정제로 만들었어요. 매일 챙기기 쉽게 작은 크기로.</p><span class="form">정제</span></div></div>
+      <div class="ing rv" style="transition-delay:.16s"><div class="pic"><span class="bit cap" style="position:absolute;left:50%;top:50%;--bw:44%;margin-top:-16%;opacity:1"></span></div><div class="ing-in"><span class="no">03 · SOFTGEL</span><h3>Olive Oil<small>올리브유</small></h3><p class="desc">엑스트라버진 올리브유를 빛을 가리는 앰버 연질캡슐에 담았어요.</p><span class="form">연질캡슐</span></div></div>
+    </div>
+    <p class="note" style="margin-top:22px">* 본 제품은 일반식품이며, 질병의 예방 및 치료를 위한 의약품이 아닙니다. 원료 및 함량은 최종 처방 기준으로 확정됩니다. 본 화면의 문구는 시안입니다.</p>
+  </div>
+</section>
+
+<!-- ═════════ 06 LINE-UP ═════════ -->
+<section class="sec" id="shop" style="background:var(--ivory)">
+  <div class="wrap">
+    <div class="sec-top">
+      <div><span class="label rv"><b>(06)</b> Line-up</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Find your</span></span><span class="ln"><span><em>Yellow</em></span></span></h2></div>
+      <p class="rv">메인 데일리 팩과 함께 즐기는 레몬 라인업. 하루의 순간에 맞게 골라 보세요.</p>
+    </div>
+    <div class="lu-grid">
+      <a href="#pack" class="lu main rv" data-cur="VIEW">
+        <div class="lu-top"><span class="lu-cat">★ MAIN · DAILY</span><span class="lu-badge">BEST</span></div>
+        <div class="lu-img js-luimg" data-src="images/line-pack.png" data-fallback="images/box.png"><span class="ph">line-pack.png</span></div>
+        <div class="lu-info"><h3>레몬 아우라 데일리 팩</h3><p class="enn">Lemon Aura Daily Pack</p><p class="lu-desc">레몬 추출물 콜라겐 정제 1 + 올리브유 캡슐 1 · 14포</p></div>
+      </a>
+      <a href="#" class="lu rv" style="transition-delay:.08s" data-cur="VIEW">
+        <div class="lu-top"><span class="lu-cat">GUMMY</span><span class="lu-soon">COMING SOON</span></div>
+        <div class="lu-img js-luimg" data-src="images/line-gummy2.png"><span class="ph">line-gummy2.png</span></div>
+        <div class="lu-info"><h3>멜팅 레몬 구미</h3><p class="enn">Melting Lemon Gummy</p><p class="lu-desc">상큼하게 씹는 레몬 구미젤리</p></div>
+      </a>
+      <a href="#" class="lu rv" style="transition-delay:.16s" data-cur="VIEW">
+        <div class="lu-top"><span class="lu-cat">POWDER</span><span class="lu-soon">COMING SOON</span></div>
+        <div class="lu-img js-luimg" data-src="images/line-powder.png"><span class="ph">line-powder.png</span></div>
+        <div class="lu-info"><h3>레몬 워터 파우더</h3><p class="enn">Lemon Water Powder</p><p class="lu-desc">물에 타 마시는 레몬 파우더 파우치</p></div>
+      </a>
+    </div>
+    <p class="note" style="margin-top:22px">* 일반식품은 질병의 예방·치료 및 기능성을 표시하지 않습니다.</p>
+  </div>
+</section>
+
+<!-- ═════════ 07 ROUTINE ═════════ -->
+<section class="rt" id="routine">
+  <div class="rt-stick"><div class="wrap">
+    <div class="sec-top">
+      <div><span class="label rv"><b>(07)</b> Yellow Hour</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Your <em>Yellow</em></span></span><span class="ln"><span>Hour</span></span></h2></div>
+      <p class="rv">하루의 흐름에 맞춰 레몬을 챙겨요. 메인은 하루 한 포, 나머지는 기분 따라.</p>
+    </div>
+    <div class="rt-arc" id="rtArc"><svg viewBox="0 0 1000 260" preserveAspectRatio="none"><path id="rtPath" d="M40,240 C250,10 750,10 960,240"/><circle class="sun" id="rtSun" r="14" cx="40" cy="240"/></svg></div>
+    <div class="rt-cols">
+      <div class="rt-c"><div class="t">08<sup>AM</sup></div><span class="when">아침</span><h4>물 한 잔에 레몬</h4><p>아침 물 한 잔에 파우더 한 포. 상큼하게 하루를 열어요.</p><span class="prd">레몬 워터 파우더</span></div>
+      <div class="rt-c main" style="transition-delay:.1s"><div class="t">01<sup>PM</sup></div><span class="when">점심 식후</span><h4>톡 찢어, 한 포</h4><p>점심 먹고 가방 속 한 포를 톡. 정제 1알과 캡슐 1알을 물과 함께.</p><span class="prd">★ 레몬 아우라 데일리 팩</span></div>
+      <div class="rt-c" style="transition-delay:.2s"><div class="t">04<sup>PM</sup></div><span class="when">오후 간식</span><h4>달콤한 게 당길 때</h4><p>출출한 오후, 설탕 대신 레몬 구미 하나.</p><span class="prd">멜팅 레몬 구미</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═════════ 08 JOURNAL ═════════ -->
+<section class="sec journal" id="journal">
+  <div class="wrap sec-top">
+    <div><span class="label rv"><b>(08)</b> Journal</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Lemon</span></span><span class="ln"><span><em>Journal</em></span></span></h2></div>
+    <p class="rv">레몬과 나를 챙기는 이야기.</p>
+  </div>
+  <div class="j-track">
+    <a href="#" class="jc"><div class="jc-img"><img src="images/journal-01.jpg" alt=""></div><p class="cat">INNER BEAUTY</p><h4>레몬과 콜라겐,<br>함께 먹으면 좋은 이유</h4></a>
+    <a href="#" class="jc"><div class="jc-img"><img src="images/journal-02.jpg" alt=""></div><p class="cat">LEMON RECIPE</p><h4>레몬 한 개로 만드는<br>3분 아침 레몬워터</h4></a>
+    <a href="#" class="jc"><div class="jc-img"><img src="images/journal-03.jpg" alt=""></div><p class="cat">YELOVER</p><h4>나를 챙기는 3040의 데스크 루틴,<br>옐러버 인터뷰</h4></a>
+    <a href="#" class="jc"><div class="jc-img"><img src="images/journal-04.jpg" alt=""></div><p class="cat">STYLE</p><h4>가방 속 한 포,<br>파우치 정리 팁 5가지</h4></a>
+  </div>
+</section>
+
+<!-- ═════════ 09 REVIEW ═════════ -->
+<section class="sec" id="review">
+  <div class="wrap">
+    <div class="sec-top">
+      <div><span class="label rv"><b>(09)</b> Review</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Loved by</span></span><span class="ln"><span><em>Yelovers</em></span></span></h2></div>
+      <p class="rv">* 오픈 전 시안용 예시 후기입니다. 실제 후기로 교체해 주세요.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num" data-count="4.9">0</div><p class="lb">평균 만족도</p></div>
+      <div class="stat"><div class="num" data-count="96" data-suf="%">0</div><p class="lb">재구매 의향</p></div>
+      <div class="stat"><div class="num" data-count="14" data-suf="packs">0</div><p class="lb">한 박스 루틴</p></div>
+    </div>
+  </div>
+  <div class="rows"><div class="row-t" id="rowT"></div></div>
+</section>
+
+<!-- ═════════ 10 CLUB ═════════ -->
+<section class="sec club">
+  <div class="wrap club-grid">
+    <div><span class="label rv"><b>(10)</b> Newsletter</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Join the</span></span><span class="ln"><span><em>Yellow Club</em></span></span></h2><p class="rv">론칭 소식과 첫 구매 혜택을 가장 먼저 받아보세요.</p></div>
+    <div class="rv"><form id="clubForm"><input type="email" placeholder="이메일 주소" required aria-label="이메일 주소"><button type="submit">SUBSCRIBE →</button></form><p class="agree">구독 시 개인정보 수집·이용 및 광고성 정보 수신에 동의합니다.</p></div>
+  </div>
+</section>
+</main>
+
+<footer class="ft" data-dark>
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand"><img src="images/logo-full.png" alt="yelovely"><p>매일, 나를 사랑하는 한 포.<br>레몬 데일리 이너뷰티 옐러블리</p></div>
+      <div><h5>SHOP</h5><ul><li><a href="#pack">Daily Pack</a></li><li><a href="#shop">Lemon Gummy</a></li><li><a href="#shop">Lemon Powder</a></li></ul></div>
+      <div><h5>ABOUT</h5><ul><li><a href="#brand">Brand Story</a></li><li><a href="#ingredient">Ingredient</a></li><li><a href="#journal">Journal</a></li><li><a href="#review">Review</a></li></ul></div>
+      <div><h5>CS CENTER</h5><ul><li>[고객센터 번호]</li><li>평일 10:00 – 17:00 · 점심 12:00 – 13:00</li><li><a href="#">1:1 문의</a></li></ul></div>
+    </div>
+    <div class="ft-info">상호 [회사명] · 대표 [대표자명] · 사업자등록번호 [000-00-00000] · 통신판매업신고 [제0000-지역-0000호]<br>주소 [사업장 주소] · 이메일 [hello@yelovely.co.kr]<br><a href="#">이용약관</a> · <a href="#"><b>개인정보처리방침</b></a> · © 2026 YELOVELY. All rights reserved.</div>
+    <div class="ft-word" id="ftWord" aria-hidden="true">yelovely</div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const isMobile = () => innerWidth <= 760;
+  const calm = () => !fine || isMobile();
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const seg = (p, a, b) => clamp((p - a) / (b - a));
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const easeIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const progOf = el => { const r = el.getBoundingClientRect(), tot = r.height - innerHeight; return tot > 0 ? clamp(-r.top / tot) : 0; };
+  const near = el => { const r = el.getBoundingClientRect(); return r.bottom > -100 && r.top < innerHeight + 100; };
+
+  /* ── 이미지 있으면 사진, 없으면 코드 그림 ── */
+  const probe = (src, ok, no) => { const i = new Image(); i.onload = () => ok(src); i.onerror = no; i.src = src; };
+  let TAB_IMG = null;
+  const tabEls = () => $$('.bit.tab');
+  tabEls().forEach(t => t.classList.add('no-img'));
+  probe('images/tablet.png', src => { TAB_IMG = src; tabEls().forEach(t => { t.classList.remove('no-img'); t.style.setProperty('--tab-img', `url('${src}')`); }); }, () => {});
+
+  /* 파우치: 위(찢겨 나갈 띠) / 아래 두 조각 + 안의 정제·캡슐 */
+  const POUCHES = [];
+  $$('.js-pouch').forEach(p => {
+    const kind = p.dataset.bits;
+    const bits = kind === 'none' ? '' : `<div class="bits"><span class="bit tab ${TAB_IMG ? '' : 'no-img'}"></span><span class="bit cap"></span></div>`;
+    p.innerHTML = `${bits}<div class="pc p-body"><div class="art"></div><div class="art empty"></div></div><div class="pc p-top"><div class="art"></div></div><span class="tear-line"></span><span class="notch"></span>`;
+    p.classList.add('no-img');
+    POUCHES.push(p);
+  });
+  probe('images/pouch-front.png', src => POUCHES.forEach(p => { p.classList.remove('no-img'); p.style.setProperty('--pouch-img', `url('${src}')`); }), () => {});
+  $$('.js-img').forEach(el => {
+    el.classList.add('no-img');
+    probe(el.dataset.src, src => { el.classList.remove('no-img'); el.innerHTML = `<img src="${src}" alt="" style="width:100%;height:auto">`; }, () => {});
+  });
+  probe('images/tablet.png', () => {}, () => { const im = $('.js-tabimg'); if (im) { const d = document.createElement('span'); d.className = 'bit tab no-img'; im.replaceWith(d); } });
+  probe('images/softgel.png', src => $$('.bit.cap').forEach(c => { c.classList.add('has-img'); c.style.setProperty('--cap-img', `url('${src}')`); }), () => {});
+  $$('.js-luimg').forEach(el => {
+    const set = src => { el.innerHTML = `<img src="${src}" alt="">`; };
+    probe(el.dataset.src, set, () => { if (el.dataset.fallback) probe(el.dataset.fallback, set, () => {}); });
+  });
+
+  /* ── 인트로 ── */
+  const intro = $('#intro');
+  const finish = () => { if (intro.classList.contains('out')) return; intro.classList.add('out'); document.body.classList.add('ready'); setTimeout(() => intro.remove(), 1300); };
+  if (reduce) finish(); else { addEventListener('load', () => setTimeout(finish, 900)); setTimeout(finish, 3200); }
+
+  /* ── 헤더 ── */
+  const hd = $('#hd'), darkSecs = $$('[data-dark]'); let lastY = scrollY;
+  const headerUpdate = () => {
+    const y = scrollY;
+    hd.classList.toggle('slim', y > 40);
+    if (!document.body.classList.contains('menu-open')) { if (y > lastY + 2 && y > 500) hd.classList.add('hide'); if (y < lastY - 2) hd.classList.remove('hide'); }
+    lastY = y;
+    const probeY = hd.querySelector('.hd-bar').getBoundingClientRect().bottom - 10;
+    hd.classList.toggle('dark', !document.body.classList.contains('menu-open') && darkSecs.some(s => { const r = s.getBoundingClientRect(); return r.top <= probeY && r.bottom >= probeY; }));
+  };
+
+  /* ── 앵커 ── */
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const id = a.getAttribute('href'); if (id.length < 2) { e.preventDefault(); return; }
+    const t = document.querySelector(id); if (!t) return;
+    e.preventDefault(); closeMenu();
+    scrollTo({ top: id === '#top' ? 0 : t.getBoundingClientRect().top + scrollY - (id === '#brand' ? 0 : 60), behavior: reduce ? 'auto' : 'smooth' });
+  }));
+
+  /* ── 모바일 메뉴 ── */
+  const mm = $('#mm'), mBtn = $('#menuBtn'), mTxt = $('#menuTxt');
+  function openMenu() { mm.classList.add('open'); document.body.classList.add('menu-open'); document.body.style.overflow = 'hidden'; hd.classList.remove('hide', 'dark'); mTxt.textContent = 'CLOSE'; mBtn.setAttribute('aria-expanded', 'true'); }
+  function closeMenu() { if (!mm.classList.contains('open')) return; mm.classList.remove('open'); document.body.classList.remove('menu-open'); document.body.style.overflow = ''; mTxt.textContent = 'MENU'; mBtn.setAttribute('aria-expanded', 'false'); }
+  mBtn.addEventListener('click', () => mm.classList.contains('open') ? closeMenu() : openMenu());
+  $$('.mm-tg').forEach(b => b.addEventListener('click', () => { const li = b.closest('li'), on = !li.classList.contains('sub-open'); $$('.mm-list>li').forEach(x => x.classList.remove('sub-open')); if (on) li.classList.add('sub-open'); }));
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ── 커서 ── */
+  const cur = $('#cur');
+  if (fine) {
+    let cx = 0, cy = 0, x = 0, y = 0;
+    addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; });
+    const lc = () => { x += (cx - x) * .22; y += (cy - y) * .22; cur.style.transform = `translate(${x}px,${y}px)`; requestAnimationFrame(lc); }; lc();
+    document.addEventListener('mouseover', e => { const t = e.target.closest('[data-cur]'); if (t) { cur.textContent = t.dataset.cur; cur.classList.add('big'); } else cur.classList.remove('big'); });
+  }
+
+  /* ── 등장 ── */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  $$('.rv').forEach(el => io.observe(el));
+
+  /* ═════════ 01 히어로: 파우치 찢기 ═════════
+     ① 띠가 오른쪽 끝을 축으로 들리며 찢어짐 → ② 날아가며 사라짐 → ③ 정제 1 + 캡슐 1이 톡 올라옴
+     PC: 마우스를 올리면 / 모바일: 처음 한 번 자동, 이후 탭 */
+  const hp = $('#heroPouch'), hpPouch = hp.querySelector('.pouch'), tagT = $('#tagTearT');
+  tagT.textContent = fine ? 'HOVER TO TEAR' : 'TAP TO TEAR';
+  const hTop = () => hpPouch.querySelector('.p-top'), hBits = () => [...hpPouch.querySelectorAll('.bit')];
+  const HB = [[-.42, -.7, -18], [.46, -.66, -26]];   // 정제, 캡슐 — 파우치 폭 기준 위치
+  let torn = false, tAnim = [];
+  const stopAnims = () => { tAnim.forEach(a => a.cancel()); tAnim = []; };
+  const tear = on => {
+    if (on === torn) return; torn = on; hp.classList.toggle('torn', on);
+    if (on) setTimeout(() => { if (torn) hpPouch.classList.add('is-open'); }, 380); else setTimeout(() => { if (!torn) hpPouch.classList.remove('is-open'); }, 420);
+    const w = hpPouch.offsetWidth, top = hTop(), bits = hBits();
+    stopAnims();
+    if (on) {
+      tAnim.push(top.animate([
+        { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+        { transform: 'translate(0,-2%) rotate(3deg)', offset: .18, opacity: 1 },
+        { transform: 'translate(-4%,-8%) rotate(16deg)', offset: .5, opacity: 1 },
+        { transform: 'translate(-34%,-30%) rotate(38deg)', opacity: 0 }
+      ], { duration: 900, easing: 'cubic-bezier(.3,0,.3,1)', fill: 'forwards' }));
+      bits.forEach((b, i) => {
+        const [x, y, r] = HB[i];
+        tAnim.push(b.animate([
+          { transform: 'translate(0,20%) scale(.7)', opacity: 0 },
+          { transform: 'translate(0,-40%) scale(.9)', opacity: 1, offset: .3 },
+          { transform: `translate(${x * w}px,${y * w}px) rotate(${r}deg) scale(1)`, opacity: 1 }
+        ], { duration: 900, delay: 420 + i * 120, easing: 'cubic-bezier(.34,1.45,.5,1)', fill: 'forwards' }));
+      });
+    } else {
+      bits.forEach((b, i) => tAnim.push(b.animate([{ transform: getComputedStyle(b).transform, opacity: 1 }, { transform: 'translate(0,20%) scale(.7)', opacity: 0 }], { duration: 420, delay: i * 50, easing: 'cubic-bezier(.5,0,.75,0)', fill: 'forwards' })));
+      tAnim.push(top.animate([{ transform: 'translate(0,-14%) rotate(6deg)', opacity: 0 }, { transform: 'translate(0,0) rotate(0deg)', opacity: 1 }], { duration: 600, delay: 380, easing: 'cubic-bezier(.34,1.4,.5,1)', fill: 'forwards' }));
+    }
+  };
+  if (fine) { hp.addEventListener('mouseenter', () => tear(true)); hp.addEventListener('mouseleave', () => tear(false)); }
+  let demo = !fine && !reduce;
+  hp.addEventListener('click', () => { if (fine) return; demo = false; tear(!torn); if (navigator.vibrate) navigator.vibrate(10); });
+  hp.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tear(!torn); } });
+  if (demo) { const go = () => document.body.classList.contains('ready') ? setTimeout(() => { if (demo && scrollY < innerHeight * .5) { tear(true); setTimeout(() => { if (demo) tear(false); demo = false; }, 3600); } }, 1500) : setTimeout(go, 200); go(); }
+
+  /* ═════════ 02 한 포 안 (스크롤) ═════════ */
+  const inside = $('#inside'), inPouch = $('#inPouch'), inP = inPouch.querySelector('.pouch');
+  const inSteps = $$('#inSteps li'), inNum = $('#inNum'), labA = $('#labA'), labB = $('#labB'), labC = $('#labC');
+  const IB_D = [[.92, -.22], [.95, .3]];     // PC: 정제·캡슐 오른쪽으로 (제목과 겹치지 않게)
+  const IB_M = [[-.45, -.72], [.45, -.72]];     // 모바일: 파우치 위로 나란히
+  let IB = IB_D;
+  const placeLabs = () => {
+    IB = isMobile() ? IB_M : IB_D;
+    const w = inP.offsetWidth, h = inP.offsetHeight, ox = w / 2, oy = h * .26;
+    labB.style.left = (ox + IB[0][0] * w + w * .2) + 'px'; labB.style.top = (oy + IB[0][1] * w) + 'px';
+    labC.style.left = (ox + IB[1][0] * w + w * .26) + 'px'; labC.style.top = (oy + IB[1][1] * w) + 'px';
+  };
+  placeLabs(); addEventListener('resize', placeLabs);
+
+  /* ═════════ 03 데일리 팩: 상자에서 멀티팩이 올라옴 ═════════ */
+  const boxStage = $('#boxStage'), boxStrip = $('#boxStrip'), boxImg = $('#boxImg');
+  boxStrip.innerHTML = '<span class="sp"></span>'.repeat(7);   // 고화질 파우치 1포를 7개 이어 붙인 멀티팩
+  if (fine) {
+    boxStage.addEventListener('mousemove', e => { const r = boxStage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; boxImg.style.transform = `rotateY(${px * 14}deg) rotateX(${-py * 10}deg)`; });
+    boxStage.addEventListener('mouseleave', () => boxImg.style.transform = '');
+  }
+
+  /* ── 성분 패널 ── */
+  const ings = $$('#ingRow .ing');
+  ings.forEach(el => {
+    const on = () => ings.forEach(x => x.classList.toggle('on', x === el));
+    if (fine) el.addEventListener('mouseenter', on); el.addEventListener('click', on);
+  });
+
+  /* ── 리뷰 ── */
+  const REV = [
+    ['한 포씩 찢어서 먹으니까 챙기기 편해요. 파우치가 예뻐서 가방에 넣고 다녀요.', '김*은 · 34', 'Daily Pack', ''],
+    ['정제랑 캡슐이 한 번에 들어 있어서 따로 챙길 필요가 없어요.', '이*진 · 38', 'Daily Pack', 'y'],
+    ['매트한 파우치가 고급스러워요. 단상자도 선물하기 좋아요.', '박*연 · 31', 'Daily Pack', ''],
+    ['레몬 향이 은은하게 나서 먹을 때 기분이 좋아요.', '최*아 · 42', 'Daily Pack', 'b'],
+    ['구미 나오면 같이 먹으려고요. 정기구독으로 바꿀 예정!', '정*희 · 36', 'Daily Pack', ''],
+    ['찢는 홈이 있어서 손으로도 쉽게 열려요.', '한*솔 · 33', 'Daily Pack', 'y']
+  ];
+  $('#rowT').innerHTML = REV.map(r => `<div class="rc ${r[3]}"><span class="st">★★★★★</span><p>${r[0]}</p><div class="who"><span>${r[1]}</span><span>${r[2]}</span></div></div>`).join('').repeat(2);
+  const cio = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, to = parseFloat(el.dataset.count), dec = String(to).includes('.') ? 1 : 0, suf = el.dataset.suf || '', t0 = performance.now(), dur = reduce ? 0 : 1600;
+    const tk = t => { const k = dur ? clamp((t - t0) / dur) : 1; el.innerHTML = (to * easeOut(k)).toFixed(dec) + (suf ? `<small>${suf}</small>` : ''); if (k < 1) requestAnimationFrame(tk); };
+    requestAnimationFrame(tk); cio.unobserve(el);
+  }), { threshold: .5 });
+  $$('[data-count]').forEach(el => cio.observe(el));
+
+  $('#clubForm').addEventListener('submit', e => { e.preventDefault(); e.target.querySelector('button').textContent = 'THANK YOU ♡'; e.target.reset(); });
+
+  /* ── 푸터 워드마크 ── */
+  const fw = $('#ftWord');
+  fw.innerHTML = [...fw.textContent].map((c, i) => `<span style="transition-delay:${i * .05}s">${c}</span>`).join('');
+  const fit = () => { fw.style.fontSize = '100px'; const r = document.createRange(); r.selectNodeContents(fw); const w = r.getBoundingClientRect().width; if (w) fw.style.fontSize = (100 * fw.clientWidth * .95 / w) + 'px'; };
+  fit(); addEventListener('resize', fit); addEventListener('load', fit); if (document.fonts) document.fonts.ready.then(fit);
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fit(); fw.classList.add('in'); } }), { threshold: .2 }).observe(fw);
+
+  /* ═════════ 메인 루프 ═════════ */
+  const prog = $('#prog'), heroRing = $('.hero-ring'), rtArc = $('#rtArc'), rtPath = $('#rtPath'), rtSun = $('#rtSun'), how3 = $('.how-c.c3');
+  let t = 0, inIdx = -1; const rtCs = $$('.rt-c'); let rtK = .08, rtIdx = -1;
+  const frame = () => {
+    t += 1 / 60;
+    const y = scrollY;
+    prog.style.transform = `scaleX(${clamp(y / (document.documentElement.scrollHeight - innerHeight))})`;
+    headerUpdate();
+
+    if (!calm() && y < innerHeight) heroRing.style.transform = `rotate(${t * 5}deg)`;
+
+    /* 02 한 포 안 */
+    if (near(inside)) {
+      const p = reduce ? 1 : progOf(inside);
+      const w = inP.offsetWidth, h = inP.offsetHeight;
+      const a = easeIO(seg(p, .12, .38));                       // 찢기
+      const top = inP.querySelector('.p-top');
+      top.style.transform = `translate(${-a * 30}%,${-a * 26}%) rotate(${a * 34}deg)`;
+      top.style.opacity = 1 - seg(p, .3, .42);
+      inP.querySelector('.p-body').style.transform = `translateY(${a * 6}%)`;
+      let out = 0;
+      [...inP.querySelectorAll('.bit')].forEach((b, i) => {
+        const k = easeOut(seg(p, .36 + i * .08, .62 + i * .08));
+        const tx = IB[i][0] * w * k, ty = lerp(0, -h * .1, Math.sin(k * Math.PI)) + IB[i][1] * w * k - (h * .02);
+        b.style.opacity = k > .01 ? 1 : 0;
+        b.style.transform = `translate(${tx}px,${ty + (1 - k) * h * .1}px) rotate(${(i ? -24 : -12) * k}deg) scale(${lerp(.6, 1.5, k)})`;
+        if (k > .95) out++;
+      });
+      inP.classList.toggle('is-open', p > .37);
+      labA.classList.toggle('on', p > .05);
+      labB.classList.toggle('on', p > .62);
+      labC.classList.toggle('on', p > .7);
+      inNum.innerHTML = out + '<small>OF 2 BITES</small>';
+      const idx = p < .14 ? 0 : p < .4 ? 1 : 2;
+      if (idx !== inIdx) { inIdx = idx; inSteps.forEach((li, k) => li.classList.toggle('on', k <= idx)); }
+    }
+
+    /* 03 상자에서 멀티팩이 올라옴 */
+    if (near(boxStage)) {
+      const r = boxStage.getBoundingClientRect(), k = easeOut(clamp(1 - (r.top + r.height * .3) / innerHeight));
+      boxStrip.style.transform = `translateX(${lerp(14, -8, k)}%) translateY(${lerp(60, 0, k)}%) rotate(${lerp(-2, -6, k)}deg)`;
+    }
+
+    /* 07 하루의 해 */
+    if (near(rtArc)) {
+      // 3구간: 각 시간대에 잠시 머물렀다가(정지) 다음으로 부드럽게 이동
+      const p = progOf($('#routine')), f = clamp(p * 3, 0, 2.999), i = Math.floor(f), local = f - i;
+      const stops = [.08, .5, .92];
+      const move = i < 2 ? easeIO(seg(local, .55, 1)) : 0;
+      const target = lerp(stops[i], stops[Math.min(i + 1, 2)], move);
+      rtK += (target - rtK) * .12;                               // 프레임마다 살짝 따라가며 부드럽게
+      const ci = move > .5 ? i + 1 : i;
+      if (ci !== rtIdx) { rtIdx = ci; rtCs.forEach((c, n) => { c.classList.toggle('on', n === ci); c.classList.toggle('past', n < ci); }); }
+      const k = (rtK - .08) / .84;
+      const L = rtPath.getTotalLength(), pt = rtPath.getPointAtLength(L * rtK);
+      rtSun.setAttribute('cx', pt.x); rtSun.setAttribute('cy', pt.y);
+    }
+    if (how3 && how3.classList.contains('in')) how3.classList.add('in');
+
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
