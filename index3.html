@@ -241,7 +241,7 @@ ul{list-style:none}
 .mq-t{display:flex;width:max-content;animation:mq 34s linear infinite}
 .mq span{font-family:var(--en);font-weight:300;font-size:clamp(28px,4vw,64px);line-height:1;white-space:nowrap;padding-right:.6em;display:inline-flex;align-items:center;gap:.6em}
 .mq span em{font-style:italic}
-.mq span::after{content:"";width:.9em;height:.36em;border:1px solid var(--lemon);border-radius:2px;border-top-style:dashed;flex:none}
+.mq span::after{content:"";width:.74em;height:.85em;flex:none;background:var(--lemon);-webkit-mask:url(images/logo-symbol.png) center/contain no-repeat;mask:url(images/logo-symbol.png) center/contain no-repeat}
 @keyframes mq{to{transform:translateX(-50%)}}
 
 /* ───────── 02 INSIDE ONE PACK (스크롤 고정) ───────── */
@@ -366,42 +366,17 @@ ul{list-style:none}
 .lu-info .enn{font-family:var(--en);font-size:13px;color:var(--brown-50)}
 .lu-info .lu-desc{margin-top:12px;padding-top:12px;border-top:1px solid var(--brown-08);font-size:14px;color:var(--brown-70)}
 .lu.main{background:var(--brown);color:var(--cream);border:0}
-.lu.main .lu-img img[src*="box-closed"]{width:100%;height:100%;object-fit:cover;filter:none}
-.lu.main:hover .lu-img img[src*="box-closed"]{transform:scale(1.05)}
 .lu.main .lu-img{background:radial-gradient(60% 60% at 50% 50%,rgba(255,240,153,.55),rgba(255,240,153,.08) 70%),#463c36}
 .lu.main .enn{color:rgba(255,253,243,.5)}
 .lu.main .lu-info .lu-desc{border-color:rgba(255,240,153,.15);color:rgba(255,253,243,.8)}
 .lu.main .lu-cat{color:var(--lemon)}
 .lu.main .lu-badge{background:var(--lemon);color:var(--brown)}
-/* 라인업 인터랙션: 커서 광택 + 카드별 장난 */
-.lu-img{transform-style:preserve-3d;transition:transform .5s var(--ease)}
-.lu-img::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .5s;
-  background:radial-gradient(38% 38% at var(--mx,50%) var(--my,30%),rgba(255,255,255,.55),rgba(255,255,255,0) 70%);mix-blend-mode:soft-light;z-index:5}
-.lu:hover .lu-img::after{opacity:1}
-.lu .lu-img .stack{position:relative;width:76%;aspect-ratio:1/1;z-index:2;filter:drop-shadow(0 20px 22px rgba(58,49,44,.2))}
-.lu .lu-img .stack img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:none}
-.lu:hover .lu-img .stack img{transform:none}
-.lu-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
-/* 메인: 상자 열기 */
-.lu.main .lu-img .box2{position:absolute;inset:0}
-.lu.main .lu-img .box2 img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:none;transition:opacity .7s var(--ease),transform 1.2s var(--ease)}
-.lu.main .lu-img .box2 .alt{opacity:0}
-.lu.main .lu-img.play .box2 .alt{opacity:1}
-.lu.main .lu-img.play .box2 img{transform:scale(1.04)}
-/* 구미: 뚜껑 퐁 + 젤리 점프 */
-.lu .gj .lid{clip-path:inset(0 0 55.6% 0);transform-origin:50% 44%}
-.lu .gj .jar{clip-path:inset(44.2% 0 0 0)}
-.gm{position:absolute;left:50%;top:44%;width:10%;aspect-ratio:1.3/1;margin:-3.8% 0 0 -5%;border-radius:50%;z-index:1;opacity:0;pointer-events:none;
-  background:radial-gradient(circle at 34% 30%,#fffef0 0%,#fbef9e 38%,#f0d45a 78%,#e2bd3f 100%);box-shadow:inset 0 -2px 4px rgba(176,138,46,.35),0 6px 8px -4px rgba(58,49,44,.3)}
-.gj .lid{z-index:3}.gj .jar{z-index:0}
-/* 아쿠아: 물 위에 뜬 파우치 */
-.aq{will-change:transform}
-.lu-img.wet .aq{animation:bob 3.2s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3.5%) rotate(-1.5deg)}}
-.lu-hint{position:absolute;right:12px;bottom:12px;z-index:6;font-family:var(--en);font-size:9.5px;letter-spacing:.2em;color:var(--brown-50);background:rgba(255,253,243,.6);padding:5px 9px;border-radius:99px;transition:opacity .4s}
-.lu.main .lu-hint{color:var(--brown);background:rgba(255,240,153,.8)}
-.lu-img.play .lu-hint,.lu-img.wet .lu-hint{opacity:0}
-@media (hover:hover) and (pointer:fine){.lu-hint{display:none}}
+.lu.main .lu-img img{width:100%;height:100%;object-fit:cover;filter:none}
+/* 커서를 얹으면 살짝 진동 */
+.lu:hover .lu-img img{transform:none;animation:buzz .5s cubic-bezier(.36,.07,.19,.97) both}
+.lu.main:hover .lu-img img{animation-name:buzzC}
+@keyframes buzz{10%,90%{transform:translateX(-1px) rotate(-.6deg)}20%,80%{transform:translateX(2px) rotate(.8deg)}30%,50%,70%{transform:translateX(-3px) rotate(-1.2deg)}40%,60%{transform:translateX(3px) rotate(1.2deg)}}
+@keyframes buzzC{0%,100%{transform:scale(1.03)}10%,90%{transform:scale(1.03) translateX(-1px)}20%,80%{transform:scale(1.03) translateX(2px)}30%,50%,70%{transform:scale(1.03) translateX(-3px)}40%,60%{transform:scale(1.03) translateX(3px)}}
 
 /* ───────── 07 ROUTINE (하루의 해) ───────── */
 .rt{background:var(--ivory);height:240vh;height:240svh;position:relative}
@@ -762,17 +737,17 @@ ul{list-style:none}
     <div class="lu-grid">
       <a href="#pack" class="lu main rv" data-cur="VIEW">
         <div class="lu-top"><span class="lu-cat">★ MAIN · DAILY</span><span class="lu-badge">BEST</span></div>
-        <div class="lu-img" data-fx="box" data-cur="OPEN"><div class="box2"><img src="images/box-closed.jpg" alt="데일리 팩 단상자"><img class="alt" src="images/box-open.jpg" alt=""></div><span class="lu-hint">OPEN ME</span></div>
+        <div class="lu-img"><img src="images/box-closed.jpg" alt="데일리 팩 단상자"></div>
         <div class="lu-info"><h3>레몬 아우라 데일리 팩</h3><p class="enn">Lemon Aura Daily Pack</p><p class="lu-desc">레몬 추출물 콜라겐 정제 1 + 올리브유 캡슐 1 · 14포</p></div>
       </a>
       <a href="#" class="lu rv" style="transition-delay:.08s" data-cur="VIEW">
         <div class="lu-top"><span class="lu-cat">GUMMY</span><span class="lu-soon">COMING SOON</span></div>
-        <div class="lu-img" data-fx="jelly" data-cur="POP!"><div class="stack gj"><img class="jar" src="images/line-gummy.png" alt="멜팅 레몬 구미 병"><img class="lid" src="images/line-gummy.png" alt=""></div><span class="lu-hint">POP!</span></div>
+        <div class="lu-img"><img src="images/line-gummy.png" alt="멜팅 레몬 구미 병"></div>
         <div class="lu-info"><h3>멜팅 레몬 구미</h3><p class="enn">Melting Lemon Gummy</p><p class="lu-desc">비건 콜라겐 + 레몬 과즙 + 히알루론산</p></div>
       </a>
       <a href="#" class="lu rv" style="transition-delay:.16s" data-cur="VIEW">
         <div class="lu-top"><span class="lu-cat">WATER ENHANCER</span><span class="lu-soon">COMING SOON</span></div>
-        <div class="lu-img" data-fx="ripple" data-cur="SPLASH"><canvas class="lu-fx"></canvas><div class="stack aq"><img src="images/line-aqua2.png" alt="아쿠아 레몬 파우치"></div><span class="lu-hint">DROP IN</span></div>
+        <div class="lu-img"><img src="images/line-aqua2.png" alt="아쿠아 레몬 파우치"></div>
         <div class="lu-info"><h3>아쿠아 레몬</h3><p class="enn">Aqua Lemon</p><p class="lu-desc">전해질 + 레몬 과즙분말 + L-테아닌</p></div>
       </a>
     </div>
@@ -891,70 +866,6 @@ ul{list-style:none}
     const set = src => { el.innerHTML = `<img src="${src}" alt="">`; };
     probe(el.dataset.src, set, () => { if (el.dataset.fallback) probe(el.dataset.fallback, set, () => {}); });
   });
-
-  /* ── 라인업 인터랙션 ── */
-  $$('.lu-img[data-fx]').forEach(el => {
-    const fx = el.dataset.fx, card = el.closest('.lu');
-    // 커서 광택 + 살짝 기울기 (PC)
-    if (fine && !reduce) {
-      el.addEventListener('pointermove', e => {
-        const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        el.style.setProperty('--mx', x * 100 + '%'); el.style.setProperty('--my', y * 100 + '%');
-        el.style.transform = `perspective(900px) rotateY(${(x - .5) * 7}deg) rotateX(${(.5 - y) * 7}deg)`;
-      });
-      el.addEventListener('pointerleave', () => { el.style.transform = ''; });
-    }
-    let busy = false;
-    const play = () => {
-      if (reduce) { if (fx === 'box') el.classList.toggle('play'); return; }
-      if (fx === 'box') { el.classList.add('play'); return; }
-      if (fx === 'jelly') {
-        if (busy) return; busy = true;
-        const st = $('.gj', el), lid = $('.lid', el);
-        lid.animate([{ transform: 'none', easing: 'cubic-bezier(.2,1.4,.4,1)' }, { transform: 'translateY(-9%) rotate(-7deg)', offset: .16 }, { transform: 'translateY(-9%) rotate(-7deg)', offset: .78, easing: 'cubic-bezier(.5,0,.7,.4)' }, { transform: 'translateY(.8%)', offset: .88, easing: 'ease-out' }, { transform: 'none' }],
-          { duration: 1900 });
-        st.animate([{ transform: 'none' }, { transform: 'scale(1.06,.92)', offset: .12 }, { transform: 'scale(.97,1.04)', offset: .26 }, { transform: 'none', offset: .4 }, { transform: 'none', offset: .84 }, { transform: 'scale(1.04,.95)', offset: .88 }, { transform: 'none' }],
-          { duration: 1900, easing: 'ease-out' });
-        for (let i = 0; i < 5; i++) {
-          const g = document.createElement('span'); g.className = 'gm'; st.appendChild(g);
-          const dx = (i - 2) * 120 + (Math.random() * 60 - 30), up = -(360 + Math.random() * 170), rot = (Math.random() * 2 - 1) * 200;
-          g.animate([
-            { opacity: 0, transform: 'translate(0,40%) scale(.6)' },
-            { opacity: 1, transform: `translate(${dx * .55}%,${up * .8}%) rotate(${rot * .5}deg) scale(1)`, offset: .35, easing: 'cubic-bezier(.2,.6,.4,1)' },
-            { opacity: 1, transform: `translate(${dx}%,${up}%) rotate(${rot * .7}deg) scale(1.05,.95)`, offset: .5, easing: 'cubic-bezier(.5,0,.8,.5)' },
-            { opacity: 1, transform: `translate(${dx * .3}%,0) rotate(${rot}deg) scale(.9)`, offset: .88 },
-            { opacity: 0, transform: `translate(0,50%) rotate(${rot}deg) scale(.5)` }
-          ], { duration: 1000, delay: 280 + i * 55, fill: 'both' }).onfinish = () => g.remove();
-        }
-        setTimeout(() => busy = false, 2000); return;
-      }
-      if (fx === 'ripple') el.classList.add('wet');
-    };
-    const stop = () => { if (fx === 'box' || fx === 'ripple') el.classList.remove('play', 'wet'); };
-    if (fine) { el.addEventListener('mouseenter', play); el.addEventListener('mouseleave', stop); }
-    el.addEventListener('click', e => {
-      e.preventDefault(); e.stopPropagation();
-      if (!fine && (fx === 'box') ) { el.classList.toggle('play'); return; }
-      if (!fine && fx === 'ripple') { el.classList.add('wet'); clearTimeout(el._t); el._t = setTimeout(stop, 4000); }
-      if (fx === 'jelly' || fine) play();
-      if (fx === 'ripple') ripple(el, e.clientX, e.clientY, 3);
-    });
-    // 아쿠아: 커서가 지나간 자리에 물결
-    if (fx === 'ripple') {
-      const cv = $('.lu-fx', el), cx = cv.getContext('2d'); let rings = [], raf = 0, last = 0;
-      const size = () => { const r = el.getBoundingClientRect(), d = Math.min(devicePixelRatio, 2); cv.width = r.width * d; cv.height = r.height * d; cx.setTransform(d, 0, 0, d, 0, 0); };
-      size(); addEventListener('resize', size);
-      const tick = () => {
-        const r = el.getBoundingClientRect(); cx.clearRect(0, 0, r.width, r.height);
-        rings = rings.filter(o => (o.t += 1 / 60) < o.life);
-        rings.forEach(o => { const k = o.t / o.life; cx.beginPath(); cx.ellipse(o.x, o.y, o.r0 + k * o.r1, (o.r0 + k * o.r1) * .42, 0, 0, Math.PI * 2); cx.strokeStyle = `rgba(206,166,40,${(1 - k) * .7})`; cx.lineWidth = 3 * (1 - k) + .6; cx.stroke(); cx.strokeStyle = `rgba(255,255,255,${(1 - k) * .9})`; cx.lineWidth = 1.2 * (1 - k) + .3; cx.stroke(); });
-        raf = rings.length ? requestAnimationFrame(tick) : 0;
-      };
-      el._ripple = (x, y, n) => { const r = el.getBoundingClientRect(); for (let i = 0; i < n; i++) rings.push({ x: x - r.left, y: y - r.top, r0: 4, r1: 70 + i * 34, t: -i * .16, life: 1.6 + i * .2 }); if (!raf) raf = requestAnimationFrame(tick); };
-      if (fine && !reduce) el.addEventListener('pointermove', e => { const now = performance.now(); if (now - last > 160) { last = now; el._ripple(e.clientX, e.clientY, 1); } });
-    }
-  });
-  function ripple(el, x, y, n) { if (!reduce && el._ripple) el._ripple(x, y, n); }
 
   /* ── 인트로 ── */
   const intro = $('#intro');
