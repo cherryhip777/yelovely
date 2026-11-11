@@ -296,7 +296,10 @@ ul{list-style:none}
 .box-img.no-img::before{content:"yelovely\A DAILY PACK · 14";white-space:pre;text-align:center;font-family:var(--en);font-size:clamp(14px,1.8vw,26px);line-height:1.6;color:var(--brown)}
 .box-img.no-img::after{content:"";position:absolute;left:0;right:0;top:0;height:16%;background:var(--lemon);border-radius:8px 8px 0 0}
 [hidden]{display:none!important}
-.box-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.box-scene{position:absolute;inset:0;will-change:transform;cursor:pointer}
+.box-scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.box-scene .empty{opacity:0;transition:opacity .7s var(--ease)}
+.box-stage.open .box-scene .empty{opacity:1}
 .box-cap{position:absolute;left:24px;top:22px;background:rgba(255,253,243,.7);padding:6px 10px;border-radius:99px;font-family:var(--en);font-size:11px;letter-spacing:.2em;z-index:3}
 
 /* ───────── 04 HOW TO ───────── */
@@ -661,7 +664,7 @@ ul{list-style:none}
     </div>
     <div class="box-stage rv" id="boxStage">
       <span class="box-cap">14 PACKS · 2 WEEKS</span>
-      <img class="box-scene" id="boxScene" src="images/pouch-scene.jpg" alt="레몬색 바닥 위 투명 파우치 · 정제 1 + 연질캡슐 1">
+      <div class="box-scene" id="boxScene"><img src="images/pouch-scene.jpg" alt="레몬색 바닥 위 투명 파우치 · 정제 1 + 연질캡슐 1"><img class="empty" src="images/pouch-scene-empty.jpg" alt=""></div>
       <div class="box-strip" id="boxStrip" hidden></div>
       <div class="box-img" id="boxImg" hidden></div>
     </div>
@@ -947,7 +950,9 @@ ul{list-style:none}
   /* ═════════ 03 데일리 팩: 상자에서 멀티팩이 올라옴 ═════════ */
   const boxStage = $('#boxStage'), boxStrip = $('#boxStrip'), boxImg = $('#boxImg'), boxScene = $('#boxScene');
   boxStrip.innerHTML = '<span class="sp"></span>'.repeat(7);   // 고화질 파우치 1포를 7개 이어 붙인 멀티팩
-  if (fine) {
+  if (fine) { boxStage.addEventListener('mouseenter', () => boxStage.classList.add('open')); boxStage.addEventListener('mouseleave', () => boxStage.classList.remove('open')); }
+  else boxStage.addEventListener('click', () => boxStage.classList.toggle('open'));
+  if (false) {
     boxStage.addEventListener('mousemove', e => { const r = boxStage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; boxImg.style.transform = `rotateY(${px * 14}deg) rotateX(${-py * 10}deg)`; });
     boxStage.addEventListener('mouseleave', () => boxImg.style.transform = '');
   }
