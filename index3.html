@@ -263,9 +263,9 @@ ul{list-style:none}
 .in-lab.l{flex-direction:row-reverse;translate:-100% -50%}
 .in-lab.r{translate:0 -50%}
 .in-lab .dot{width:9px;height:9px;border-radius:50%;background:var(--brown);box-shadow:0 0 0 4px rgba(58,49,44,.12);scale:0;transition:scale .5s var(--ease)}
-.in-lab .line{width:clamp(30px,5vw,90px);height:1px;background:var(--brown);transform:scaleX(0);transition:transform .7s var(--ease) .1s}
+.in-lab .line{width:clamp(28px,4vw,72px);flex:none;height:1px;background:var(--brown);transform:scaleX(0);transition:transform .7s var(--ease) .1s}
 .in-lab.r .line{transform-origin:left}.in-lab.l .line{transform-origin:right}
-.in-lab .txt{padding:0 12px;opacity:0;translate:0 8px;transition:opacity .6s .3s,translate .8s var(--ease) .3s}
+.in-lab .txt{padding:0 12px;white-space:normal;width:max-content;max-width:clamp(150px,15vw,230px);opacity:0;translate:0 8px;transition:opacity .6s .3s,translate .8s var(--ease) .3s}
 .in-lab.l .txt{text-align:right}
 .in-lab small{display:block;font-family:var(--en);font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:4px}
 .in-lab b{display:block;font-family:var(--en);font-weight:400;font-size:clamp(15px,1.3vw,20px)}
@@ -750,7 +750,7 @@ ul{list-style:none}
     <div class="in-stage">
       <div class="in-pouch" id="inPouch">
         <div class="pouch js-pouch" data-bits="inside"></div>
-        <div class="in-lab r" id="labA" style="left:62%;top:104%"><i class="dot"></i><i class="line"></i><div class="txt"><small>01 · POUCH</small><b>Matte Pouch</b><span>빛을 은은하게 가리는 매트 파우치</span></div></div>
+        <div class="in-lab r" id="labA" style="left:78%;top:92%"><i class="dot"></i><i class="line"></i><div class="txt"><small>01 · POUCH</small><b>Matte Pouch</b><span>빛을 은은하게 가리는 매트 파우치</span></div></div>
         <div class="in-lab r" id="labB"><i class="dot"></i><i class="line"></i><div class="txt"><small>02 · TABLET ×1</small><b>Lemon Collagen</b><span>레몬 추출물 + 콜라겐 정제</span></div></div>
         <div class="in-lab r" id="labC"><i class="dot"></i><i class="line"></i><div class="txt"><small>03 · SOFTGEL ×1</small><b>Olive Oil</b><span>엑스트라버진 올리브유 캡슐</span></div></div>
       </div>
@@ -1099,7 +1099,7 @@ ul{list-style:none}
   /* ═════════ 02 한 포 안 (스크롤) ═════════ */
   const inside = $('#inside'), inPouch = $('#inPouch'), inP = inPouch.querySelector('.pouch');
   const inSteps = $$('#inSteps li'), inNum = $('#inNum'), labA = $('#labA'), labB = $('#labB'), labC = $('#labC');
-  const IB_D = [[.92, -.22], [.95, .3]];     // PC: 정제·캡슐 오른쪽으로 (제목과 겹치지 않게)
+  const IB_D = [[.84, -.22], [.88, .3]];     // PC: 정제·캡슐 오른쪽으로 (제목과 겹치지 않게)
   const IB_M = [[-.45, -.72], [.45, -.72]];     // 모바일: 파우치 위로 나란히
   let IB = IB_D;
   const placeLabs = () => {
