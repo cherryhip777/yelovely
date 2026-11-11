@@ -412,34 +412,45 @@ html.lenis,html.lenis body{height:auto}
 .co-lab.r{left:70.6%;top:41.25%;translate:0 calc(-100% - 12px)}
 .co .m{display:none}
 
-/* 14일 리추얼: 하루 한 포씩 떼어 가기 */
+/* 찢어서 확인하는 쿠폰 */
 .ritual{background:var(--cream)}
-.rit{display:grid;grid-template-columns:1fr 340px;gap:clamp(24px,4vw,60px);align-items:center}
-.rit-tray{background:linear-gradient(180deg,#43362e,#382d27);border-radius:28px;padding:clamp(16px,2vw,28px);display:grid;gap:clamp(10px,1.4vw,18px)}
-.rit-row{display:grid;grid-template-columns:repeat(7,1fr);gap:clamp(6px,1vw,14px)}
-.rit-row .wk{grid-column:1/-1;font-family:var(--en);font-size:11px;letter-spacing:.22em;color:rgba(255,240,153,.6)}
-.rit-p{position:relative;border:0;background:none;padding:0;cursor:pointer;aspect-ratio:991/1081}
-.rit-p .slot{position:absolute;inset:6%;border-radius:8px;border:1px dashed rgba(255,240,153,.22)}
-.rit-p .ck{position:absolute;left:50%;top:44%;width:42%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:var(--lemon);display:grid;place-items:center;scale:0;transition:scale .5s cubic-bezier(.3,1.6,.5,1)}
-.rit-p .ck::after{content:"";width:34%;height:18%;border-left:2px solid var(--brown);border-bottom:2px solid var(--brown);rotate:-45deg;translate:0 -20%}
-.rit-p img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .35s var(--ease)}
-.rit-p:hover img{transform:translateY(-6%)}
-.rit-p .d{position:absolute;left:0;right:0;bottom:-18px;text-align:center;font-family:var(--en);font-size:10px;letter-spacing:.12em;color:rgba(255,253,243,.45)}
-.rit-p.took .ck{scale:1}
-.rit-p.took .d{color:var(--lemon)}
-.rit-row{padding-bottom:18px}
-.rit-side .cnt{font-family:var(--en);font-weight:300;font-size:clamp(64px,7vw,110px);line-height:1}
-.rit-side .cnt small{font-size:.32em;color:var(--brown-50);margin-left:6px}
-.rit-bar{height:4px;border-radius:9px;background:var(--brown-08);margin:18px 0 16px;overflow:hidden}
-.rit-bar i{display:block;height:100%;width:0;background:var(--brown);transition:width .6s var(--ease)}
-.rit-side p{font-size:15px;color:var(--brown-70)}
-.rit-done{margin-top:22px;display:none}
-.rit.complete .rit-done{display:block;animation:ritIn .8s var(--ease)}
-.rit.complete .rit-msg{display:none}
-.rit-done h4{font-size:22px;font-weight:700;margin-bottom:6px}
-.rit-done .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.rit-reset{border:0;background:none;font-size:13px;color:var(--brown-50);text-decoration:underline;cursor:pointer;margin-top:12px}
-@keyframes ritIn{from{opacity:0;transform:translateY(10px)}}
+.tg{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,4vw,70px);align-items:center}
+.tg-stage{position:relative;aspect-ratio:1/1;border-radius:40px;background:radial-gradient(70% 60% at 50% 55%,#fffbe0 0%,var(--lemon) 60%,#f6e27c 100%);display:grid;place-items:center;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.tg-stage:active{cursor:grabbing}
+.tg-pouch{position:relative;width:min(62%,400px);aspect-ratio:991/1081;margin-top:8%}
+.tg-pouch img{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;-webkit-user-drag:none}
+.tg-body{clip-path:inset(var(--tear) 0 0 0);z-index:3;filter:drop-shadow(0 26px 30px rgba(58,49,44,.18))}
+.tg-body.e{opacity:0;transition:opacity .35s}
+.tg.open .tg-body.e{opacity:1}
+.tg.open .tg-body.f{opacity:0;transition:opacity .35s}
+.tg-top{z-index:4}
+.tg-flap{z-index:5;will-change:transform}
+.tg-guide{position:absolute;left:4%;right:4%;top:var(--tear);border-top:1.5px dashed rgba(58,49,44,.35);z-index:6;transition:opacity .3s}
+.tg-hint{position:absolute;right:-2%;top:var(--tear);translate:0 -50%;z-index:7;display:flex;align-items:center;gap:8px;font-family:var(--en);font-size:11px;letter-spacing:.18em;color:var(--brown);pointer-events:none;transition:opacity .3s}
+.tg-hint i{width:30px;height:30px;border-radius:50%;background:var(--brown);box-shadow:0 0 0 0 rgba(58,49,44,.35);animation:tgPing 1.8s ease-out infinite}
+.tg-hint b{font-weight:400;white-space:nowrap;animation:tgNudge 1.8s var(--ease) infinite}
+@keyframes tgPing{0%{box-shadow:0 0 0 0 rgba(58,49,44,.35)}100%{box-shadow:0 0 0 14px rgba(58,49,44,0)}}
+@keyframes tgNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+.tg-hint{flex-direction:row-reverse}
+.tg.pulling .tg-hint,.tg.open .tg-hint,.tg.open .tg-guide{opacity:0}
+.tg-pouch .bit{--bw:19%;z-index:4}
+.tg-cp{position:absolute;left:9%;right:9%;top:calc(var(--tear) + 4%);z-index:2;background:var(--cream);border-radius:14px;padding:7% 7% 6%;text-align:center;color:var(--brown);box-shadow:0 20px 40px -18px rgba(58,49,44,.45);opacity:0;
+  -webkit-mask:radial-gradient(circle at 0 62%,transparent 9px,#000 10px) left/51% 100% no-repeat,radial-gradient(circle at 100% 62%,transparent 9px,#000 10px) right/51% 100% no-repeat;
+  mask:radial-gradient(circle at 0 62%,transparent 9px,#000 10px) left/51% 100% no-repeat,radial-gradient(circle at 100% 62%,transparent 9px,#000 10px) right/51% 100% no-repeat}
+.tg-cp small{display:block;font-family:var(--en);font-size:10px;letter-spacing:.24em;color:var(--gold)}
+.tg-cp strong{display:block;font-size:clamp(17px,1.7vw,24px);font-weight:700;letter-spacing:-.02em;margin:8px 0 4px;line-height:1.3}
+.tg-cp .cut{border-top:1.5px dashed var(--brown-15);margin:12px 0 10px}
+.tg-cp .msg{font-size:12.5px;color:var(--brown-70)}
+.tg-side .lead{font-size:16px;color:var(--brown-70);max-width:400px}
+.tg-steps{margin:26px 0 30px;display:grid;gap:10px;counter-reset:s}
+.tg-steps li{display:flex;gap:12px;align-items:center;font-size:14.5px;color:var(--brown-70)}
+.tg-steps li::before{counter-increment:s;content:counter(s);width:24px;height:24px;border-radius:50%;border:1px solid var(--brown-15);display:grid;place-items:center;font-family:var(--en);font-size:11px;flex:none}
+.tg-after{display:none}
+.tg.open .tg-after{display:flex;gap:10px;flex-wrap:wrap;align-items:center;animation:tgIn .7s var(--ease) .9s both}
+.tg.open .tg-before{display:none}
+.tg-again{border:0;background:none;font-size:13px;color:var(--brown-50);text-decoration:underline;cursor:pointer;padding:8px}
+.tg-before{font-family:var(--en);font-size:11px;letter-spacing:.2em;color:var(--brown-50)}
+@keyframes tgIn{from{opacity:0;transform:translateY(10px)}}
 
 /* ───────── 06 LINE-UP (3종) ───────── */
 .lu-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:clamp(12px,1.6vw,22px)}
@@ -609,11 +620,13 @@ html.lenis,html.lenis body{height:auto}
   .co-lab.r{left:auto;right:6%;top:71.7%;translate:0 14px;text-align:right}
   .co-lab b{font-size:24px}
   .co-lab small{font-size:12px}
-  .rit{grid-template-columns:1fr}
-  .rit-tray{border-radius:22px;padding:14px 12px}
-  .rit-row{gap:6px}
-  .rit-p .d{font-size:8.5px;letter-spacing:.06em;bottom:-16px}
-  .rit-side{text-align:left}
+  .tg{grid-template-columns:1fr}
+  .tg-stage{border-radius:28px;order:2}
+  .tg-side{order:1}
+  .tg-pouch{width:64%}
+  .tg-hint{right:0}
+  .tg-hint b{display:none}
+  .tg-steps{margin:18px 0 6px}
   .mp-specs li{grid-template-columns:86px 1fr;font-size:14px;word-break:keep-all}
   .box-hint{left:34px;right:auto;top:62px}
 
@@ -909,24 +922,28 @@ html.lenis,html.lenis body{height:auto}
 </div>
 </section>
 
-<!-- ═════════ 14-DAY RITUAL ═════════ -->
+<!-- ═════════ TEAR & GET (찢어서 쿠폰) ═════════ -->
 <section class="sec ritual" id="ritual">
   <div class="wrap">
-    <div class="sec-top">
-      <div><span class="label rv">14-Day Ritual</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>One a Day,</span></span><span class="ln"><span><em>Two Weeks</em></span></span></h2></div>
-      <p class="rv">상자 하나는 2주. 하루 한 포씩 톡 떼어 보세요. 14포를 다 떼면 2주 루틴 완성이에요.</p>
-    </div>
-    <div class="rit rv" id="rit">
-      <div class="rit-tray" id="ritTray"></div>
-      <div class="rit-side">
-        <div class="cnt"><span id="ritN">00</span><small>/ 14</small></div>
-        <div class="rit-bar"><i id="ritBar"></i></div>
-        <p class="rit-msg">파우치를 눌러 오늘의 한 포를 꺼내 보세요.</p>
-        <div class="rit-done">
-          <h4>2주 루틴 완성!</h4>
-          <p>매일 한 포, 14일을 채웠어요. 다음 2주도 정기구독으로 이어 가세요.</p>
-          <div class="btns"><a href="#pack" class="btn btn-d" data-cur="SUBSCRIBE">정기구독 시작 <span>→</span></a></div>
-          <button class="rit-reset" id="ritReset" type="button">처음부터 다시</button>
+    <div class="tg" id="tg">
+      <div class="tg-side">
+        <span class="label rv">Tear &amp; Get</span>
+        <h2 class="big rv" style="margin:22px 0 22px"><span class="ln"><span>Tear it,</span></span><span class="ln"><span><em>Get it.</em></span></span></h2>
+        <p class="lead rv">한 포 안에 첫 구매 혜택을 넣어 두었어요. 직접 톡 찢어서 꺼내 보세요.</p>
+        <ol class="tg-steps rv"><li>파우치 오른쪽 홈을 잡고</li><li>왼쪽으로 쓱 밀어 찢으면</li><li>안에서 혜택이 나와요</li></ol>
+        <p class="tg-before rv">← SWIPE THE POUCH</p>
+        <div class="tg-after"><a href="#pack" class="btn btn-d" data-cur="GET">혜택 받고 구매하기 <span>→</span></a><button class="tg-again" id="tgAgain" type="button">다시 찢기</button></div>
+      </div>
+      <div class="tg-stage rv" id="tgStage" data-cur="TEAR" aria-label="파우치를 왼쪽으로 밀어 찢기" role="button" tabindex="0">
+        <div class="tg-pouch" id="tgPouch">
+          <div class="tg-cp" id="tgCp"><small>WELCOME GIFT</small><strong>첫 구매 시<br>데일리 팩 7포 증정</strong><div class="cut"></div><p class="msg" id="tgMsg">오늘도 상큼하게, 한 포면 충분해요.</p></div>
+          <img class="tg-body f" src="images/pouch-front.png" alt="옐러블리 파우치">
+          <img class="tg-body e" src="images/pouch-empty.png" alt="">
+          <span class="bit tab no-img" id="tgTab"></span><span class="bit cap" id="tgCap"></span>
+          <img class="tg-top" id="tgTop" src="images/pouch-front.png" alt="">
+          <img class="tg-flap" id="tgFlap" src="images/pouch-front.png" alt="">
+          <i class="tg-guide"></i>
+          <span class="tg-hint"><i></i><b>SWIPE ←</b></span>
         </div>
       </div>
     </div>
@@ -1197,22 +1214,50 @@ html.lenis,html.lenis body{height:auto}
   const co = $('#callout');
   new IntersectionObserver((es, ob) => es.forEach(e => { if (e.isIntersecting) { co.classList.add('in'); ob.disconnect(); } }), { threshold: .35 }).observe(co);
 
-  /* 14일 리추얼 */
-  const rit = $('#rit'), ritTray = $('#ritTray'), ritN = $('#ritN'), ritBar = $('#ritBar');
-  ritTray.innerHTML = [0, 1].map(w => `<div class="rit-row"><span class="wk">WEEK ${w + 1}</span>` +
-    Array.from({ length: 7 }, (_, i) => { const d = w * 7 + i + 1; return `<button type="button" class="rit-p" data-cur="TAKE" aria-label="${d}일차 한 포 꺼내기"><span class="slot"></span><span class="ck"></span><img src="images/pouch-front.png" alt=""><span class="d">DAY ${String(d).padStart(2, '0')}</span></button>`; }).join('') + '</div>').join('');
-  const ritPs = [...ritTray.querySelectorAll('.rit-p')];
-  const ritUpd = () => { const n = ritPs.filter(p => p.classList.contains('took')).length; ritN.textContent = String(n).padStart(2, '0'); ritBar.style.width = n / 14 * 100 + '%'; rit.classList.toggle('complete', n === 14); };
-  ritPs.forEach(p => p.addEventListener('click', () => {
-    if (p.classList.contains('took')) return;
-    const im = p.querySelector('img');
-    p.classList.add('took'); ritUpd();
-    if (reduce) { im.style.opacity = 0; return; }
-    const r = (Math.random() * 2 - 1) * 14;
-    im.animate([{ transform: 'none', opacity: 1 }, { transform: `translateY(-38%) rotate(${r}deg) scale(1.08)`, opacity: 1, offset: .45 }, { transform: `translateY(-90%) rotate(${r * 1.6}deg) scale(.9)`, opacity: 0 }],
-      { duration: 650, easing: 'cubic-bezier(.3,.7,.4,1)', fill: 'forwards' });
-  }));
-  $('#ritReset').addEventListener('click', () => { ritPs.forEach(p => { p.classList.remove('took'); const im = p.querySelector('img'); im.getAnimations().forEach(a => a.cancel()); im.style.opacity = ''; }); ritUpd(); });
+  /* 찢어서 쿠폰: 오른쪽 홈부터 왼쪽으로 밀면 찢어지고, 끝까지 가면 혜택이 나옴 */
+  const tg = $('#tg'), tgStage = $('#tgStage'), tgPouch = $('#tgPouch'), tgTop = $('#tgTop'), tgFlap = $('#tgFlap'), tgCp = $('#tgCp'), tgTab = $('#tgTab'), tgCap = $('#tgCap'), tgMsg = $('#tgMsg');
+  const TG_MSG = ['오늘도 상큼하게, 한 포면 충분해요.', '물 한 잔 먼저, 레몬은 그다음.', '가방 속 한 포, 오늘의 작은 여유.', '노란 하루 보내세요.', '천천히, 꾸준히, 상큼하게.', '점심 먹고 톡, 잊지 말기.'];
+  let tgP = 0, tgDrag = null, tgDone = false, tgAnims = [];
+  const tgSet = p => {
+    tgP = p; const L = (1 - p) * 100;
+    tgTop.style.clipPath = `inset(0 ${p * 100}% calc(100% - var(--tear)) 0)`;
+    tgFlap.style.clipPath = `inset(0 0 calc(100% - var(--tear)) ${L}%)`;
+    tgFlap.style.transformOrigin = `${L}% var(--tear)`;
+    tgFlap.style.transform = `rotate(${-p * 14}deg) translateY(${-p * 3}%)`;
+  };
+  tgSet(0);
+  const tgFinish = () => {
+    if (tgDone) return; tgDone = true; tg.classList.add('open'); tg.classList.remove('pulling');
+    tgMsg.textContent = TG_MSG[Math.floor(Math.random() * TG_MSG.length)];
+    if (navigator.vibrate) navigator.vibrate(12);
+    tgTop.style.clipPath = 'inset(0 100% 100% 0)';
+    const w = tgPouch.offsetWidth, D = reduce ? 0 : 1;
+    tgAnims = [
+      tgFlap.animate([{ transform: `rotate(${-tgP * 14}deg) translateY(${-tgP * 3}%)`, opacity: 1 }, { transform: 'translate(-38%,-46%) rotate(-38deg)', opacity: 0 }], { duration: 700 * D, easing: 'cubic-bezier(.3,0,.3,1)', fill: 'forwards' }),
+      tgTab.animate([{ transform: 'translate(0,20%) scale(.6)', opacity: 0 }, { transform: `translate(${-.6 * w}px,${.06 * w}px) rotate(-18deg) scale(1)`, opacity: 1 }], { duration: 800 * D, delay: 250 * D, easing: 'cubic-bezier(.34,1.45,.5,1)', fill: 'forwards' }),
+      tgCap.animate([{ transform: 'translate(0,20%) scale(.6)', opacity: 0 }, { transform: `translate(${.62 * w}px,${.12 * w}px) rotate(-26deg) scale(1)`, opacity: 1 }], { duration: 800 * D, delay: 350 * D, easing: 'cubic-bezier(.34,1.45,.5,1)', fill: 'forwards' }),
+      tgCp.animate([{ transform: 'translateY(30%)', opacity: 0, zIndex: 2 }, { transform: 'translateY(-10%)', opacity: 1, zIndex: 2, offset: .5 }, { transform: 'translateY(-52%) scale(1.04)', opacity: 1, zIndex: 8 }], { duration: 1000 * D, delay: 500 * D, easing: 'cubic-bezier(.3,1.2,.4,1)', fill: 'forwards' })
+    ];
+  };
+  const tgReset = () => { tgAnims.forEach(a => a.cancel()); tgAnims = []; tgDone = false; tg.classList.remove('open'); tgSet(0); };
+  const tgSpring = () => { const from = tgP, t0 = performance.now(); const st = t => { const k = Math.min(1, (t - t0) / 380); tgSet(from * (1 - (1 - Math.pow(1 - k, 3)))); if (k < 1 && !tgDrag) requestAnimationFrame(st); }; requestAnimationFrame(st); };
+  tgStage.addEventListener('pointerdown', e => { if (tgDone) return; tgDrag = { x: e.clientX, y: e.clientY, p: tgP, moved: false }; tgStage.setPointerCapture(e.pointerId); });
+  tgStage.addEventListener('pointermove', e => {
+    if (!tgDrag) return; const dx = e.clientX - tgDrag.x;
+    if (Math.abs(dx) > 6) { tgDrag.moved = true; tg.classList.add('pulling'); }
+    const p = clamp(tgDrag.p + (-dx) / (tgPouch.offsetWidth * .9), 0, 1); tgSet(p);
+    if (p >= .92) { tgDrag = null; tgFinish(); }
+  });
+  const tgUp = () => {
+    if (!tgDrag) return; const moved = tgDrag.moved; tgDrag = null;
+    if (!moved) { // 탭만 해도 저절로 찢어짐
+      const t0 = performance.now(); const run = t => { const k = Math.min(1, (t - t0) / 650); tgSet(k * k * (3 - 2 * k) * .95); if (k < 1) requestAnimationFrame(run); else tgFinish(); }; requestAnimationFrame(run); return;
+    }
+    if (tgP > .7) tgFinish(); else { tg.classList.remove('pulling'); tgSpring(); }
+  };
+  tgStage.addEventListener('pointerup', tgUp); tgStage.addEventListener('pointercancel', tgUp);
+  tgStage.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && !tgDone) { e.preventDefault(); tgSet(.95); tgFinish(); } });
+  $('#tgAgain').addEventListener('click', tgReset);
   if (false) {
     boxStage.addEventListener('mousemove', e => { const r = boxStage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; boxImg.style.transform = `rotateY(${px * 14}deg) rotateX(${-py * 10}deg)`; });
     boxStage.addEventListener('mouseleave', () => boxImg.style.transform = '');
