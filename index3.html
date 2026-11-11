@@ -298,8 +298,15 @@ ul{list-style:none}
 [hidden]{display:none!important}
 .box-scene{position:absolute;inset:0;will-change:transform;cursor:pointer}
 .box-scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.box-scene .bv{position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .8s var(--ease),transform 1.2s var(--ease);pointer-events:none}
+.box-scene .bv.on{opacity:1;transform:none}
 .box-scene .empty{opacity:0;transition:opacity .7s var(--ease)}
 .box-stage.open .box-scene .empty{opacity:1}
+.box-tabs{position:absolute;left:50%;bottom:22px;translate:-50% 0;display:flex;gap:6px;padding:5px;border-radius:99px;background:rgba(255,253,243,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:3}
+.box-tabs button{border:0;background:transparent;color:var(--brown);font-family:var(--en);font-size:11px;letter-spacing:.18em;padding:8px 14px;border-radius:99px;cursor:pointer;transition:background .3s,color .3s}
+.box-tabs button.on{background:var(--brown);color:var(--cream)}
+.box-hint{position:absolute;right:24px;top:22px;font-family:var(--en);font-size:10px;letter-spacing:.2em;color:var(--brown-70);z-index:3;transition:opacity .4s}
+.box-stage.open .box-hint{opacity:0}
 .box-cap{position:absolute;left:24px;top:22px;background:rgba(255,253,243,.7);padding:6px 10px;border-radius:99px;font-family:var(--en);font-size:11px;letter-spacing:.2em;z-index:3}
 
 /* ───────── 04 HOW TO ───────── */
@@ -359,6 +366,8 @@ ul{list-style:none}
 .lu-info .enn{font-family:var(--en);font-size:13px;color:var(--brown-50)}
 .lu-info .lu-desc{margin-top:12px;padding-top:12px;border-top:1px solid var(--brown-08);font-size:14px;color:var(--brown-70)}
 .lu.main{background:var(--brown);color:var(--cream);border:0}
+.lu.main .lu-img img[src*="box-closed"]{width:100%;height:100%;object-fit:cover;filter:none}
+.lu.main:hover .lu-img img[src*="box-closed"]{transform:scale(1.05)}
 .lu.main .lu-img{background:radial-gradient(60% 60% at 50% 50%,rgba(255,240,153,.55),rgba(255,240,153,.08) 70%),#463c36}
 .lu.main .enn{color:rgba(255,253,243,.5)}
 .lu.main .lu-info .lu-desc{border-color:rgba(255,240,153,.15);color:rgba(255,253,243,.8)}
@@ -495,6 +504,7 @@ ul{list-style:none}
   .in-lab small{font-size:8.5px;letter-spacing:.12em}
 
   .box-stage{border-radius:28px}
+  .box-hint{left:20px;right:auto;top:60px}
   .mp-specs li{grid-template-columns:86px 1fr;font-size:14px}
 
   .how-grid{grid-template-columns:1fr}
@@ -663,8 +673,13 @@ ul{list-style:none}
       <div class="btns rv"><a href="#" class="btn btn-d" data-cur="BUY">구매하기 <span>→</span></a><a href="#routine" class="btn btn-l">정기구독 혜택</a></div>
     </div>
     <div class="box-stage rv" id="boxStage">
-      <span class="box-cap">14 PACKS · 2 WEEKS</span>
-      <div class="box-scene" id="boxScene"><img src="images/pouch-scene.jpg" alt="레몬색 바닥 위 투명 파우치 · 정제 1 + 연질캡슐 1"><img class="empty" src="images/pouch-scene-empty.jpg" alt=""></div>
+      <span class="box-cap" id="boxCap">14 PACKS · 2 WEEKS</span>
+      <span class="box-hint" id="boxHint">HOVER TO OPEN</span>
+      <div class="box-scene" id="boxScene">
+        <div class="bv on" data-v="box" data-cap="14 PACKS · 2 WEEKS"><img src="images/box-closed.jpg" alt="옐러블리 레몬 아우라 단상자 · 옆면 표시사항"><img class="empty" src="images/box-open.jpg" alt="열린 단상자 · 7포 × 2열 파우치"></div>
+        <div class="bv" data-v="pouch" data-cap="1 PACK · TABLET + SOFTGEL"><img src="images/pouch-scene.jpg" alt="레몬색 바닥 위 투명 파우치 · 정제 1 + 연질캡슐 1"><img class="empty" src="images/pouch-scene-empty.jpg" alt=""></div>
+      </div>
+      <div class="box-tabs" id="boxTabs"><button type="button" class="on" data-v="box">BOX</button><button type="button" data-v="pouch">POUCH</button></div>
       <div class="box-strip" id="boxStrip" hidden></div>
       <div class="box-img" id="boxImg" hidden></div>
     </div>
@@ -718,7 +733,7 @@ ul{list-style:none}
     <div class="lu-grid">
       <a href="#pack" class="lu main rv" data-cur="VIEW">
         <div class="lu-top"><span class="lu-cat">★ MAIN · DAILY</span><span class="lu-badge">BEST</span></div>
-        <div class="lu-img js-luimg" data-src="images/line-pack.png" data-fallback="images/box.png"><span class="ph">line-pack.png</span></div>
+        <div class="lu-img js-luimg" data-src="images/line-pack.png" data-fallback="images/box-closed.jpg"><span class="ph">line-pack.png</span></div>
         <div class="lu-info"><h3>레몬 아우라 데일리 팩</h3><p class="enn">Lemon Aura Daily Pack</p><p class="lu-desc">레몬 추출물 콜라겐 정제 1 + 올리브유 캡슐 1 · 14포</p></div>
       </a>
       <a href="#" class="lu rv" style="transition-delay:.08s" data-cur="VIEW">
@@ -952,6 +967,15 @@ ul{list-style:none}
   boxStrip.innerHTML = '<span class="sp"></span>'.repeat(7);   // 고화질 파우치 1포를 7개 이어 붙인 멀티팩
   if (fine) { boxStage.addEventListener('mouseenter', () => boxStage.classList.add('open')); boxStage.addEventListener('mouseleave', () => boxStage.classList.remove('open')); }
   else boxStage.addEventListener('click', () => boxStage.classList.toggle('open'));
+  const boxHint = $('#boxHint'), boxCap = $('#boxCap'), boxViews = $$('#boxScene .bv'), boxBtns = $$('#boxTabs button');
+  if (!fine) boxHint.textContent = 'TAP TO OPEN';
+  const hintText = v => (fine ? 'HOVER' : 'TAP') + (v === 'box' ? ' TO OPEN' : ' TO TEAR');
+  boxBtns.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation(); const v = b.dataset.v;
+    boxBtns.forEach(x => x.classList.toggle('on', x === b));
+    boxViews.forEach(x => { x.classList.toggle('on', x.dataset.v === v); if (x.dataset.v === v) boxCap.textContent = x.dataset.cap; });
+    boxStage.classList.remove('open'); boxHint.textContent = hintText(v);
+  }));
   if (false) {
     boxStage.addEventListener('mousemove', e => { const r = boxStage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; boxImg.style.transform = `rotateY(${px * 14}deg) rotateX(${-py * 10}deg)`; });
     boxStage.addEventListener('mouseleave', () => boxImg.style.transform = '');
