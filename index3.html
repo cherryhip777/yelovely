@@ -309,6 +309,33 @@ ul{list-style:none}
 .box-stage.open .box-hint{opacity:0}
 .box-cap{position:absolute;left:24px;top:22px;background:rgba(255,253,243,.7);padding:6px 10px;border-radius:99px;font-family:var(--en);font-size:11px;letter-spacing:.2em;z-index:3}
 
+/* 3D 상자 (드래그로 돌려 보기) */
+.box-scene .bv.on[data-v="3d"]{pointer-events:auto;cursor:grab;touch-action:pan-y}
+.box-scene .bv[data-v="3d"]:active{cursor:grabbing}
+.b3s{position:absolute;inset:0;perspective:2000px;display:grid;place-items:center}
+.b3{--w:300px;--h:calc(var(--w)*.5);--d:calc(var(--w)*.4);position:relative;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-18deg) rotateY(-30deg)}
+.b3 .f{position:absolute;left:0;top:0;backface-visibility:hidden;overflow:hidden}
+.b3 .f::after{content:"";position:absolute;inset:0;pointer-events:none}
+.b3 .fr,.b3 .bk{width:var(--w);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--w)/-2)}
+.b3 .lf,.b3 .rt{width:var(--d);height:var(--h);margin:calc(var(--h)/-2) 0 0 calc(var(--d)/-2)}
+.b3 .tp,.b3 .bt{width:var(--w);height:var(--d);margin:calc(var(--d)/-2) 0 0 calc(var(--w)/-2)}
+.b3 .fr{transform:translateZ(calc(var(--d)/2));background:linear-gradient(180deg,#43362e,#382d27)}
+.b3 .bk{transform:rotateY(180deg) translateZ(calc(var(--d)/2));background:#efdc7c}
+.b3 .lf{transform:rotateY(-90deg) translateZ(calc(var(--w)/2));background:#f2e083;display:grid;place-items:center}
+.b3 .rt{transform:rotateY(90deg) translateZ(calc(var(--w)/2));background:#ecd977}
+.b3 .tp{transform:rotateX(90deg) translateZ(calc(var(--h)/2));background:#f6e68a;display:grid;place-items:center}
+.b3 .bt{transform:rotateX(-90deg) translateZ(calc(var(--h)/2));background:#e3cf6c}
+.b3 .rt::after{background:linear-gradient(90deg,rgba(58,49,44,.06),rgba(58,49,44,.16))}
+.b3 .lf::after{background:linear-gradient(270deg,rgba(58,49,44,0),rgba(58,49,44,.08))}
+.b3 .tp::after{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0))}
+.b3 .f img{position:static;inset:auto;object-fit:contain}
+.b3 .tp img{width:84%;height:auto;transform:translateY(6%)}
+.b3 .lf img{height:88%;width:auto}
+.b3 .lip{position:absolute;left:0;right:0;top:0;height:35%;background:#f6e68a;border-radius:0 0 calc(var(--w)*.06) calc(var(--w)*.06);box-shadow:0 2px 3px rgba(0,0,0,.18)}
+.b3 .lip span{position:absolute;right:6%;bottom:16%;font-family:var(--en);font-size:calc(var(--w)*.04);color:var(--brown)}
+.b3 .fr p{position:absolute;left:6%;bottom:8%;font-family:var(--ko);font-size:calc(var(--w)*.03);line-height:1.5;color:#f3df86;letter-spacing:-.01em}
+.b3-shadow{position:absolute;left:50%;top:50%;width:62%;height:16%;translate:-50% 95%;border-radius:50%;background:radial-gradient(closest-side,rgba(58,49,44,.28),rgba(58,49,44,0));filter:blur(6px);pointer-events:none}
+
 /* ───────── 04 HOW TO ───────── */
 .how{background:var(--brown);color:var(--cream)}
 .how .label{color:var(--lemon)}
@@ -348,6 +375,55 @@ ul{list-style:none}
 .ing:nth-child(3){background:var(--brown);color:var(--cream);border:0}
 .ing:nth-child(3) .desc{color:rgba(255,253,243,.75)}
 .ing:nth-child(3) .form{border-color:rgba(255,240,153,.35);color:var(--lemon)}
+
+/* 성분 콜아웃: 파우치 속 정제·캡슐에서 선이 뻗어 이름표로 */
+.co{position:relative;aspect-ratio:2/1;margin:0 auto clamp(30px,4vw,60px);max-width:1200px}
+.co-img{position:absolute;left:32%;top:10.75%;width:36%;filter:drop-shadow(0 30px 40px rgba(58,49,44,.16))}
+.co svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.co path{fill:none;stroke:var(--brown);stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s var(--ease)}
+.co circle{fill:var(--brown);transform-box:fill-box;transform-origin:center;scale:0;transition:scale .5s var(--ease)}
+.co circle.ring{fill:none;stroke:var(--brown);stroke-width:1;vector-effect:non-scaling-stroke;opacity:0}
+.co.in circle{scale:1}
+.co.in circle.ring{animation:coPulse 2.6s ease-out 1.6s infinite}
+@keyframes coPulse{0%{scale:1;opacity:.5}100%{scale:2.6;opacity:0}}
+.co.in path{stroke-dashoffset:0;transition-delay:.4s}
+.co-lab{position:absolute;opacity:0;transform:translateY(8px);transition:opacity .8s var(--ease) 1.4s,transform .8s var(--ease) 1.4s}
+.co.in .co-lab{opacity:1;transform:none}
+.co-lab .no{display:block;font-family:var(--en);font-size:11px;letter-spacing:.22em;color:var(--gold)}
+.co-lab b{display:block;font-family:var(--en);font-weight:300;font-size:clamp(22px,2.4vw,36px);line-height:1.1;margin:6px 0 4px}
+.co-lab small{font-size:13px;color:var(--brown-70)}
+.co-lab.l{left:3.75%;top:75%;translate:0 calc(-100% - 12px)}
+.co-lab.r{left:70.6%;top:41.25%;translate:0 calc(-100% - 12px)}
+.co .m{display:none}
+
+/* 14일 리추얼: 하루 한 포씩 떼어 가기 */
+.ritual{background:var(--cream)}
+.rit{display:grid;grid-template-columns:1fr 340px;gap:clamp(24px,4vw,60px);align-items:center}
+.rit-tray{background:linear-gradient(180deg,#43362e,#382d27);border-radius:28px;padding:clamp(16px,2vw,28px);display:grid;gap:clamp(10px,1.4vw,18px)}
+.rit-row{display:grid;grid-template-columns:repeat(7,1fr);gap:clamp(6px,1vw,14px)}
+.rit-row .wk{grid-column:1/-1;font-family:var(--en);font-size:11px;letter-spacing:.22em;color:rgba(255,240,153,.6)}
+.rit-p{position:relative;border:0;background:none;padding:0;cursor:pointer;aspect-ratio:991/1081}
+.rit-p .slot{position:absolute;inset:6%;border-radius:8px;border:1px dashed rgba(255,240,153,.22)}
+.rit-p .ck{position:absolute;left:50%;top:44%;width:42%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:var(--lemon);display:grid;place-items:center;scale:0;transition:scale .5s cubic-bezier(.3,1.6,.5,1)}
+.rit-p .ck::after{content:"";width:34%;height:18%;border-left:2px solid var(--brown);border-bottom:2px solid var(--brown);rotate:-45deg;translate:0 -20%}
+.rit-p img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:transform .35s var(--ease)}
+.rit-p:hover img{transform:translateY(-6%)}
+.rit-p .d{position:absolute;left:0;right:0;bottom:-18px;text-align:center;font-family:var(--en);font-size:10px;letter-spacing:.12em;color:rgba(255,253,243,.45)}
+.rit-p.took .ck{scale:1}
+.rit-p.took .d{color:var(--lemon)}
+.rit-row{padding-bottom:18px}
+.rit-side .cnt{font-family:var(--en);font-weight:300;font-size:clamp(64px,7vw,110px);line-height:1}
+.rit-side .cnt small{font-size:.32em;color:var(--brown-50);margin-left:6px}
+.rit-bar{height:4px;border-radius:9px;background:var(--brown-08);margin:18px 0 16px;overflow:hidden}
+.rit-bar i{display:block;height:100%;width:0;background:var(--brown);transition:width .6s var(--ease)}
+.rit-side p{font-size:15px;color:var(--brown-70)}
+.rit-done{margin-top:22px;display:none}
+.rit.complete .rit-done{display:block;animation:ritIn .8s var(--ease)}
+.rit.complete .rit-msg{display:none}
+.rit-done h4{font-size:22px;font-weight:700;margin-bottom:6px}
+.rit-done .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.rit-reset{border:0;background:none;font-size:13px;color:var(--brown-50);text-decoration:underline;cursor:pointer;margin-top:12px}
+@keyframes ritIn{from{opacity:0;transform:translateY(10px)}}
 
 /* ───────── 06 LINE-UP (3종) ───────── */
 .lu-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:clamp(12px,1.6vw,22px)}
@@ -508,6 +584,19 @@ ul{list-style:none}
   .in-lab small{font-size:8.5px;letter-spacing:.12em}
 
   .box-stage{border-radius:28px}
+  .co{aspect-ratio:1000/1200;margin-bottom:96px}
+  .co-lab{max-width:47%}
+  .co-img{left:15%;top:2.5%;width:70%}
+  .co .d{display:none}.co .m{display:inline}
+  .co-lab.l{left:6%;top:71.7%;translate:0 14px}
+  .co-lab.r{left:auto;right:6%;top:71.7%;translate:0 14px;text-align:right}
+  .co-lab b{font-size:24px}
+  .co-lab small{font-size:12px}
+  .rit{grid-template-columns:1fr}
+  .rit-tray{border-radius:22px;padding:14px 12px}
+  .rit-row{gap:6px}
+  .rit-p .d{font-size:8.5px;letter-spacing:.06em;bottom:-16px}
+  .rit-side{text-align:left}
   .mp-specs li{grid-template-columns:86px 1fr;font-size:14px;word-break:keep-all}
   .box-hint{left:34px;right:auto;top:62px}
 
@@ -584,7 +673,7 @@ ul{list-style:none}
     <ul class="nav">
       <li><a href="#brand">BRAND</a><div class="dd"><a href="#brand">브랜드 스토리<small>STORY</small></a><a href="#inside">한 포의 구성<small>ONE PACK</small></a><a href="#ingredient">성분 투명성<small>TRANSPARENCY</small></a></div></li>
       <li><a href="#shop">SHOP</a><div class="dd"><a href="#pack">레몬 아우라 데일리 팩<small>MAIN</small></a><a href="#shop">멜팅 레몬 구미<small>GUMMY</small></a><a href="#shop">레몬 워터 파우더<small>POWDER</small></a><a href="#shop">전체 보기<small>ALL</small></a></div></li>
-      <li><a href="#routine">ROUTINE</a><div class="dd"><a href="#how">먹는 방법<small>HOW TO</small></a><a href="#routine">옐로우 아워<small>YELLOW HOUR</small></a><a href="#routine">정기구독<small>SUBSCRIBE</small></a></div></li>
+      <li><a href="#routine">ROUTINE</a><div class="dd"><a href="#how">먹는 방법<small>HOW TO</small></a><a href="#routine">옐로우 아워<small>YELLOW HOUR</small></a><a href="#ritual">정기구독<small>SUBSCRIBE</small></a></div></li>
       <li><a href="#ingredient">INGREDIENT</a></li>
       <li><a href="#journal">JOURNAL</a><div class="dd"><a href="#journal">레몬 매거진<small>MAGAZINE</small></a><a href="#journal">옐러버 인터뷰<small>YELOVER</small></a><a href="#journal">이벤트<small>EVENT</small></a></div></li>
       <li><a href="#review">REVIEW</a></li>
@@ -603,7 +692,7 @@ ul{list-style:none}
     <ul class="mm-list">
       <li style="--i:0"><div class="mm-row"><a href="#brand" class="mm-main"><span class="no">01</span><span class="t">Brand</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#brand">브랜드 스토리</a><a href="#inside">한 포의 구성</a><a href="#ingredient">성분 투명성</a></div></div></li>
       <li style="--i:1"><div class="mm-row"><a href="#shop" class="mm-main"><span class="no">02</span><span class="t">Shop</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#pack">레몬 아우라 데일리 팩</a><a href="#shop">멜팅 레몬 구미</a><a href="#shop">레몬 워터 파우더</a><a href="#shop">전체 보기</a></div></div></li>
-      <li style="--i:2"><div class="mm-row"><a href="#routine" class="mm-main"><span class="no">03</span><span class="t">Routine</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#how">먹는 방법</a><a href="#routine">옐로우 아워</a><a href="#routine">정기구독</a></div></div></li>
+      <li style="--i:2"><div class="mm-row"><a href="#routine" class="mm-main"><span class="no">03</span><span class="t">Routine</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#how">먹는 방법</a><a href="#routine">옐로우 아워</a><a href="#ritual">정기구독</a></div></div></li>
       <li style="--i:3"><div class="mm-row"><a href="#ingredient" class="mm-main"><span class="no">04</span><span class="t">Ingredient</span></a></div></li>
       <li style="--i:4"><div class="mm-row"><a href="#journal" class="mm-main"><span class="no">05</span><span class="t">Journal</span></a><button class="mm-tg" aria-label="하위 메뉴"></button></div><div class="mm-sub"><div><a href="#journal">레몬 매거진</a><a href="#journal">옐러버 인터뷰</a><a href="#journal">이벤트</a></div></div></li>
       <li style="--i:5"><div class="mm-row"><a href="#review" class="mm-main"><span class="no">06</span><span class="t">Review</span></a></div></li>
@@ -691,9 +780,17 @@ ul{list-style:none}
       <span class="box-hint" id="boxHint">HOVER TO OPEN</span>
       <div class="box-scene" id="boxScene">
         <div class="bv on" data-v="box" data-cap="14 PACKS · 2 WEEKS"><img src="images/box-closed.jpg" alt="옐러블리 레몬 아우라 단상자 · 옆면 표시사항"><img class="empty" src="images/box-open.jpg" alt="열린 단상자 · 7포 × 2열 파우치"></div>
+        <div class="bv" data-v="3d" data-cap="360° · DAILY PACK BOX"><div class="b3-shadow"></div><div class="b3s"><div class="b3" id="b3">
+          <div class="f fr"><i class="lip"><span>Lemon Aura</span></i><p>레몬추출물, 콜라겐, 올리브유<br>1.5 g × 14포 (7포 × 2)</p></div>
+          <div class="f bk"></div>
+          <div class="f lf"><img src="images/side-label.png" alt="옆면 표시사항"></div>
+          <div class="f rt"></div>
+          <div class="f tp"><img src="images/logo-wordmark.png" alt="yelovely"></div>
+          <div class="f bt"></div>
+        </div></div></div>
         <div class="bv" data-v="pouch" data-cap="1 PACK · TABLET + SOFTGEL"><img src="images/pouch-scene.jpg" alt="레몬색 바닥 위 투명 파우치 · 정제 1 + 연질캡슐 1"><img class="empty" src="images/pouch-scene-empty.jpg" alt=""></div>
       </div>
-      <div class="box-tabs" id="boxTabs"><button type="button" class="on" data-v="box">BOX</button><button type="button" data-v="pouch">POUCH</button></div>
+      <div class="box-tabs" id="boxTabs"><button type="button" class="on" data-v="box">BOX</button><button type="button" data-v="pouch">POUCH</button><button type="button" data-v="3d">3D</button></div>
       <div class="box-strip" id="boxStrip" hidden></div>
       <div class="box-img" id="boxImg" hidden></div>
     </div>
@@ -727,6 +824,19 @@ ul{list-style:none}
     <div class="sec-top">
       <div><span class="label rv"><b>(05)</b> Ingredient</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>Only <em>Lemon</em>,</span></span><span class="ln"><span>Clearly</span></span></h2></div>
       <p class="rv">세 가지에만 집중했어요. 원료와 함량은 패키지에 그대로 적어요.</p>
+    </div>
+    <div class="co" id="callout">
+      <img class="co-img" src="images/pouch-front.png" alt="투명 파우치 속 정제 1알과 연질캡슐 1알">
+      <svg class="d" viewBox="0 0 1600 800" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d="M739,467 L600,600 L60,600"/><path pathLength="1" d="M869,463 L1010,330 L1460,330"/>
+        <circle class="ring" cx="739" cy="467" r="9"/><circle cx="739" cy="467" r="5"/><circle class="ring" cx="869" cy="463" r="9"/><circle cx="869" cy="463" r="5"/>
+      </svg>
+      <svg class="m" viewBox="0 0 1000 1200" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d="M426,493 L260,860 L60,860"/><path pathLength="1" d="M584,488 L740,860 L940,860"/>
+        <circle class="ring" cx="426" cy="493" r="12"/><circle cx="426" cy="493" r="7"/><circle class="ring" cx="584" cy="488" r="12"/><circle cx="584" cy="488" r="7"/>
+      </svg>
+      <div class="co-lab l"><span class="no">01 + 02 · TABLET</span><b>Lemon + Collagen</b><small>레몬 추출물 · 콜라겐 정제 1알</small></div>
+      <div class="co-lab r"><span class="no">03 · SOFTGEL</span><b>Olive Oil</b><small>올리브유 앰버 연질캡슐 1알</small></div>
     </div>
     <div class="ing-row" id="ingRow">
       <div class="ing on rv"><div class="pic"><img src="images/ingredient-lemon.jpg" alt="반으로 자른 레몬"></div><div class="ing-in"><span class="no">01 · TABLET</span><h3>Lemon<br>Extract<small>레몬 추출물</small></h3><p class="desc">상큼한 레몬에서 얻은 추출물. 정제 한 알에 레몬의 맛과 향을 담았어요.</p><span class="form">정제</span></div></div>
@@ -780,6 +890,30 @@ ul{list-style:none}
     </div>
   </div>
 </div>
+</section>
+
+<!-- ═════════ 14-DAY RITUAL ═════════ -->
+<section class="sec ritual" id="ritual">
+  <div class="wrap">
+    <div class="sec-top">
+      <div><span class="label rv">14-Day Ritual</span><h2 class="big rv" style="margin-top:22px"><span class="ln"><span>One a Day,</span></span><span class="ln"><span><em>Two Weeks</em></span></span></h2></div>
+      <p class="rv">상자 하나는 2주. 하루 한 포씩 톡 떼어 보세요. 14포를 다 떼면 2주 루틴 완성이에요.</p>
+    </div>
+    <div class="rit rv" id="rit">
+      <div class="rit-tray" id="ritTray"></div>
+      <div class="rit-side">
+        <div class="cnt"><span id="ritN">00</span><small>/ 14</small></div>
+        <div class="rit-bar"><i id="ritBar"></i></div>
+        <p class="rit-msg">파우치를 눌러 오늘의 한 포를 꺼내 보세요.</p>
+        <div class="rit-done">
+          <h4>2주 루틴 완성!</h4>
+          <p>매일 한 포, 14일을 채웠어요. 다음 2주도 정기구독으로 이어 가세요.</p>
+          <div class="btns"><a href="#pack" class="btn btn-d" data-cur="SUBSCRIBE">정기구독 시작 <span>→</span></a></div>
+          <button class="rit-reset" id="ritReset" type="button">처음부터 다시</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ═════════ 08 JOURNAL ═════════ -->
@@ -983,13 +1117,52 @@ ul{list-style:none}
   else boxStage.addEventListener('click', () => boxStage.classList.toggle('open'));
   const boxHint = $('#boxHint'), boxCap = $('#boxCap'), boxViews = $$('#boxScene .bv'), boxBtns = $$('#boxTabs button');
   if (!fine) boxHint.textContent = 'TAP TO OPEN';
-  const hintText = v => (fine ? 'HOVER' : 'TAP') + (v === 'box' ? ' TO OPEN' : ' TO TEAR');
+  const hintText = v => v === '3d' ? 'DRAG TO TURN' : (fine ? 'HOVER' : 'TAP') + (v === 'box' ? ' TO OPEN' : ' TO TEAR');
   boxBtns.forEach(b => b.addEventListener('click', e => {
     e.stopPropagation(); const v = b.dataset.v;
     boxBtns.forEach(x => x.classList.toggle('on', x === b));
     boxViews.forEach(x => { x.classList.toggle('on', x.dataset.v === v); if (x.dataset.v === v) boxCap.textContent = x.dataset.cap; });
     boxStage.classList.remove('open'); boxHint.textContent = hintText(v);
+    if (v === '3d') b3Intro();
   }));
+
+  /* 3D 상자: 드래그로 돌리고, 손을 떼면 관성으로 부드럽게 멈춤 */
+  const b3 = $('#b3'), b3v = $('#boxScene .bv[data-v="3d"]');
+  let rx = -18, ry = -30, vx = 0, vy = 0, drag = null, b3raf = 0;
+  const b3size = () => b3.style.setProperty('--w', Math.round(boxStage.clientWidth * .6) + 'px');
+  const b3set = () => { b3.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`; };
+  const b3spin = () => { if (drag) return; vx *= .94; vy *= .94; ry += vx; rx = clamp(rx + vy, -60, 8); b3set(); b3raf = (Math.abs(vx) + Math.abs(vy) > .02) ? requestAnimationFrame(b3spin) : 0; };
+  b3size(); addEventListener('resize', b3size);
+  function b3Intro() { if (reduce) return; ry = -110; rx = -18; vx = 3.2; vy = 0; b3set(); cancelAnimationFrame(b3raf); b3raf = requestAnimationFrame(b3spin); }
+  b3v.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, t: e.pointerType }; vx = vy = 0; cancelAnimationFrame(b3raf); b3v.setPointerCapture(e.pointerId); });
+  b3v.addEventListener('pointermove', e => {
+    if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+    vx = dx * .45; vy = drag.t === 'touch' ? 0 : -dy * .3; ry += vx; rx = clamp(rx + vy, -60, 8); b3set();
+  });
+  const b3up = () => { if (!drag) return; drag = null; b3raf = requestAnimationFrame(b3spin); };
+  b3v.addEventListener('pointerup', b3up); b3v.addEventListener('pointercancel', b3up);
+  b3v.addEventListener('click', e => e.stopPropagation());
+
+  /* 성분 콜아웃: 보이면 선 그리기 */
+  const co = $('#callout');
+  new IntersectionObserver((es, ob) => es.forEach(e => { if (e.isIntersecting) { co.classList.add('in'); ob.disconnect(); } }), { threshold: .35 }).observe(co);
+
+  /* 14일 리추얼 */
+  const rit = $('#rit'), ritTray = $('#ritTray'), ritN = $('#ritN'), ritBar = $('#ritBar');
+  ritTray.innerHTML = [0, 1].map(w => `<div class="rit-row"><span class="wk">WEEK ${w + 1}</span>` +
+    Array.from({ length: 7 }, (_, i) => { const d = w * 7 + i + 1; return `<button type="button" class="rit-p" data-cur="TAKE" aria-label="${d}일차 한 포 꺼내기"><span class="slot"></span><span class="ck"></span><img src="images/pouch-front.png" alt=""><span class="d">DAY ${String(d).padStart(2, '0')}</span></button>`; }).join('') + '</div>').join('');
+  const ritPs = [...ritTray.querySelectorAll('.rit-p')];
+  const ritUpd = () => { const n = ritPs.filter(p => p.classList.contains('took')).length; ritN.textContent = String(n).padStart(2, '0'); ritBar.style.width = n / 14 * 100 + '%'; rit.classList.toggle('complete', n === 14); };
+  ritPs.forEach(p => p.addEventListener('click', () => {
+    if (p.classList.contains('took')) return;
+    const im = p.querySelector('img');
+    p.classList.add('took'); ritUpd();
+    if (reduce) { im.style.opacity = 0; return; }
+    const r = (Math.random() * 2 - 1) * 14;
+    im.animate([{ transform: 'none', opacity: 1 }, { transform: `translateY(-38%) rotate(${r}deg) scale(1.08)`, opacity: 1, offset: .45 }, { transform: `translateY(-90%) rotate(${r * 1.6}deg) scale(.9)`, opacity: 0 }],
+      { duration: 650, easing: 'cubic-bezier(.3,.7,.4,1)', fill: 'forwards' });
+  }));
+  $('#ritReset').addEventListener('click', () => { ritPs.forEach(p => { p.classList.remove('took'); const im = p.querySelector('img'); im.getAnimations().forEach(a => a.cancel()); im.style.opacity = ''; }); ritUpd(); });
   if (false) {
     boxStage.addEventListener('mousemove', e => { const r = boxStage.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; boxImg.style.transform = `rotateY(${px * 14}deg) rotateX(${-py * 10}deg)`; });
     boxStage.addEventListener('mouseleave', () => boxImg.style.transform = '');
