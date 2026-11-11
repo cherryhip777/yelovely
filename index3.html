@@ -336,6 +336,22 @@ ul{list-style:none}
 .b3 .fr p{position:absolute;left:6%;bottom:8%;font-family:var(--ko);font-size:calc(var(--w)*.03);line-height:1.5;color:#f3df86;letter-spacing:-.01em}
 .b3-shadow{position:absolute;left:50%;top:50%;width:62%;height:16%;translate:-50% 95%;border-radius:50%;background:radial-gradient(closest-side,rgba(58,49,44,.28),rgba(58,49,44,0));filter:blur(6px);pointer-events:none}
 
+/* 부드러운 스크롤 (Lenis) */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+/* 맨 위로 */
+.totop{position:fixed;right:clamp(16px,2vw,28px);bottom:clamp(16px,2vw,28px);z-index:60;width:54px;height:54px;border:0;border-radius:50%;background:var(--brown);color:var(--lemon);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 14px 30px -12px rgba(58,49,44,.5);opacity:0;visibility:hidden;transform:translateY(14px) scale(.9);transition:opacity .45s var(--ease),transform .45s var(--ease),visibility .45s}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop svg{position:absolute;inset:0;width:100%;height:100%;rotate:-90deg}
+.totop circle{fill:none;stroke-width:1.5}
+.totop .trk{stroke:rgba(255,240,153,.22)}
+.totop .bar{stroke:var(--lemon);stroke-dasharray:1;stroke-dashoffset:1}
+.totop .ar{width:14px;height:16px;transition:transform .4s var(--ease)}
+.totop:hover .ar{transform:translateY(-3px)}
+.menu-open .totop{opacity:0;visibility:hidden}
+
 /* ───────── 04 HOW TO ───────── */
 .how{background:var(--brown);color:var(--cream)}
 .how .label{color:var(--lemon)}
@@ -584,6 +600,7 @@ ul{list-style:none}
   .in-lab small{font-size:8.5px;letter-spacing:.12em}
 
   .box-stage{border-radius:28px}
+  .totop{width:46px;height:46px}
   .co{aspect-ratio:1000/1200;margin-bottom:96px}
   .co-lab{max-width:47%}
   .co-img{left:15%;top:2.5%;width:70%}
@@ -968,6 +985,8 @@ ul{list-style:none}
   </div>
 </footer>
 
+<button class="totop" id="toTop" type="button" aria-label="맨 위로" data-cur="TOP"><svg viewBox="0 0 54 54" aria-hidden="true"><circle class="trk" cx="27" cy="27" r="25"/><circle class="bar" id="toTopBar" cx="27" cy="27" r="25" pathLength="1"/></svg><svg class="ar" viewBox="0 0 14 16" aria-hidden="true" style="position:relative;rotate:0deg"><path d="M7 15V1M1 7l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<script src="js/lenis.min.js"></script>
 <script>
 (() => {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -982,6 +1001,31 @@ ul{list-style:none}
   const lerp = (a, b, t) => a + (b - a) * t;
   const progOf = el => { const r = el.getBoundingClientRect(), tot = r.height - innerHeight; return tot > 0 ? clamp(-r.top / tot) : 0; };
   const near = el => { const r = el.getBoundingClientRect(); return r.bottom > -100 && r.top < innerHeight + 100; };
+
+  /* ── 부드러운 스크롤 + 섹션 경계에 딱 떨어지는 스냅 (PC) ── */
+  const lenis = (!reduce && fine && window.Lenis) ? new Lenis({ duration: 1.15, easing: t => 1 - Math.pow(1 - t, 4), smoothWheel: true, wheelMultiplier: .9 }) : null;
+  if (lenis) { const lr = t => { lenis.raf(t); requestAnimationFrame(lr); }; requestAnimationFrame(lr); }
+  const goTo = (y, d = 1.2) => lenis ? lenis.scrollTo(y, { duration: d, easing: t => (t < .5 ? 8 * t ** 4 : 1 - Math.pow(-2 * t + 2, 4) / 2) }) : scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+  if (lenis) {
+    let snapT = 0, snapping = false;
+    const snapPts = () => {
+      const pts = [0];
+      document.querySelectorAll('main > section, body > section, footer').forEach(s => {
+        const top = s.getBoundingClientRect().top + scrollY, h = s.offsetHeight;
+        pts.push(top); if (h > innerHeight * 1.05) pts.push(top + h - innerHeight);
+      });
+      return pts;
+    };
+    lenis.on('scroll', () => {
+      clearTimeout(snapT);
+      if (snapping || document.body.classList.contains('menu-open')) return;
+      snapT = setTimeout(() => {
+        const y = scrollY, range = innerHeight * .2;
+        let best = null; snapPts().forEach(p => { const d = Math.abs(p - y); if (d > 2 && d < range && (!best || d < Math.abs(best - y))) best = p; });
+        if (best !== null) { snapping = true; lenis.scrollTo(best, { duration: .75, easing: t => 1 - Math.pow(1 - t, 3), onComplete: () => { snapping = false; } }); setTimeout(() => snapping = false, 900); }
+      }, 170);
+    });
+  }
 
   /* ── 이미지 있으면 사진, 없으면 코드 그림 ── */
   const probe = (src, ok, no) => { const i = new Image(); i.onload = () => ok(src); i.onerror = no; i.src = src; };
@@ -1027,18 +1071,24 @@ ul{list-style:none}
     hd.classList.toggle('dark', !document.body.classList.contains('menu-open') && darkSecs.some(s => { const r = s.getBoundingClientRect(); return r.top <= probeY && r.bottom >= probeY; }));
   };
 
+  /* ── 맨 위로 ── */
+  const toTop = $('#toTop'), toTopBar = $('#toTopBar');
+  const toTopUpd = () => { const max = document.documentElement.scrollHeight - innerHeight; toTop.classList.toggle('show', scrollY > innerHeight * .9); toTopBar.style.strokeDashoffset = 1 - (max > 0 ? scrollY / max : 0); };
+  addEventListener('scroll', toTopUpd, { passive: true }); toTopUpd();
+  toTop.addEventListener('click', () => goTo(0, 1.6));
+
   /* ── 앵커 ── */
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const id = a.getAttribute('href'); if (id.length < 2) { e.preventDefault(); return; }
     const t = document.querySelector(id); if (!t) return;
     e.preventDefault(); closeMenu();
-    scrollTo({ top: id === '#top' ? 0 : t.getBoundingClientRect().top + scrollY - (id === '#brand' ? 0 : 60), behavior: reduce ? 'auto' : 'smooth' });
+    goTo(id === '#top' ? 0 : t.getBoundingClientRect().top + scrollY - (id === '#brand' ? 0 : 60));
   }));
 
   /* ── 모바일 메뉴 ── */
   const mm = $('#mm'), mBtn = $('#menuBtn'), mTxt = $('#menuTxt');
-  function openMenu() { mm.classList.add('open'); document.body.classList.add('menu-open'); document.body.style.overflow = 'hidden'; hd.classList.remove('hide', 'dark'); mTxt.textContent = 'CLOSE'; mBtn.setAttribute('aria-expanded', 'true'); }
-  function closeMenu() { if (!mm.classList.contains('open')) return; mm.classList.remove('open'); document.body.classList.remove('menu-open'); document.body.style.overflow = ''; mTxt.textContent = 'MENU'; mBtn.setAttribute('aria-expanded', 'false'); }
+  function openMenu() { if (lenis) lenis.stop(); mm.classList.add('open'); document.body.classList.add('menu-open'); document.body.style.overflow = 'hidden'; hd.classList.remove('hide', 'dark'); mTxt.textContent = 'CLOSE'; mBtn.setAttribute('aria-expanded', 'true'); }
+  function closeMenu() { if (!mm.classList.contains('open')) return; if (lenis) lenis.start(); mm.classList.remove('open'); document.body.classList.remove('menu-open'); document.body.style.overflow = ''; mTxt.textContent = 'MENU'; mBtn.setAttribute('aria-expanded', 'false'); }
   mBtn.addEventListener('click', () => mm.classList.contains('open') ? closeMenu() : openMenu());
   $$('.mm-tg').forEach(b => b.addEventListener('click', () => { const li = b.closest('li'), on = !li.classList.contains('sub-open'); $$('.mm-list>li').forEach(x => x.classList.remove('sub-open')); if (on) li.classList.add('sub-open'); }));
   addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
